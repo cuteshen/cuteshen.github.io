@@ -1,0 +1,837 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mrshen, nodejs" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。
+1var fs = require(&quot;fs&quot;) ;
+我的文件目录
+读取文件1234fs.readFile(path, &quot;utf8&quot;, function (error, data) &amp;#123;    if (error) th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node学习笔记之FS文件模块">
+<meta property="og:url" content="http://yoursite.com/2016/07/18/NodeJS学习笔记之FS文件模块/index.html">
+<meta property="og:site_name" content="Mr.Shen">
+<meta property="og:description" content="文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。
+1var fs = require(&quot;fs&quot;) ;
+我的文件目录
+读取文件1234fs.readFile(path, &quot;utf8&quot;, function (error, data) &amp;#123;    if (error) th">
+<meta property="og:image" content="http://yoursite.com/img/jietu.png">
+<meta property="og:image" content="http://yoursite.com/img/hello.png">
+<meta property="og:image" content="http://yoursite.com/img/1.png">
+<meta property="og:image" content="http://yoursite.com/img/2.png">
+<meta property="og:updated_time" content="2016-07-18T11:19:55.659Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node学习笔记之FS文件模块">
+<meta name="twitter:description" content="文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。
+1var fs = require(&quot;fs&quot;) ;
+我的文件目录
+读取文件1234fs.readFile(path, &quot;utf8&quot;, function (error, data) &amp;#123;    if (error) th">
+<meta name="twitter:image" content="http://yoursite.com/img/jietu.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/18/NodeJS学习笔记之FS文件模块/"/>
+
+  <title> Node学习笔记之FS文件模块 | Mr.Shen </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1431c9fab2d4da96c2122f2351783e32";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mr.Shen</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Node学习笔记之FS文件模块
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-18T18:11:37+08:00" content="2016-07-18">
+              2016-07-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/18/NodeJS学习笔记之FS文件模块/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/18/NodeJS学习笔记之FS文件模块/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var fs = require(<span class="string">"fs"</span>) ;</div></pre></td></tr></table></figure>
+<h3 id="我的文件目录"><a href="#我的文件目录" class="headerlink" title="我的文件目录"></a>我的文件目录</h3><p><img src="/img/jietu.png" alt="img"></p>
+<h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fs.readFile(path, <span class="string">"utf8"</span>, <span class="keyword">function</span> (error, data) &#123;</div><div class="line">    <span class="keyword">if</span> (error) throw error;</div><div class="line">    console.log(data);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="创建-写入文件"><a href="#创建-写入文件" class="headerlink" title="创建,写入文件"></a>创建,写入文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var txt = <span class="string">"大家要好好学习NodeJS啊！！！"</span>;</div><div class="line">fs.writeFile(path, txt, <span class="keyword">function</span> (err) &#123;</div><div class="line">    <span class="keyword">if</span> (err) throw err;</div><div class="line">    console.log(<span class="string">"File Saved !"</span>); //文件被保存</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="修改文件名称"><a href="#修改文件名称" class="headerlink" title="修改文件名称"></a>修改文件名称</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fs.rename(path,<span class="string">'fs-changed.txt'</span>,<span class="keyword">function</span>(err)&#123;</div><div class="line">    console.log(<span class="string">'rename success'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="查看文件状态"><a href="#查看文件状态" class="headerlink" title="查看文件状态"></a>查看文件状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fs.stat(path,<span class="keyword">function</span>(err,<span class="built_in">stat</span>)&#123;</div><div class="line">    console.log(<span class="built_in">stat</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="判断文件是否存在"><a href="#判断文件是否存在" class="headerlink" title="判断文件是否存在"></a>判断文件是否存在</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fs.exists(path,<span class="keyword">function</span>(exists)&#123;</div><div class="line">    console.log(exists);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fs.unlink(path,<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">    console.log(<span class="string">'success'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="Fs与Stream之间的联系"><a href="#Fs与Stream之间的联系" class="headerlink" title="Fs与Stream之间的联系"></a>Fs与Stream之间的联系</h2><p>“Stream” 具有异步的特性。我么可以将一个文件或一段内容分为未知个制定大小的 “chunk” 去读取，每读取到一个 “chunk” 我们就将他输出。直到文件读完。这就像 “http1.1” 种支持的 “Transfer-Encoding: chunked” 那样。 (“chunk”可以以任何的形式存在，NodeJS默认是以 “Buffer” 的形式存在，这样更高效)。NodeJS中的”Stream”具备Unix系统上的一个超级特性就是 (“pipe” —— 管道)。</p>
+<h3 id="建立“fs-html”"><a href="#建立“fs-html”" class="headerlink" title="建立“fs.html”"></a>建立“fs.html”</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">      &lt;head&gt;</div><div class="line">          &lt;style <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</div><div class="line">              div &#123;</div><div class="line">                  　　margin-top: 50px;</div><div class="line">                 　　 width: 100%;</div><div class="line">                    　margin: 0px;</div><div class="line">                  　　height:120px;</div><div class="line">                  　　line-height:120px;</div><div class="line">                     color:<span class="comment">#fff;</span></div><div class="line">                     font-size:22px;</div><div class="line">                     background:<span class="comment">#ff9900;</span></div><div class="line">                  　 text-align: center;</div><div class="line">              &#125;</div><div class="line">          &lt;/style&gt;</div><div class="line">      &lt;/head&gt;</div><div class="line">      &lt;body&gt;</div><div class="line">          &lt;div&gt;Hello,大熊！&lt;/div&gt;</div><div class="line">      &lt;/body&gt;</div><div class="line">  &lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="修改之前的程序如下"><a href="#修改之前的程序如下" class="headerlink" title="修改之前的程序如下"></a>修改之前的程序如下</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var server=http.createServer(<span class="keyword">function</span>(req,res)&#123;</div><div class="line">    path=<span class="string">'../views/fs.html'</span>;</div><div class="line">    fs.readFile(path,<span class="string">'utf-8'</span>,<span class="keyword">function</span>(err,data)&#123;</div><div class="line">        <span class="keyword">if</span>(err)&#123;</div><div class="line">            res.writeHead(500,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/plain'</span>&#125;);</div><div class="line">            res.end(<span class="string">'specify file not exists! or server error!'</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            res.writeHead(200,&#123;<span class="string">'Content-Typa'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">            res.write(data);</div><div class="line">            res.end();</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">&#125;)</div><div class="line">server.listen(8888);</div><div class="line">console.log(<span class="string">'http server running on port 8888 ...'</span>)</div></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<p><img src="/img/hello.png" alt="img"></p>
+<p>如果我们要发送的不是一个单纯的文本文件而是超媒体文件比如说 Google 2014 IO 大会 的全程高清视频文件。mp4 格式。长度2个多小时1080p。</p>
+<p>大概4个多GB。已知 “readFile” 的工作方式是将文件读取到内存。那么这么大一个文件显然是不能这么做的。那该怎么办呢？是之后就需要使用 stream 的来做。那么是这样的。</p>
+<h3 id="代码如下像这样"><a href="#代码如下像这样" class="headerlink" title="代码如下像这样"></a>代码如下像这样</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var server=http.createServer(<span class="keyword">function</span>(req,res)&#123;</div><div class="line">    path=<span class="string">'../views/fs.html'</span>;</div><div class="line">    fs.createReadStream(path).pipe(res) ;</div><div class="line">&#125;)</div><div class="line">server.listen(8888);</div><div class="line">console.log(<span class="string">'http server running on port 8888 ...'</span>)</div></pre></td></tr></table></figure>
+<h3 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h3><p>这些代码可以实现需要的功能，但是服务在发送文件数据之前需要缓存整个文件数据到内存，如果”fs.html”文件很大并且并发量很大的话，会浪费很多内存。因为用户需要等到整个文件缓存到内存才能接受的文件数据，这样导致用户体验相当不好。不过还好 “(req, res)” 两个参数都是Stream，这样我们可以用fs.createReadStream()代替”fs.readFile()”。</p>
+<h2 id="实现简单文件上传的例子："><a href="#实现简单文件上传的例子：" class="headerlink" title="实现简单文件上传的例子："></a>实现简单文件上传的例子：</h2><h3 id="（1），建立“server-js”"><a href="#（1），建立“server-js”" class="headerlink" title="（1），建立“server.js”"></a>（1），建立“server.js”</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var http=require(<span class="string">'http'</span>);</div><div class="line">var url=require(<span class="string">'url'</span>);</div><div class="line"><span class="keyword">function</span> start(route,handler)&#123;</div><div class="line">    <span class="keyword">function</span> onRequest(request,response)&#123;</div><div class="line">        var pathname=url.parse(request.url).pathname;</div><div class="line">        //路由到相应的业务逻辑</div><div class="line">        route(pathname,handler,response,request);</div><div class="line">    &#125;</div><div class="line">    http.createServer(onRequest).listen(3000);</div><div class="line">    console.log(<span class="string">'Server is starting'</span>);</div><div class="line">&#125;</div><div class="line">exports.start=start;</div></pre></td></tr></table></figure>
+<h3 id="（2），建立“route-js”"><a href="#（2），建立“route-js”" class="headerlink" title="（2），建立“route.js”"></a>（2），建立“route.js”</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> route(pathname,handler,response,request)&#123;</div><div class="line">    console.log(<span class="string">'about to route a request for'</span>+pathname);</div><div class="line">    <span class="keyword">if</span>(typeof handler[pathname]===<span class="string">'function'</span>)&#123;</div><div class="line">        <span class="built_in">return</span> handler[pathname](response,request);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        console.log(<span class="string">'no request handler found for'</span>+pathname);</div><div class="line">        response.writeHead(404,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">        response.write(<span class="string">'404 Not Found'</span>);</div><div class="line">        response.end();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">exports.route=route;</div></pre></td></tr></table></figure>
+<h3 id="（3），建立“requestHandler-js”"><a href="#（3），建立“requestHandler-js”" class="headerlink" title="（3），建立“requestHandler.js”"></a>（3），建立“requestHandler.js”</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var querystring = require(<span class="string">'querystring'</span>),</div><div class="line">    fs = require(<span class="string">'fs'</span>),</div><div class="line">    formidable = require(<span class="string">'formidable'</span>),//npm install formidable</div><div class="line">    util=require(<span class="string">'util'</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> start (response, request) &#123;</div><div class="line">    console.log(<span class="string">'start module'</span>);</div><div class="line">    var body = <span class="string">'&lt;html&gt;'</span>+</div><div class="line">        <span class="string">'&lt;head&gt;'</span>+</div><div class="line">        <span class="string">'&lt;meta http-equiv="Content-Type" '</span>+</div><div class="line">        <span class="string">'content="text/html; charset=UTF-8" /&gt;'</span>+</div><div class="line">        <span class="string">'&lt;/head&gt;'</span>+</div><div class="line">        <span class="string">'&lt;body&gt;'</span>+</div><div class="line">        <span class="string">'&lt;form action="/upload" enctype="multipart/form-data" method="post"&gt;'</span>+</div><div class="line">        <span class="string">'&lt;input type="file" name="upload" multiple="multiple"&gt;'</span>+</div><div class="line">        <span class="string">'&lt;input type="submit" value="Submit text" /&gt;'</span>+</div><div class="line">        <span class="string">'&lt;/form&gt;'</span>+</div><div class="line">        <span class="string">'&lt;/body&gt;'</span>+</div><div class="line">        <span class="string">'&lt;/html&gt;'</span>;</div><div class="line">    response.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html'</span>&#125;);</div><div class="line">    response.write(body);</div><div class="line">    response.end();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> upload(response,request)&#123;</div><div class="line">    console.log(<span class="string">'upload module'</span>);</div><div class="line">    var form=new formidable.IncomingForm();</div><div class="line">    form.parse(request,<span class="keyword">function</span>(error,fields,files)&#123;</div><div class="line">        var <span class="built_in">read</span>Stream=fs.createReadStream(files.upload.path);</div><div class="line">        var writeStream=fs.createWriteStream(<span class="string">'../tmp/test.png'</span>);</div><div class="line"></div><div class="line">        //原版作者的是这样写的，但总是报错</div><div class="line">        //fs.renameSync(files.upload.path, <span class="string">'/tmp/test.png'</span>);</div><div class="line">        //baidu之后改成了这样：</div><div class="line">        util.pump(<span class="built_in">read</span>Stream,writeStream,<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">            fs.unlinkSync(files.upload.path);</div><div class="line">        &#125;);</div><div class="line">        //util.pump又提示我</div><div class="line">        //<span class="string">"(node) util.pump is deprecated. Use readableStream.pipe instead."</span></div><div class="line">        //目前菜鸟，还没搞懂readableStream.pipe肿么用</div><div class="line"></div><div class="line">        response.writeHead(200,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">        response.write(<span class="string">'You\'</span>ve sent:&lt;br/&gt;<span class="string">');</span></div><div class="line">        response.write('&lt;img src=<span class="string">"/show"</span>/&gt;<span class="string">');</span></div><div class="line">        response.end();</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> show(response,request)&#123;</div><div class="line">    console.log(<span class="string">'show,request'</span>);</div><div class="line">    fs.readFile(<span class="string">'../tmp/test.png'</span>,<span class="string">'binary'</span>,<span class="keyword">function</span>(error,file)&#123;//注意路径表写错</div><div class="line">     <span class="keyword">if</span>(error)&#123;</div><div class="line">         response.writeHead(200,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">         response.write(error);</div><div class="line">         response.end();</div><div class="line">     &#125;<span class="keyword">else</span>&#123;</div><div class="line">         response.writeHead(200,&#123;<span class="string">'Content-Type'</span>:<span class="string">'image/png'</span>&#125;);</div><div class="line">         response.write(file,<span class="string">'binary'</span>);</div><div class="line">         response.end();</div><div class="line">     &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.start=start;</div><div class="line">exports.upload=upload;</div><div class="line">exports.show=show;</div></pre></td></tr></table></figure>
+<h3 id="（4），建立“index-js”"><a href="#（4），建立“index-js”" class="headerlink" title="（4），建立“index.js”"></a>（4），建立“index.js”</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var server = require(<span class="string">'../server'</span>);</div><div class="line">var router = require(<span class="string">'./route'</span>);</div><div class="line">var requestHandler = require(<span class="string">'./requestHandler'</span>);</div><div class="line">var formidable = require(<span class="string">'formidable'</span>); // require路径搜索算法？？</div><div class="line">var handler = &#123;&#125;;</div><div class="line">handler[<span class="string">'/'</span>] = requestHandler.start;</div><div class="line">handler[<span class="string">'/start'</span>] = requestHandler.start;</div><div class="line">handler[<span class="string">'/upload'</span>] = requestHandler.upload;</div><div class="line">handler[<span class="string">'/show'</span>] = requestHandler.show;</div><div class="line">server.start(router.route, handler);</div></pre></td></tr></table></figure>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p><img src="/img/1.png" alt="img"></p>
+<p><img src="/img/2.png" alt="img"></p>
+<p>感觉好low</p>
+<p>本人菜鸟正在学习，还望大神指点</p>
+<h3 id="总结一下-1"><a href="#总结一下-1" class="headerlink" title="总结一下"></a>总结一下</h3><p> （1），理解 “Fs与Stream之间的联系” 。<br> （2），熟练使用 “FS” 相关的api。<br> （3），注意细节的把控，比如： 文件操作api同步方式与异步方式之间的处理细节。<br> （4），最后强调：理解文件上传例子中的代码组织方式，不断重构，不断总结。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/19/js命名空间/" rel="prev" title="js命名空间">
+                js命名空间 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/18/NodeJS学习笔记之FS文件模块/"
+           data-title="Node学习笔记之FS文件模块" data-url="http://yoursite.com/2016/07/18/NodeJS学习笔记之FS文件模块/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Mr.Shen" />
+          <p class="site-author-name" itemprop="name">Mr.Shen</p>
+          <p class="site-description motion-element" itemprop="description">彩笔前端爬坑历程</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cuteshen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#我的文件目录"><span class="nav-number">1.</span> <span class="nav-text">我的文件目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取文件"><span class="nav-number">2.</span> <span class="nav-text">读取文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-写入文件"><span class="nav-number">3.</span> <span class="nav-text">创建,写入文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件名称"><span class="nav-number">4.</span> <span class="nav-text">修改文件名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件状态"><span class="nav-number">5.</span> <span class="nav-text">查看文件状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断文件是否存在"><span class="nav-number">6.</span> <span class="nav-text">判断文件是否存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件"><span class="nav-number">7.</span> <span class="nav-text">删除文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fs与Stream之间的联系"><span class="nav-number"></span> <span class="nav-text">Fs与Stream之间的联系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立“fs-html”"><span class="nav-number">1.</span> <span class="nav-text">建立“fs.html”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改之前的程序如下"><span class="nav-number">2.</span> <span class="nav-text">修改之前的程序如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码如下像这样"><span class="nav-number">3.</span> <span class="nav-text">代码如下像这样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下"><span class="nav-number">4.</span> <span class="nav-text">总结一下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现简单文件上传的例子："><span class="nav-number"></span> <span class="nav-text">实现简单文件上传的例子：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1），建立“server-js”"><span class="nav-number">1.</span> <span class="nav-text">（1），建立“server.js”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2），建立“route-js”"><span class="nav-number">2.</span> <span class="nav-text">（2），建立“route.js”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3），建立“requestHandler-js”"><span class="nav-number">3.</span> <span class="nav-text">（3），建立“requestHandler.js”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4），建立“index-js”"><span class="nav-number">4.</span> <span class="nav-text">（4），建立“index.js”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行效果"><span class="nav-number">5.</span> <span class="nav-text">运行效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下-1"><span class="nav-number">6.</span> <span class="nav-text">总结一下</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Shen</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cuteshen"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="//cdn.jsdelivr.net/ua-parser.js/0.7.10/ua-parser.min.js"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
