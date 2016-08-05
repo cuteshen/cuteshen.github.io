@@ -589,14 +589,7 @@
           
           数据解析服务器获取GET请求由于GET请求直接被嵌入在路径中，URL是完整的请求路径，包括了?后面的部分，因此你可以手动解析后面的内容作为GET请求的参数。node.js中url模块中的parse函数提供了这个功能。
 url.parse(req.url)将URL字符串转换成对象并返回
-1url.parse(urlStr, [parseQueryString], [slashesDenoteHost])
-接收参数：
-urlStr ——url字符串
-parseQueryString    ——为true时将使用查询模块分析查询字符串，默认为false
-slashesDenoteHost               
-默认为false，//foo/bar ——形式的字符串将被解释成 { pathname: ‘//foo/bar’ }
-如果设置成true，//foo/bar ——形式的字符串将被解释成  { host: ‘foo’, pathname: ‘/bar’ }
-例子如下：1234567
+1url.pa
           ...
 
           <div class="post-more-link text-center">
@@ -724,14 +717,7 @@ slashesDenoteHost
           建立一个工作目录！我建立在mrshen/目录下。
 新建一个js文件新建index.js ,输入如下代码
 1234function hello(name)&#123;  console.log(&quot;hello&quot;+ name);&#125;exports.hello=hello;
-注意： 
-exports.hello=hello 这句是关键！使用exports将你的hello函数暴漏出去！不懂的可以百度CommonJs规范！
-接下来我们在目录里简历一个test.js的文件！ 代码如下
- 12var h=require(&apos;./index&apos;);h.hello(&apos;Jarrick&apos;);
-可以看到b.js的文件只有两行！
-第一行首先使用require(&#39;./a&#39;)导入刚才的a模块，然后我们调用模块中的hello方法！
-一切完毕！虽然两个文件加起来只有5行代码，但是足够我们演示我们所要的了！。
-让我们用node执行一下，同样很简单
+注意
           ...
 
           <div class="post-more-link text-center">
@@ -859,7 +845,7 @@ exports.hello=hello 这句是关键！使用exports将你的hello函数暴漏出
           基本用法ES6允许使用“箭头”（=&gt;）定义函数。
 1var f = v =&gt; v;
 等同于123var f = function(v) &#123;  return v;&#125;;
-如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。12345678910111213141516171819202122232425function show()&#123;	return 1;&#125;show();function show(a)&#123;	return a;&#125;show(1);//等同于var show=a=&gt;a;  -&gt; function show(a)&#123;return a&#125;;var show=(a)=&gt;a;  -&gt; function show(a)&#123;return a&#125;;var show=()=&gt;1;   -&gt; function show()&#123;return 
+如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。12345678910111213
           ...
 
           <div class="post-more-link text-center">
@@ -984,8 +970,7 @@ exports.hello=hello 这句是关键！使用exports将你的hello函数暴漏出
       
         
           
-          概述JavaScript语言的传统方法是通过构造函数，定义并生成新对象。12345678910function Point(x, y)&#123;    this.x=x;    this.y=y;&#125;Point.prototype.toString=function()&#123;    return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;&#125;var p = new Point(1, 2);
-上面的代码用ES6的“类”改写，就是下面这样。123456789class Point&#123;    contructor(x, y)&#123;        this.x = x;        this.y = y;    &#125;    toString()&#123;        return &apos;(&apos;+ this.x + &apos;,&apos; + th
+          概述JavaScript语言的传统方法是通过构造函数，定义并生成新对象。12345678910function Point(x, y)&#123;    this.x=x;    this.y=y;&#125;Point.prototype.toString=function()&#123;    
           ...
 
           <div class="post-more-link text-center">
@@ -1110,10 +1095,7 @@ exports.hello=hello 这句是关键！使用exports将你的hello函数暴漏出
       
         
           
-          let 和 constlet命令基本用法ES6新增了let命令,用来声明变量，但其只在let命令所在的代码块中有效123456&#123; let a=10; var b=20;&#125;console.log(a)//ReferenceError: a is not definedconsole.log(b)//20
-上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调用这两个变量，结果let声明的变量报错，var声明的变量返回了正确的值。这表明，let声明的变量只在它所在的代码块有效。
-for循环的计数器，就很合适使用let命令。1234for (let i = 0; i &lt; arr.length; i++) &#123;&#125;console.log(i);//ReferenceError: i is not defined
-不存在变量提升let不像var那样会发生“变量提升”现象。所以，变量一定要在声明后使用，否则报错。12345console
+          let 和 constlet命令基本用法ES6新增了let命令,用来声明变量，但其只在let命令所在的代码块中有效123456&#123; let a=10; var b=20;&#125;console.log(a)//ReferenceError: a is not definedconsole
           ...
 
           <div class="post-more-link text-center">
@@ -1245,23 +1227,7 @@ BOM    window
 魔术变量(全局提供的东西)：
 node中自己封装一个 定时器(setInterval,setTimeout)
 
-node 内置方法12console.log(__dirname);//获取当前路径console.log(__filename);//获取包含本身文件名的路径
-编写一个http服务器
-1,引入模块
-
-1const http=require(&apos;http&apos;);
-
-2,建服务器
-
-1http.createServer(function()&#123;&#125;);
-
-3,设置端口号
-
-1http.listen(8080)//8080未被占用的情况下
-
-4,通信
-
-12345function(request,response)&#123;&#125;    request.url;// 客户端地址    response.write(&apos;well&apo
+node 内置方法12console.log(__dirname);//获取当前路径c
           ...
 
           <div class="post-more-link text-center">
@@ -1394,20 +1360,7 @@ a.js中
 
 b.js中
 
-1234function com()&#123;  .....&#125;
-而且一个页面同时引用了这两个js文件，这样我们调用的时候会出问题，可能总是调用到第一个文件里面的函数了！
-
-如果我弄一个命名空间，这样a.js里面的函数在a空间中，b.js里面的函数在b命令空间中。
-
-调用的时候就可以如下调用：
-12a.com();b.com();
-2.如何制造命名空间
-其实就是利用js对象字面量这个语法来实现js的命名空间的
-
-接着上面的上面提出的这个问题，要想实现如下调用:
-12a.com();b.com();
-可以用如下方法：
-12345678910var  a=&#123;      com: function()&#123;        ........
+1234function com()&#123;  .....&#
           ...
 
           <div class="post-more-link text-center">
@@ -1535,9 +1488,7 @@ b.js中
           文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。
 1var fs = require("fs") ;
 我的文件目录
-读取文件1234fs.readFile(path, "utf8", function (error, data) &#123;    if (error) throw error;    console.log(data);&#125;);
-创建,写入文件12345var txt = "大家要好好学习NodeJS啊！！！";fs.writeFile(path, txt, function (err) &#123;    if (err) throw err;    console.log("File Saved !"); //文件被保存&#125;);
-修改文件名称123fs.rename(path,'fs-changed.txt',function(
+读取文件1234fs.readFile(path, "utf
           ...
 
           <div class="post-more-link text-center">
