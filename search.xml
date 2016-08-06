@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA['NodeJs学习笔记——基础02']]></title>
+      <title><![CDATA[NodeJs学习笔记——基础02]]></title>
       <url>http://yoursite.com/2016/08/05/NodeJs%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%8002/</url>
       <content type="html"><![CDATA[<h2 id="数据解析服务器"><a href="#数据解析服务器" class="headerlink" title="数据解析服务器"></a>数据解析服务器</h2><h3 id="获取GET请求"><a href="#获取GET请求" class="headerlink" title="获取GET请求"></a>获取GET请求</h3><p>由于GET请求直接被嵌入在路径中，URL是完整的请求路径，包括了?后面的部分，因此你可以手动解析后面的内容作为GET请求的参数。<br>node.js中url模块中的parse函数提供了这个功能。</p>
 <p><code>url.parse(req.url)</code>将URL字符串转换成对象并返回</p>
