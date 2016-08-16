@@ -1,0 +1,818 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mrshen, nodejs" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="multipart/form-data和application/x-www-form-urlencoded的区别FORM元素的enctype属性指定了表单数据向服务器提交时所采用的编码类型，默认的缺省值是application/x-www-form-urlencoded。
+然而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时这种编码方式效率很低。
+  在文件上载时，所使用的编码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeJs——post数据深入解析">
+<meta property="og:url" content="http://yoursite.com/2016/08/16/NodeJs——post数据深入解析/index.html">
+<meta property="og:site_name" content="Mr.Shen">
+<meta property="og:description" content="multipart/form-data和application/x-www-form-urlencoded的区别FORM元素的enctype属性指定了表单数据向服务器提交时所采用的编码类型，默认的缺省值是application/x-www-form-urlencoded。
+然而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时这种编码方式效率很低。
+  在文件上载时，所使用的编码">
+<meta property="og:updated_time" content="2016-08-16T09:42:31.396Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NodeJs——post数据深入解析">
+<meta name="twitter:description" content="multipart/form-data和application/x-www-form-urlencoded的区别FORM元素的enctype属性指定了表单数据向服务器提交时所采用的编码类型，默认的缺省值是application/x-www-form-urlencoded。
+然而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时这种编码方式效率很低。
+  在文件上载时，所使用的编码">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/16/NodeJs——post数据深入解析/"/>
+
+  <title> NodeJs——post数据深入解析 | Mr.Shen </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1431c9fab2d4da96c2122f2351783e32";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mr.Shen</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                NodeJs——post数据深入解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T17:42:03+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/NodeJs——post数据深入解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/NodeJs——post数据深入解析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="multipart-form-data和application-x-www-form-urlencoded的区别"><a href="#multipart-form-data和application-x-www-form-urlencoded的区别" class="headerlink" title="multipart/form-data和application/x-www-form-urlencoded的区别"></a>multipart/form-data和application/x-www-form-urlencoded的区别</h3><p>FORM元素的enctype属性指定了表单数据向服务器提交时所采用的编码类型，默认的缺省值是<code>application/x-www-form-urlencoded</code>。</p>
+<p>然而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时这种编码方式效率很低。</p>
+<p>  在文件上载时，所使用的编码类型应当是<code>multipart/form-data</code>，它既可以发送文本数据，也支持二进制数据上载。</p>
+<p>客户端端<form>表单的ENCTYPE属性值为<code>multipart/form-data</code>，它告诉我们传输的数据要用到多媒体传输协议，由于多媒体传输的都是大量的数据，所以规定上传文件必须是post方法，<input>的type属性必须是file。</form></p>
+<h3 id="通过multipart-form-data获取数据"><a href="#通过multipart-form-data获取数据" class="headerlink" title="通过multipart/form-data获取数据"></a>通过<code>multipart/form-data</code>获取数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8081/abc&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">    user:</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;user&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;file1&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;submit&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p>提交后，通过<code>req.headers[&#39;content-type&#39;]</code>得到的数据是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">multipart/form-data; boundary=----WebKitFormBoundaryqFAIe2bYb7F35kSq</div></pre></td></tr></table></figure>
+<h4 id="执行post数据解析相关操作获取post信息"><a href="#执行post数据解析相关操作获取post信息" class="headerlink" title="执行post数据解析相关操作获取post信息"></a>执行post数据解析相关操作获取post信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">req.on(&apos;data&apos;,function(s)&#123;</div><div class="line">    arr.push(s);</div><div class="line">&#125;);</div><div class="line"> req.on(&apos;end&apos;,function()&#123;</div><div class="line">    var buffer=Buffer.concat(arr);</div><div class="line">    //console.log(buffer.toString());</div><div class="line">    if(mime==&apos;multipart/form-data&apos;)&#123;</div><div class="line">        //文件型</div><div class="line">    &#125;else&#123;</div><div class="line">        //普通post数据</div><div class="line">        post=querystring.parse(buffer.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    console.log(post);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>上述代码中所获取的post信息存在arr中，并通过Buffer.concat拼接</p>
+<p>所得到的内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">------WebKitFormBoundaryLBhBQAIOiPjVA13J</div><div class="line">Content-Disposition: form-data; name=&quot;user&quot;</div><div class="line"></div><div class="line">myname</div><div class="line">------WebKitFormBoundaryLBhBQAIOiPjVA13J</div><div class="line">Content-Disposition: form-data; name=&quot;file1&quot;; filename=&quot;右上角LOGO.jpg&quot;</div><div class="line">Content-Type: image/jpeg</div><div class="line"></div><div class="line">//此处为图片二进制流信息，太长了就不复制进来了</div></pre></td></tr></table></figure>
+<p>通过一些列字符串操作及切割方法最终要得到表单信息<code>user</code>及<code>file</code>，下面是所有的代码</p>
+<h4 id="创建http服务"><a href="#创建http服务" class="headerlink" title="创建http服务"></a>创建http服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const querystring=require(&apos;querystring&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">    parsePostDeep(req,function(fileds,files)&#123;</div><div class="line">        console.log(fileds,files)</div><div class="line">    &#125;);</div><div class="line"></div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
+<h4 id="解析multipart-form-data信息"><a href="#解析multipart-form-data信息" class="headerlink" title="解析multipart/form-data信息"></a>解析<code>multipart/form-data</code>信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">function parsePostDeep(req,fnCb)&#123;</div><div class="line">    var post=&#123;&#125;;</div><div class="line">    var files=&#123;&#125;;</div><div class="line"></div><div class="line">    //multipart/form-data; boundary=----WebKitFormBoundaryqFAIe2bYb7F35kSq</div><div class="line">    //console.log(req.headers[&apos;content-type&apos;]);</div><div class="line">    if(req.headers[&apos;content-type&apos;])&#123;</div><div class="line">        var mime=req.headers[&apos;content-type&apos;].split(&apos;; &apos;)[0];</div><div class="line">        var boundaryInfo=req.headers[&apos;content-type&apos;].split(&apos;; &apos;)[1];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var arr=[];</div><div class="line">    req.on(&apos;data&apos;,function(s)&#123;</div><div class="line">        arr.push(s);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    req.on(&apos;end&apos;,function()&#123;</div><div class="line">        var buffer=Buffer.concat(arr);</div><div class="line">        //console.log(buffer.toString());</div><div class="line">        if(mime==&apos;multipart/form-data&apos;)&#123;</div><div class="line">            //文件型</div><div class="line">            var boundary=&apos;--&apos;+boundaryInfo.split(&apos;=&apos;)[1];</div><div class="line">            //切</div><div class="line">            var arrBuffer=bufferSplit(buffer,boundary);</div><div class="line"></div><div class="line">            //删除首尾</div><div class="line">            arrBuffer.pop();</div><div class="line">            arrBuffer.shift();</div><div class="line"></div><div class="line">            //去除数组中的每个首尾换行 -&gt; \r\n</div><div class="line">            for(var i=0; i&lt;arrBuffer.length; i++)&#123;</div><div class="line">                arrBuffer[i]=arrBuffer[i].slice(2,arrBuffer[i].length-2);</div><div class="line">            &#125;</div><div class="line">            //用两个换行切每个buffer</div><div class="line">            for(var i=0; i&lt;arrBuffer.length; i++)&#123;</div><div class="line">                var arrBufferInfo=bufferSplit(arrBuffer[i],&apos;\r\n\r\n&apos;);</div><div class="line"></div><div class="line">                //内容</div><div class="line">                var content=arrBufferInfo[1];</div><div class="line">                //其他相关信息 name filename filetype</div><div class="line">                //区分开file和post字段</div><div class="line">                if(arrBufferInfo[0].indexOf(&apos;\r\n&apos;)!=-1)&#123;</div><div class="line">                    //files</div><div class="line">                    var arrFilesInfo=bufferSplit(arrBufferInfo[0],&apos;\r\n&apos;);</div><div class="line">                    var name=querystring.parse(arrFilesInfo[0].toString(),&apos;; &apos;).name;</div><div class="line">                    name=name.substring(1,name.length-1);</div><div class="line">                    var filename=querystring.parse(arrFilesInfo[0].toString(),&apos;; &apos;).filename;</div><div class="line">                    filename=filename.substring(1,filename.length-1);</div><div class="line"></div><div class="line">                    var filetype=arrFilesInfo[1].toString().split(&apos;: &apos;)[1];</div><div class="line"></div><div class="line">                    //console.log(name,filename,filetype);</div><div class="line"></div><div class="line">                    files[name]=&#123;</div><div class="line">                        filename:filename,</div><div class="line">                        filetype:filetype,</div><div class="line">                        content:content</div><div class="line">                    &#125;;</div><div class="line">                &#125;else&#123;</div><div class="line">                    //普通</div><div class="line">                    var name=querystring.parse(arrBufferInfo[0].toString(),&apos;; &apos;).name;</div><div class="line">                    name=name.substring(1,name.length-1);</div><div class="line"></div><div class="line">                    post[name]=content.toString();</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            //console.log(arrBuffer.toString());</div><div class="line">        &#125;else&#123;</div><div class="line">            //普通post数据</div><div class="line">            post=querystring.parse(buffer.toString());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        fnCb &amp;&amp; fnCb(post,files);</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="buffer切割方法（上个方法里面有用到）"><a href="#buffer切割方法（上个方法里面有用到）" class="headerlink" title="buffer切割方法（上个方法里面有用到）"></a>buffer切割方法（上个方法里面有用到）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function bufferSplit(buffer,spliter)&#123;</div><div class="line">    var b=new Buffer(spliter);</div><div class="line">    var arr=[];</div><div class="line">    var start=0;</div><div class="line">    var index=0;</div><div class="line">    while((index=buffer.indexOf(b,start))!=-1)&#123;</div><div class="line">        arr.push(buffer.slice(start,index));</div><div class="line">        start=index+b.length;</div><div class="line">    &#125;</div><div class="line">    arr.push(buffer.slice(start));</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最终得到post数据信息</p>
+<blockquote>
+<p>下一篇介绍 post解析<code>multipart/form-data</code>数据的插件使用。</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/12/JSON字符串转换为JSON对象的2种方式/" rel="next" title="JSON字符串转换为JSON对象的2种方式">
+                <i class="fa fa-chevron-left"></i> JSON字符串转换为JSON对象的2种方式
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/16/NodeJs——post数据深入解析/"
+           data-title="NodeJs——post数据深入解析" data-url="http://yoursite.com/2016/08/16/NodeJs——post数据深入解析/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Mr.Shen" />
+          <p class="site-author-name" itemprop="name">Mr.Shen</p>
+          <p class="site-description motion-element" itemprop="description">彩笔前端爬坑历程</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cuteshen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#multipart-form-data和application-x-www-form-urlencoded的区别"><span class="nav-number">1.</span> <span class="nav-text">multipart/form-data和application/x-www-form-urlencoded的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过multipart-form-data获取数据"><span class="nav-number">2.</span> <span class="nav-text">通过multipart/form-data获取数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#执行post数据解析相关操作获取post信息"><span class="nav-number">2.1.</span> <span class="nav-text">执行post数据解析相关操作获取post信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建http服务"><span class="nav-number">2.2.</span> <span class="nav-text">创建http服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析multipart-form-data信息"><span class="nav-number">2.3.</span> <span class="nav-text">解析multipart/form-data信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#buffer切割方法（上个方法里面有用到）"><span class="nav-number">2.4.</span> <span class="nav-text">buffer切割方法（上个方法里面有用到）</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Shen</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cuteshen"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="//cdn.jsdelivr.net/ua-parser.js/0.7.10/ua-parser.min.js"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

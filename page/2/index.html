@@ -285,6 +285,177 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/19/js命名空间/" itemprop="url">
+                  js命名空间
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-19T15:28:34+08:00" content="2016-07-19">
+              2016-07-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/19/js命名空间/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/19/js命名空间/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-为什么要用js命名空间"><a href="#1-为什么要用js命名空间" class="headerlink" title="1.为什么要用js命名空间"></a>1.为什么要用js命名空间</h3><p>项目中，如果多个人为同一个页面写js的话，命名冲突就有可能发生，如果所有的函数都是全局的话，如下：</p>
+<blockquote>
+<p>a.js中</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">com</span></span>()</div><div class="line">&#123;</div><div class="line">  .....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>b.js中</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">com</span></span>()</div><div class="line">&#123;</div><div class="line">  .....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而且一个页面同时引用了这两个js文件，这样我们调用的时候会出问题，可能总是调用到第一个文件里面的函数了！</p>
+<blockquote>
+<p>如果我弄一个命名空间，这样a.js里面的函数在a空间中，b.js里面的函数在b命令空间中。</p>
+</blockquote>
+<p>调用的时候就可以如下调用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a.com();</div><div class="line">b.com();</div></pre></td></tr></table></figure>
+<h3 id="2-如何制造命名空间"><a href="#2-如何制造命名空间" class="headerlink" title="2.如何制造命名空间"></a>2.如何制造命名空间</h3><blockquote>
+<p>其实就是利用js对象字面量这个语法来实现js的命名空间的</p>
+</blockquote>
+<p>接着上面的上面提出的这个问题，要想实现如下调用:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a.com();</div><div class="line">b.com();</div></pre></td></tr></table></figure>
+<p>可以用如下方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var  a=&#123;</div><div class="line">      com: <span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">        ..........</div><div class="line">      &#125;</div><div class="line">&#125;</div><div class="line">var b=&#123;</div><div class="line">      com: <span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">        ..........</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面都是采用对象字面量的方法，定义了两个对象a和对象b是全局的,且两个对象里面都有一个com方法，没有变量，(我们知道js里面的对象可以拥有属性和方法)，可以看得到我们已经实现js的命令空间了。</p>
+<p>例如：登录界面有一个login.js文件，他的命名空间为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var  BP=&#123;</div><div class="line">           login:&#123;</div><div class="line">                   ....</div><div class="line">              &#125;                                </div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这个表示全局对象BP里面有一个login对象，然后关于对登录界面的操作都在的属性和方法都要放在login对象里面，就是关于这个页面的操作在命名空间BP.login里面。BP便是项目名字，login表示本js的功能</p>
+</blockquote>
+<p>还有一种方法，通过注册window方法，<code>nameSpace.Register(&quot;BP.login&quot;)</code>，只需要在Resister这个函数里面动态的创建出BP对象和BP的子对象login</p>
+<p>我们知道定义一个对象可以这样，<code>window[&#39;BP&#39;]={};  window.BP[&#39;login&#39;]={};</code>表示window对象有一个子对象BP，BP有一个子对象login。</p>
+<p>下面就是采用这种方法来动态的拆分字符串，然后用上面这种方法动态创建对象的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">var nameSpace = nameSpace || &#123;&#125;;</div><div class="line">(<span class="function"><span class="title">function</span></span> () &#123;</div><div class="line">  var global = window;</div><div class="line">  /**</div><div class="line">   * </div><div class="line">   * @param &#123;&#125; nsStr</div><div class="line">   * @<span class="built_in">return</span> &#123;&#125;</div><div class="line">   */</div><div class="line">  nameSpace.ns = <span class="keyword">function</span> (nsStr) &#123;</div><div class="line">    var parts = nsStr.split(<span class="string">"."</span>),</div><div class="line">    root = global,</div><div class="line">    max,</div><div class="line">    i;</div><div class="line">    <span class="keyword">for</span> (i = 0, max = parts.length ; i &lt; max ; i++) &#123;</div><div class="line">      //如果不存在，就创建一个属性</div><div class="line">      <span class="keyword">if</span> (typeof root[parts[i]] === <span class="string">"undefined"</span>) &#123;</div><div class="line">        root[parts[i]] = &#123;&#125;;</div><div class="line">      &#125;</div><div class="line">      root = root[parts[i]];</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> root;</div><div class="line">  &#125;;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
+<h5 id="a-表示nameSpace定义成一个对象"><a href="#a-表示nameSpace定义成一个对象" class="headerlink" title="a.表示nameSpace定义成一个对象"></a>a.表示nameSpace定义成一个对象</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var nameSpace = nameSpace || &#123;&#125;;</div></pre></td></tr></table></figure>
+<h5 id="b-匿名函数"><a href="#b-匿名函数" class="headerlink" title="b.//匿名函数"></a>b.//匿名函数</h5><p><font style="color:#f00">(</font>function(){</p>
+<p>//code,运行的代码</p>
+<p>}<font style="color:#f00">)</font><font style="color:rgb(0, 176, 80)">()</font>;</p>
+<blockquote>
+<p>注意：()在JavaScript中有两种含义：一是运算符；二是分隔符。</p>
+</blockquote>
+<p>上面匿名函数需要说明两点：</p>
+<blockquote>
+<p>红色括号里是一个匿名函数，红色括号代表分割，表示里面的函数是一个部分；</p>
+<p>绿色括号表示一个运算符，表示红色括号里面的函数要运行；相当于定义完一个匿名函数后就让它直接运行。</p>
+</blockquote>
+<h3 id="3-使用命名空间"><a href="#3-使用命名空间" class="headerlink" title="3.使用命名空间"></a>3.使用命名空间</h3><p>在我们登录的界面的login.js文件中，我们一般希望我们的每一个js文件里面的代码都放在自己的命名空间里面，这样多个js文件之间就不会有命名冲突了</p>
+<p>login.js文件内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">nameSpace.ns(<span class="string">"BP.login"</span>); //注册命令空间</div><div class="line">BP.login=&#123;</div><div class="line">    min_height:660,//页面最小高度</div><div class="line">    min_widht:1024,//页面最小宽度</div><div class="line">    isIE:<span class="literal">false</span>,</div><div class="line">    init:<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">       this.isIE=$.browser.msie;</div><div class="line">       this.regEvent();</div><div class="line">       this.initPage();</div><div class="line">       BP.page.i18nInit();//国际化加载</div><div class="line">     &#125;</div><div class="line">     ........</div><div class="line">     .......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用命名空间里面的函数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta name=<span class="string">"others"</span> content=<span class="string">"login_page"</span>&gt;</div><div class="line">    &lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    $(document).ready(<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">        BP.login.init();</div><div class="line">    &#125;);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">     &lt;body&gt;  </div><div class="line">     &lt;/body&gt;  </div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>utils.js文件内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">nameSpace.ns(<span class="string">"BP.utils"</span>);</div><div class="line">BP.utils = &#123;</div><div class="line">    time:3000,</div><div class="line">    timeOut:null,</div><div class="line">    interValForFake:null,</div><div class="line">    isProgressBarShow:<span class="literal">false</span>,</div><div class="line">    timeOutReturn:<span class="string">''</span>,</div><div class="line">    alert:<span class="keyword">function</span>(content)&#123;</div><div class="line">        ....</div><div class="line">    &#125;,</div><div class="line">    .............................</div><div class="line">｝</div></pre></td></tr></table></figure>
+<p>反正每一个js文件都有一个自己的命令空间，然后调用的时候带命名空间名字就可以了！</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/18/NodeJS学习笔记之FS文件模块/" itemprop="url">
                   Node学习笔记之FS文件模块
                 </a>
@@ -559,7 +730,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
