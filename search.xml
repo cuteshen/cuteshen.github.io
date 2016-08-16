@@ -4,6 +4,63 @@
   
     
     <entry>
+      <title><![CDATA[NodeJs——post第三方模块]]></title>
+      <url>http://yoursite.com/2016/08/16/NodeJs%E2%80%94%E2%80%94post%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97/</url>
+      <content type="html"><![CDATA[<p>上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer</p>
+<h3 id="formidable"><a href="#formidable" class="headerlink" title="formidable"></a>formidable</h3><blockquote>
+<p>以文件形式上传</p>
+</blockquote>
+<p>首先需要从npm安装模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install formidable</div></pre></td></tr></table></figure>
+<p>html代码,file-multiple可上传多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8080/abc&quot; method=&quot;post&quot;  enctype=&quot;multipart/form-data&quot; &gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;name&quot; id=&quot;name&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;age&quot; id=&quot;age&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;pic&quot; id=&quot;pic&quot; multiple/&gt;</div><div class="line">    &lt;input type=&quot;submit&quot;/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>node代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const formidable=require(&apos;formidable&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    //需要实例化formidable模块中的IncomingForm()方法</div><div class="line">    var form=new formidable.IncomingForm();</div><div class="line"></div><div class="line">    form.parse(req,function(err,fileds,files)&#123;</div><div class="line">        console.log(fileds, files);</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
+<p>表单填写：name:abc; age:abc; pic:1.jpg,pic:2.jpg提交表单</p>
+<p>fileds为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; name: &apos;abc&apos;, age: &apos;abc&apos; &#125;</div></pre></td></tr></table></figure>
+<p>files为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&#123; pic:</div><div class="line">   [ File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 693534,</div><div class="line">       path: &apos;upload\\upload_701ff760b9dcba389d87dcb89d93adfb&apos;,</div><div class="line">       name: &apos;1.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125;,</div><div class="line">     File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 232615,</div><div class="line">       path: &apos;upload\\upload_a00ba7289c3690b2d45aa2910a84d0f1&apos;,</div><div class="line">       name: &apos;2.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125; ] &#125;</div></pre></td></tr></table></figure></p>
+<p>其中几个常用的字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">files.pic</div><div class="line">	.size</div><div class="line">	.path	//临时把文件放到 c盘里面</div><div class="line">	.name</div><div class="line">	.type</div><div class="line">	.lastModifiedDate</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">其中path是没有后缀名的文件名称，因此需要用到fs.rename方法将后缀名添加进去</div><div class="line"></div><div class="line">完整代码：</div></pre></td></tr></table></figure>
+<p>const http=require(‘http’);<br>const formidable=require(‘formidable’);<br>const path=require(‘path’);<br>const fs=require(‘fs’);</p>
+<p>http.createServer(function (req, res) {<br>    var form= new formidable.IncomingForm();<br>    form.uploadDir=’upload’;<br>    form.multiples=true;</p>
+<pre><code>form.parse(req, function(err, fields, files) {
+    var arrFiles=files.pic;
+    for(var i=0; i &lt; arrFiles.length; i++){
+        //获取文件后缀名
+        var extname=path.extname(arrFiles[i].name);
+        //修改path名称，添加后缀名
+        fs.rename(arrFiles[i].path,arrFiles[i].path+extname, function (err) {
+            console.log(err);
+        })
+    }
+});
+</code></pre><p>}).listen(8080);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### multer</div><div class="line"></div><div class="line">&gt;以二进制流形式上传</div></pre></td></tr></table></figure></p>
+<p>npm install multer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">设置上传目录，及文件类型</div></pre></td></tr></table></figure></p>
+<p>var multer=multerLib({dest:’upload’});//设置文件上传路径<br>var multerHandler=multer.any();//设置文件类型为任何类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">回调方法</div></pre></td></tr></table></figure>
+<p>multerHandler(req,res,function(){<br>    console.log(req.body.name);//user内容<br>    console.log(req.body.age);//age内容<br>})<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">其中req.files内容为:</div></pre></td></tr></table></figure></p>
+<p>[ { fieldname: ‘pic’,<br>    originalname: ‘1.jpg’,<br>    encoding: ‘7bit’,<br>    mimetype: ‘image/png’,<br>    destination: ‘upload’,<br>    filename: ‘82519811ec7e4793c658e6dbd75dcd6a’,<br>    path: ‘upload\82519811ec7e4793c658e6dbd75dcd6a’,<br>    size: 693534 },<br>  { fieldname: ‘pic’,<br>    originalname: ‘2.jpg’,<br>    encoding: ‘7bit’,<br>    mimetype: ‘image/jpeg’,<br>    destination: ‘upload’,<br>    filename: ‘7f3b211b0127e872e9ca0bd1d6dea6a7’,<br>    path: ‘upload\7f3b211b0127e872e9ca0bd1d6dea6a7’,<br>    size: 232615 } ]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">重写名称，添加后缀</div></pre></td></tr></table></figure></p>
+<p>for(var files in req.files){<br>    //获取后缀名<br>    var extname=path.extname(req.files[files].originalname);<br>    //重写文件名称<br>    fs.rename(req.files[files].path,req.files[files].path+extname, function (err) {<br>        console.log(err);<br>    })<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">完整代码:</div></pre></td></tr></table></figure></p>
+<p>const http=require(‘http’);<br>const multerLib=require(‘multer’);<br>const path=require(‘path’);<br>const fs=require(‘fs’);</p>
+<p>http.createServer(function (req, res) {<br>    var multer=multerLib({dest:’upload’});<br>    var multerHandler=multer.any();</p>
+<pre><code>multerHandler(req,res,function(){
+    console.log(req.files);
+
+    for(var files in req.files){
+        var extname=path.extname(req.files[files].originalname);
+        console.log(req.files[files].originalname);
+        fs.rename(req.files[files].path,req.files[files].path+extname, function (err) {
+            console.log(err);
+        })
+    }
+});
+</code></pre><p>}).listen(8080);<br>```<br>两个模块具体api信息，还需参阅npm官网</p>
+<p><a href="https://www.npmjs.com/package/formidable" target="_blank" rel="external">https://www.npmjs.com/package/formidable</a></p>
+<p><a href="https://www.npmjs.com/package/multer" target="_blank" rel="external">https://www.npmjs.com/package/multer</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[NodeJs——post数据深入解析]]></title>
       <url>http://yoursite.com/2016/08/16/NodeJs%E2%80%94%E2%80%94post%E6%95%B0%E6%8D%AE%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/</url>
       <content type="html"><![CDATA[<h3 id="multipart-form-data和application-x-www-form-urlencoded的区别"><a href="#multipart-form-data和application-x-www-form-urlencoded的区别" class="headerlink" title="multipart/form-data和application/x-www-form-urlencoded的区别"></a>multipart/form-data和application/x-www-form-urlencoded的区别</h3><p>FORM元素的enctype属性指定了表单数据向服务器提交时所采用的编码类型，默认的缺省值是<code>application/x-www-form-urlencoded</code>。</p>

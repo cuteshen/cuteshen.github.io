@@ -88,22 +88,34 @@
 
 
 
-<meta name="description" content="数据解析服务器获取GET请求由于GET请求直接被嵌入在路径中，URL是完整的请求路径，包括了?后面的部分，因此你可以手动解析后面的内容作为GET请求的参数。node.js中url模块中的parse函数提供了这个功能。
-url.parse(req.url)将URL字符串转换成对象并返回
-1url.parse(urlStr, [parseQueryString], [slashesDenoteHost">
+<meta name="description" content="上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer
+formidable
+以文件形式上传
+
+首先需要从npm安装模块
+1npm install formidable
+html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NodeJs学习笔记——基础02">
-<meta property="og:url" content="http://yoursite.com/2016/08/05/NodeJs学习笔记——基础02/index.html">
+<meta property="og:title" content="NodeJs——post第三方模块">
+<meta property="og:url" content="http://yoursite.com/2016/08/16/NodeJs——post第三方模块/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="数据解析服务器获取GET请求由于GET请求直接被嵌入在路径中，URL是完整的请求路径，包括了?后面的部分，因此你可以手动解析后面的内容作为GET请求的参数。node.js中url模块中的parse函数提供了这个功能。
-url.parse(req.url)将URL字符串转换成对象并返回
-1url.parse(urlStr, [parseQueryString], [slashesDenoteHost">
-<meta property="og:updated_time" content="2016-08-06T11:23:17.509Z">
+<meta property="og:description" content="上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer
+formidable
+以文件形式上传
+
+首先需要从npm安装模块
+1npm install formidable
+html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
+<meta property="og:updated_time" content="2016-08-16T09:47:30.811Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NodeJs学习笔记——基础02">
-<meta name="twitter:description" content="数据解析服务器获取GET请求由于GET请求直接被嵌入在路径中，URL是完整的请求路径，包括了?后面的部分，因此你可以手动解析后面的内容作为GET请求的参数。node.js中url模块中的parse函数提供了这个功能。
-url.parse(req.url)将URL字符串转换成对象并返回
-1url.parse(urlStr, [parseQueryString], [slashesDenoteHost">
+<meta name="twitter:title" content="NodeJs——post第三方模块">
+<meta name="twitter:description" content="上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer
+formidable
+以文件形式上传
+
+首先需要从npm安装模块
+1npm install formidable
+html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
 
 
 
@@ -124,9 +136,9 @@ url.parse(req.url)将URL字符串转换成对象并返回
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/08/05/NodeJs学习笔记——基础02/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/16/NodeJs——post第三方模块/"/>
 
-  <title> NodeJs学习笔记——基础02 | Mr.Shen </title>
+  <title> NodeJs——post第三方模块 | Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -289,7 +301,7 @@ url.parse(req.url)将URL字符串转换成对象并返回
             
             
               
-                NodeJs学习笔记——基础02
+                NodeJs——post第三方模块
               
             
           </h1>
@@ -301,8 +313,8 @@ url.parse(req.url)将URL字符串转换成对象并返回
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-05T11:18:35+08:00" content="2016-08-05">
-              2016-08-05
+            <time itemprop="dateCreated" datetime="2016-08-16T17:47:08+08:00" content="2016-08-16">
+              2016-08-16
             </time>
           </span>
 
@@ -331,8 +343,8 @@ url.parse(req.url)将URL字符串转换成对象并返回
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/05/NodeJs学习笔记——基础02/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/NodeJs学习笔记——基础02/" itemprop="commentsCount"></span>
+                <a href="/2016/08/16/NodeJs——post第三方模块/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/NodeJs——post第三方模块/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -355,25 +367,57 @@ url.parse(req.url)将URL字符串转换成对象并返回
       
 
       
-        <h2 id="数据解析服务器"><a href="#数据解析服务器" class="headerlink" title="数据解析服务器"></a>数据解析服务器</h2><h3 id="获取GET请求"><a href="#获取GET请求" class="headerlink" title="获取GET请求"></a>获取GET请求</h3><p>由于GET请求直接被嵌入在路径中，URL是完整的请求路径，包括了?后面的部分，因此你可以手动解析后面的内容作为GET请求的参数。<br>node.js中url模块中的parse函数提供了这个功能。</p>
-<p><code>url.parse(req.url)</code>将URL字符串转换成对象并返回</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url.parse(urlStr, [parseQueryString], [slashesDenoteHost])</div></pre></td></tr></table></figure>
-<p>接收参数：</p>
-<p>urlStr ——url字符串</p>
-<p>parseQueryString    ——为true时将使用查询模块分析查询字符串，默认为false</p>
-<p>slashesDenoteHost               </p>
-<p>默认为false，//foo/bar ——形式的字符串将被解释成 { pathname: ‘//foo/bar’ }</p>
-<p>如果设置成true，//foo/bar ——形式的字符串将被解释成  { host: ‘foo’, pathname: ‘/bar’ }</p>
-<p>例子如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var url = require(&apos;url&apos;);</div><div class="line"> var a = url.parse(&apos;http://example.com:8080/one?a=index&amp;t=article&amp;m=default&apos;);</div><div class="line"> console.log(a);</div><div class="line">  </div><div class="line"> //输出结果：</div><div class="line">&#123; </div><div class="line">     protocol : &apos;http&apos; ,</div><div class="line">     auth : null ,</div><div class="line">     host : &apos;example.com:8080&apos; ,</div><div class="line">     port : &apos;8080&apos; ,</div><div class="line">     hostname : &apos;example.com&apos; ,</div><div class="line">     hash : null ,</div><div class="line">     search : &apos;?a=index&amp;t=article&amp;m=default&apos;,</div><div class="line">     query : &apos;a=index&amp;t=article&amp;m=default&apos;,</div><div class="line">     pathname : &apos;/one&apos;,</div><div class="line">     path : &apos;/one?a=index&amp;t=article&amp;m=default&apos;,</div><div class="line">     href : &apos;http://example.com:8080/one?a=index&amp;t=article&amp;m=default&apos;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<p>获取页面提交的username</p>
-<p>假设url为localhost:8081/user?username=admin&amp;password=admin;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const urlLib=require(&apos;url&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">   </div><div class="line">    var url=urlLib.parse(req.url,true).pathname;</div><div class="line">    req.get=urlLib.parse(req.url,true).query;</div><div class="line"></div><div class="line">    //req.get.username;</div><div class="line"></div><div class="line">    console.log(&apos;您的用户名是&apos;+req.get.username);//admin</div><div class="line">    console.log(&apos;您请求的地址是&apos;+url);//  /user</div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
-<h3 id="获取POST请求"><a href="#获取POST请求" class="headerlink" title="获取POST请求"></a>获取POST请求</h3><p>POST请求的内容全部的都在请求体中，http.ServerRequest并没有一个属性内容为请求体，原因是等待请求体传输可能是一件耗时的工作。<br>比如上传文件，而很多时候我们可能并不需要理会请求体的内容，恶意的POST请求会大大消耗服务器的资源，所有node.js默认是不会解析请求体的， 当你需要的时候，需要手动来做。</p>
-<blockquote>
-<p>假设请求post请求url为 /user ,data{“username”:”admin”,”password”:”admin”}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var http = require(&apos;http&apos;);</div><div class="line">var querystring = require(&apos;querystring&apos;);</div><div class="line">var util = require(&apos;util&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req, res)&#123;</div><div class="line">    var post = &apos;&apos;;     //定义了一个post变量，用于暂存请求体的信息</div><div class="line"></div><div class="line">    req.on(&apos;data&apos;, function(chunk)&#123;    //通过req的data事件监听函数，每当接受到请求体的数据，就累加到post变量中</div><div class="line">        post += chunk;  </div><div class="line">        //post=username=admin&amp;password=admin</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    req.on(&apos;end&apos;, function()&#123;    //在end事件触发后，通过querystring.parse将post解析为真正的POST请求格式，然后向客户端返回。</div><div class="line">        post = querystring.parse(post);</div><div class="line">        //post=&#123; username: &apos;admin&apos;, password: &apos;admin&apos; &#125;</div><div class="line">        res.end(util.inspect(post));</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(3000);</div></pre></td></tr></table></figure></p>
+        <p>上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer</p>
+<h3 id="formidable"><a href="#formidable" class="headerlink" title="formidable"></a>formidable</h3><blockquote>
+<p>以文件形式上传</p>
 </blockquote>
-<h3 id="设置Cookie"><a href="#设置Cookie" class="headerlink" title="设置Cookie"></a>设置Cookie</h3><p>直接看代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const querystring=require(&apos;querystring&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">    res.writeHeader(200,&#123;&apos;Set-Cookie&apos;:&apos;user=def&apos;&#125;);</div><div class="line">    res.end();</div><div class="line">    </div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
-<p>一个set-cookie头只能设置一个cookie，要设多个cookie需要设置多set-cookie头。<br>可以通过这种形式来设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&quot;Set-Cookie&quot;, [&apos;a=000&apos;, &apos;t=1111&apos;, &apos;w=2222&apos;]);</div></pre></td></tr></table></figure></p>
+<p>首先需要从npm安装模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install formidable</div></pre></td></tr></table></figure>
+<p>html代码,file-multiple可上传多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8080/abc&quot; method=&quot;post&quot;  enctype=&quot;multipart/form-data&quot; &gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;name&quot; id=&quot;name&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;age&quot; id=&quot;age&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;pic&quot; id=&quot;pic&quot; multiple/&gt;</div><div class="line">    &lt;input type=&quot;submit&quot;/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>node代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const formidable=require(&apos;formidable&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    //需要实例化formidable模块中的IncomingForm()方法</div><div class="line">    var form=new formidable.IncomingForm();</div><div class="line"></div><div class="line">    form.parse(req,function(err,fileds,files)&#123;</div><div class="line">        console.log(fileds, files);</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
+<p>表单填写：name:abc; age:abc; pic:1.jpg,pic:2.jpg提交表单</p>
+<p>fileds为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; name: &apos;abc&apos;, age: &apos;abc&apos; &#125;</div></pre></td></tr></table></figure>
+<p>files为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&#123; pic:</div><div class="line">   [ File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 693534,</div><div class="line">       path: &apos;upload\\upload_701ff760b9dcba389d87dcb89d93adfb&apos;,</div><div class="line">       name: &apos;1.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125;,</div><div class="line">     File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 232615,</div><div class="line">       path: &apos;upload\\upload_a00ba7289c3690b2d45aa2910a84d0f1&apos;,</div><div class="line">       name: &apos;2.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125; ] &#125;</div></pre></td></tr></table></figure></p>
+<p>其中几个常用的字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">files.pic</div><div class="line">	.size</div><div class="line">	.path	//临时把文件放到 c盘里面</div><div class="line">	.name</div><div class="line">	.type</div><div class="line">	.lastModifiedDate</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">其中path是没有后缀名的文件名称，因此需要用到fs.rename方法将后缀名添加进去</div><div class="line"></div><div class="line">完整代码：</div></pre></td></tr></table></figure>
+<p>const http=require(‘http’);<br>const formidable=require(‘formidable’);<br>const path=require(‘path’);<br>const fs=require(‘fs’);</p>
+<p>http.createServer(function (req, res) {<br>    var form= new formidable.IncomingForm();<br>    form.uploadDir=’upload’;<br>    form.multiples=true;</p>
+<pre><code>form.parse(req, function(err, fields, files) {
+    var arrFiles=files.pic;
+    for(var i=0; i &lt; arrFiles.length; i++){
+        //获取文件后缀名
+        var extname=path.extname(arrFiles[i].name);
+        //修改path名称，添加后缀名
+        fs.rename(arrFiles[i].path,arrFiles[i].path+extname, function (err) {
+            console.log(err);
+        })
+    }
+});
+</code></pre><p>}).listen(8080);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### multer</div><div class="line"></div><div class="line">&gt;以二进制流形式上传</div></pre></td></tr></table></figure></p>
+<p>npm install multer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">设置上传目录，及文件类型</div></pre></td></tr></table></figure></p>
+<p>var multer=multerLib({dest:’upload’});//设置文件上传路径<br>var multerHandler=multer.any();//设置文件类型为任何类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">回调方法</div></pre></td></tr></table></figure>
+<p>multerHandler(req,res,function(){<br>    console.log(req.body.name);//user内容<br>    console.log(req.body.age);//age内容<br>})<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">其中req.files内容为:</div></pre></td></tr></table></figure></p>
+<p>[ { fieldname: ‘pic’,<br>    originalname: ‘1.jpg’,<br>    encoding: ‘7bit’,<br>    mimetype: ‘image/png’,<br>    destination: ‘upload’,<br>    filename: ‘82519811ec7e4793c658e6dbd75dcd6a’,<br>    path: ‘upload\82519811ec7e4793c658e6dbd75dcd6a’,<br>    size: 693534 },<br>  { fieldname: ‘pic’,<br>    originalname: ‘2.jpg’,<br>    encoding: ‘7bit’,<br>    mimetype: ‘image/jpeg’,<br>    destination: ‘upload’,<br>    filename: ‘7f3b211b0127e872e9ca0bd1d6dea6a7’,<br>    path: ‘upload\7f3b211b0127e872e9ca0bd1d6dea6a7’,<br>    size: 232615 } ]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">重写名称，添加后缀</div></pre></td></tr></table></figure></p>
+<p>for(var files in req.files){<br>    //获取后缀名<br>    var extname=path.extname(req.files[files].originalname);<br>    //重写文件名称<br>    fs.rename(req.files[files].path,req.files[files].path+extname, function (err) {<br>        console.log(err);<br>    })<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">完整代码:</div></pre></td></tr></table></figure></p>
+<p>const http=require(‘http’);<br>const multerLib=require(‘multer’);<br>const path=require(‘path’);<br>const fs=require(‘fs’);</p>
+<p>http.createServer(function (req, res) {<br>    var multer=multerLib({dest:’upload’});<br>    var multerHandler=multer.any();</p>
+<pre><code>multerHandler(req,res,function(){
+    console.log(req.files);
+
+    for(var files in req.files){
+        var extname=path.extname(req.files[files].originalname);
+        console.log(req.files[files].originalname);
+        fs.rename(req.files[files].path,req.files[files].path+extname, function (err) {
+            console.log(err);
+        })
+    }
+});
+</code></pre><p>}).listen(8080);<br>```<br>两个模块具体api信息，还需参阅npm官网</p>
+<p><a href="https://www.npmjs.com/package/formidable" target="_blank" rel="external">https://www.npmjs.com/package/formidable</a></p>
+<p><a href="https://www.npmjs.com/package/multer" target="_blank" rel="external">https://www.npmjs.com/package/multer</a></p>
 
       
     </div>
@@ -399,17 +443,13 @@ url.parse(req.url)将URL字符串转换成对象并返回
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/04/开发nodejs模块并发布到npm的简单示例/" rel="next" title="'开发nodejs模块并发布到npm的简单示例'">
-                <i class="fa fa-chevron-left"></i> '开发nodejs模块并发布到npm的简单示例'
+              <a href="/2016/08/16/NodeJs——post数据深入解析/" rel="next" title="NodeJs——post数据深入解析">
+                <i class="fa fa-chevron-left"></i> NodeJs——post数据深入解析
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/05/NodeJs学习笔记-—简单登录/" rel="prev" title="NodeJs学习笔记-—简单登录">
-                NodeJs学习笔记-—简单登录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -435,8 +475,8 @@ url.parse(req.url)将URL字符串转换成对象并返回
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/05/NodeJs学习笔记——基础02/"
-           data-title="NodeJs学习笔记——基础02" data-url="http://yoursite.com/2016/08/05/NodeJs学习笔记——基础02/">
+      <div class="ds-thread" data-thread-key="2016/08/16/NodeJs——post第三方模块/"
+           data-title="NodeJs——post第三方模块" data-url="http://yoursite.com/2016/08/16/NodeJs——post第三方模块/">
       </div>
     
   </div>
@@ -531,7 +571,7 @@ url.parse(req.url)将URL字符串转换成对象并返回
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据解析服务器"><span class="nav-number">1.</span> <span class="nav-text">数据解析服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取GET请求"><span class="nav-number">1.1.</span> <span class="nav-text">获取GET请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取POST请求"><span class="nav-number">1.2.</span> <span class="nav-text">获取POST请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置Cookie"><span class="nav-number">1.3.</span> <span class="nav-text">设置Cookie</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#formidable"><span class="nav-number">1.</span> <span class="nav-text">formidable</span></a></li></ol></div>
             
           </div>
         </section>
