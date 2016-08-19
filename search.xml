@@ -4,6 +4,80 @@
   
     
     <entry>
+      <title><![CDATA[Nodejs——Stream流]]></title>
+      <url>http://yoursite.com/2016/08/19/Nodejs%E2%80%94%E2%80%94Stream%E6%B5%81/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>所谓流：就是一组连续的数据（文件流、网络流…)</p>
+</blockquote>
+<h4 id="之前的文件操作通过通过fs-readFile进行读取有以下弊端"><a href="#之前的文件操作通过通过fs-readFile进行读取有以下弊端" class="headerlink" title="之前的文件操作通过通过fs.readFile进行读取有以下弊端"></a>之前的文件操作通过通过fs.readFile进行读取有以下弊端</h4><p>1,把文件读取到内存中</p>
+<p>2,内存不足、卡顿</p>
+<p>3,造成 IO峰值</p>
+<p>4,数据混乱</p>
+<p>5,耗时</p>
+<p>6,操作文件会有各种限制（文件大小限制…）</p>
+<h4 id="通过流进行文件操作"><a href="#通过流进行文件操作" class="headerlink" title="通过流进行文件操作"></a>通过流进行文件操作</h4><p>流可分为：</p>
+<p>1,读取流——req</p>
+<p>2,写入流——res</p>
+<p>3,读写流——文件压缩</p>
+<p>之前创建http服务时有这样的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>读取流，就相当于<code>req</code>,写入流就相当于<code>res</code></p>
+<p>读写流常用在文件压缩等功能</p>
+<h5 id="写入流"><a href="#写入流" class="headerlink" title="写入流"></a>写入流</h5><p>抛开之前的<code>fs.writeFile()</code>方法,将内容写入ccc.txt文件，若没有ccc.txt文件，则创建一个ccc.txt文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var ws=fs.createWriteStream(&apos;ccc.txt&apos;);  //创建了一个写入流</div><div class="line"></div><div class="line">ws.write(&apos;abcd&apos;);</div><div class="line"></div><div class="line">ws.end();</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;写入完毕&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h5 id="读取流"><a href="#读取流" class="headerlink" title="读取流"></a>读取流</h5><p>项目目录有一个aaa.txt文件，文件内容为aaa</p>
+<p>执行读取:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line"></div><div class="line">var arr=[];</div><div class="line"></div><div class="line">rs.on(&apos;data&apos;,function(b)&#123;</div><div class="line">    arr.push(b);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">rs.on(&apos;end&apos;,function()&#123;</div><div class="line">    var buffer=Buffer.concat(arr);</div><div class="line">    console.log(buffer.toString());</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>另外针对stream的err捕获，无法通过try()catch(e){}捕获到，try捕获是程序异常，而流操作，走的是系统；</p>
+<p>rs同requst一样有着监听事件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rs.on(&apos;error&apos;,function(err)&#123;</div><div class="line">    console.log(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h5 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h5><p>和unix一样，node stream主要的操作也是.pipe()</p>
+<pre><code>源头.pipe(目标)
+
+读取.pipe(写入)
+</code></pre><p>将bbb.txt文件内容写入到ddd.txt文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;bbb.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;ddd.txt&apos;);</div><div class="line"></div><div class="line">//读取.pipe(写入)</div><div class="line">rs.pipe(ws);</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;读写完毕&apos;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h5 id="读写流——实现文件压缩"><a href="#读写流——实现文件压缩" class="headerlink" title="读写流——实现文件压缩"></a>读写流——实现文件压缩</h5><blockquote>
+<p>需要引入第三方模块<code>zlib</code></p>
+</blockquote>
+<pre><code>npm install zlib
+</code></pre><p>程序代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const zLib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">var gz=zlib.createGzip();//选择压缩模式-gzip</div><div class="line"></div><div class="line">//准备2个流</div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;aaa.txt.gz&apos;);</div><div class="line"></div><div class="line">//执行压缩</div><div class="line">rs.pipe(gz).pipe(ws);</div></pre></td></tr></table></figure></p>
+<p>执行后，项目目录会生成名字为‘aaa.txt.gz’的压缩文件</p>
+<blockquote>
+<p>gz压缩格式特点——修改.gz文件名称，压缩文件会跟着压缩包名字改变</p>
+</blockquote>
+<p>执行代码，先对文件进行gzip压缩，再输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
+<p>此时打开浏览器localhost:8081会直接下载222.txt文件，而不是输出文件内容</p>
+<p>设置header</p>
+<pre><code>res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)
+</code></pre><p>完整代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)</div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[split()函数在buffer中的实现]]></title>
+      <url>http://yoursite.com/2016/08/19/split()%E5%87%BD%E6%95%B0%E5%9C%A8buffer%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
+      <content type="html"><![CDATA[<h2 id="javascript中的用法："><a href="#javascript中的用法：" class="headerlink" title="javascript中的用法："></a>javascript中的用法：</h2><blockquote>
+<p>split() 方法用于把一个字符串分割成字符串数组。</p>
+</blockquote>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>stringObject.split(separator,howmany)</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p><code>separator</code> 必需。字符串或正则表达式，从该参数指定的地方分割 stringObject。</p>
+<p><code>howmany</code> 可选。该参数可指定返回的数组的最大长度。如果设置了该参数，返回的子串不会多于这个参数指定的数组。如果没有设置该参数，整个字符串都会被分割，不考虑它的长度。</p>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>一个字符串数组。该数组是通过在 separator 指定的边界处将字符串 stringObject 分割成子串创建的。返回的数组中的字串不包括 separator 自身。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">str=&quot;2,2,3,5,6,6&quot;; //这是一字符串</div><div class="line">var strs= new Array(); //定义一数组</div><div class="line">strs=str.split(&quot;,&quot;); //字符分割</div><div class="line">for (i=0;i&lt;strs.length ;i++ )</div><div class="line">&#123;</div><div class="line">document.write(strs[i]+&quot;&lt;br&gt;&quot;); //分割后的字符输出</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述代码输出结果为：2 2 3 5 6</p>
+<h2 id="buffer中的实现"><a href="#buffer中的实现" class="headerlink" title="buffer中的实现"></a>buffer中的实现</h2><p>nodeJs开发操作buffer时，buffer中是没有split()方法的;</p>
+<p>如下代码执行会报错<code>TypeError: buffer.splice is not a function</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height background apple banana&apos;);</div><div class="line">console.log(buffer.splice(&apos; &apos;))</div></pre></td></tr></table></figure></p>
+<p>因此需要自己实现split()方法；</p>
+<p>1，toString()，不建议<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height&apos;);</div><div class="line"></div><div class="line">console.log(buffer.toString().split(&apos; &apos;));</div><div class="line"></div><div class="line">//[ &apos;width&apos;, &apos;height&apos; ]</div></pre></td></tr></table></figure></p>
+<p>buffer数据tostring之后，想再回到buffer，数据就被损坏了，因此不建议toString;</p>
+<h5 id="通过slice："><a href="#通过slice：" class="headerlink" title="通过slice："></a>通过slice：</h5><p>buffer中是可以使用slice方法的，因此可以通过使用slice() 达到split的效果</p>
+<blockquote>
+<p>bufferSplit(buffer数据，切割字符串);</p>
+</blockquote>
+<p>首先创建buffer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height background apple banana&apos;);</div></pre></td></tr></table></figure></p>
+<p>这时输出buffer是一个连续的文件流<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(buffer);</div><div class="line">//&lt;Buffer 77 69 64 74 68 20 68 65 69 67 68 74 20 62 61 63 6b 67 72 6f 75 6e 64 20 61 70 70 6c 65 20 62 61 6e 61 6e 61&gt;</div></pre></td></tr></table></figure></p>
+<p>若要得到buffer中的某一段数据，则需要先进行切割：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height background apple banana&apos;);</div><div class="line">var b=new Buffer(&apos; &apos;); //分割标志</div><div class="line"></div><div class="line">var arr=[];</div><div class="line">var start=0;//开始位置</div><div class="line">var index=0;//b开始的位置</div><div class="line"></div><div class="line">while((index=buffer.indexOf(b,start))!=-1)&#123;</div><div class="line">    arr.push(buffer.slice(start,index));</div><div class="line">    start=index+b.length;</div><div class="line">&#125;</div><div class="line">arr.push(buffer.slice(start));</div><div class="line">console.log(arr);</div><div class="line">//输出结果：</div><div class="line">[ &lt;Buffer 77 69 64 74 68&gt;,</div><div class="line">  &lt;Buffer 68 65 69 67 68 74&gt;,</div><div class="line">  &lt;Buffer 62 61 63 6b 67 72 6f 75 6e 64&gt;,</div><div class="line">  &lt;Buffer 61 70 70 6c 65&gt;,</div><div class="line">  &lt;Buffer 62 61 6e 61 6e 61&gt; ]</div><div class="line"></div><div class="line">console.log(arr.toString());</div><div class="line">//输出结果:width,height,background,apple,banana</div></pre></td></tr></table></figure></p>
+<p>实际应用中，可以将此方法进行封装，或以模块的形式导入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function bufferSplit(buffer,spliter)&#123;</div><div class="line">    var b=new Buffer(spliter);</div><div class="line">    var arr=[];</div><div class="line">    var start=0;</div><div class="line">    var index=0;</div><div class="line">    while((index=buffer.indexOf(b,start))!=-1)&#123;</div><div class="line">        arr.push(buffer.slice(start,index));</div><div class="line">        start=index+b.length;</div><div class="line">    &#125;</div><div class="line">    arr.push(buffer.slice(start));</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[NodeJs——post第三方模块]]></title>
       <url>http://yoursite.com/2016/08/16/NodeJs%E2%80%94%E2%80%94post%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97/</url>
       <content type="html"><![CDATA[<p>上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer</p>

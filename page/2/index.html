@@ -285,6 +285,285 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/25/ES6的Class/" itemprop="url">
+                  'ES6的Class'
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T17:14:01+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/25/ES6的Class/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的Class/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>JavaScript语言的传统方法是通过构造函数，定义并生成新对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function Point(x, y)&#123;</div><div class="line">    this.x=x;</div><div class="line">    this.y=y;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Point.prototype.toString=function()&#123;</div><div class="line">    return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p = new Point(1, 2);</div></pre></td></tr></table></figure></p>
+<p>上面的代码用ES6的“类”改写，就是下面这样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Point&#123;</div><div class="line">    contructor(x, y)&#123;</div><div class="line">        this.x = x;</div><div class="line">        this.y = y;</div><div class="line">    &#125;</div><div class="line">    toString()&#123;</div><div class="line">        return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面代码定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。</p>
+<p><code>Point</code>类除了构造方法，还定义了一个<code>toString</code>方法。注意，定义“类”的方法的时候，前面不需要加上<code>function</code>这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。</p>
+<p>ES6的类，完全可以看作构造函数的另一种写法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  // ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">typeof Point // &quot;function&quot;</div><div class="line">Point === Point.prototype.constructor // true</div></pre></td></tr></table></figure>
+<p>上面代码表明，类的数据类型就是函数，类本身就指向构造函数。<br>使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class bar&#123;</div><div class="line">    doStuff()&#123;</div><div class="line">        console.log(&apos;stuff&apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var b=new bar();</div><div class="line">b.doStuff()//stuff</div></pre></td></tr></table></figure></p>
+<p>构造函数的prototype属性，在ES6的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  constructor()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toString()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toValue()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 等同于</div><div class="line"></div><div class="line">Point.prototype = &#123;</div><div class="line">  toString()&#123;&#125;,</div><div class="line">  toValue()&#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>在类的实例上面调用方法，其实就是调用原型上的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class B &#123;&#125;</div><div class="line">let b = new B();</div><div class="line"></div><div class="line">b.constructor === B.prototype.constructor // true</div></pre></td></tr></table></figure></p>
+<p>上面代码中，b是B类的实例，它的<code>constructor</code>方法就是B类原型的<code>constructor</code>方法。</p>
+<h4 id="constructor方法"><a href="#constructor方法" class="headerlink" title="constructor方法"></a>constructor方法</h4><p><code>constructor</code>方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有<code>constructor</code>方法，如果没有显式定义，一个空的<code>constructor</code>方法会被默认添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">constructor() &#123;&#125;</div></pre></td></tr></table></figure></p>
+<p><code>constructor</code>方法默认返回实例对象（即<code>this</code>），完全可以指定返回另外一个对象。</p>
+<p>类的构造函数，不使用new是没法调用的，会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class Foo &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    return Object.create(null);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo()</div><div class="line">// TypeError: Class constructor Foo cannot be invoked without &apos;new&apos;</div></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>推荐用Class，取代需要prototype的操作。因为Class的写法更简洁，更易于理解。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">function Queue(contents = []) &#123;</div><div class="line">  this._queue = [...contents];</div><div class="line">&#125;</div><div class="line">Queue.prototype.pop = function() &#123;</div><div class="line">  const value = this._queue[0];</div><div class="line">  this._queue.splice(0, 1);</div><div class="line">  return value;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// good</div><div class="line">class Queue &#123;</div><div class="line">  constructor(contents = []) &#123;</div><div class="line">    this._queue = [...contents];</div><div class="line">  &#125;</div><div class="line">  pop() &#123;</div><div class="line">    const value = this._queue[0];</div><div class="line">    this._queue.splice(0, 1);</div><div class="line">    return value;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/25/ES6的let和const/" itemprop="url">
+                  'ES6的let和const'
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T17:12:33+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/25/ES6的let和const/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的let和const/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="let-和-const"><a href="#let-和-const" class="headerlink" title="let 和 const"></a>let 和 const</h2><h3 id="let命令"><a href="#let命令" class="headerlink" title="let命令"></a>let命令</h3><h5 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h5><p>ES6新增了<code>let</code>命令,用来声明变量，但其只在<code>let</code>命令所在的代码块中有效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"> let a=10;</div><div class="line"> var b=20;</div><div class="line">&#125;</div><div class="line">console.log(a)//ReferenceError: a is not defined</div><div class="line">console.log(b)//20</div></pre></td></tr></table></figure></p>
+<p>上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调用这两个变量，结果let声明的变量报错，var声明的变量返回了正确的值。这表明，let声明的变量只在它所在的代码块有效。</p>
+<p><code>for</code>循环的计数器，就很合适使用let命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for (let i = 0; i &lt; arr.length; i++) &#123;&#125;</div><div class="line"></div><div class="line">console.log(i);</div><div class="line">//ReferenceError: i is not defined</div></pre></td></tr></table></figure></p>
+<h4 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h4><p><code>let</code>不像<code>var</code>那样会发生“变量提升”现象。所以，变量一定要在声明后使用，否则报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">console.log(foo); // 输出undefined</div><div class="line">console.log(bar); // 报错ReferenceError</div><div class="line"></div><div class="line">var foo = 2;</div><div class="line">let bar = 2;</div></pre></td></tr></table></figure></p>
+<p>变量foo用var命令声明，会发生变量提升，即脚本开始运行时，变量foo已经存在了，但是没有值，所以会输出undefined。变量bar用let命令声明，不会发生变量提升。这表示在声明它之前，变量bar是不存在的，这时如果用到它，就会抛出一个错误。</p>
+<h4 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a>暂时性死区</h4><p>只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var tmp = 123;</div><div class="line"></div><div class="line">if (true) &#123;</div><div class="line">  tmp = &apos;abc&apos;; // ReferenceError</div><div class="line">  let tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面代码中，存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，所以在let声明变量前，对tmp赋值会报错。</p>
+<p>ES6明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。</p>
+<p>总之，在代码块内，使用let命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称TDZ）。</p>
+<h4 id="不允许重复声明"><a href="#不允许重复声明" class="headerlink" title="不允许重复声明"></a>不允许重复声明</h4><p><code>let</code>不允许在相同作用域内，重复声明同一个变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 报错</div><div class="line">function () &#123;</div><div class="line">  let a = 10;</div><div class="line">  var a = 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 报错</div><div class="line">function () &#123;</div><div class="line">  let a = 10;</div><div class="line">  let a = 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>因此，不能在函数内部重新声明参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function func(arg) &#123;</div><div class="line">  let arg; // 报错</div><div class="line">&#125;</div><div class="line"></div><div class="line">function func(arg) &#123;</div><div class="line">  &#123;</div><div class="line">    let arg; // 不报错</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>let实际上为JavaScript新增了块级作用域。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f1() &#123;</div><div class="line">  let n = 5;</div><div class="line">  if (true) &#123;</div><div class="line">    let n = 10;</div><div class="line">  &#125;</div><div class="line">  console.log(n); // 5</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的函数有两个代码块，都声明了变量n，运行后输出5。这表示外层代码块不受内层代码块的影响。如果使用var定义变量n，最后输出的值就是10。</p>
+<h3 id="const命令"><a href="#const命令" class="headerlink" title="const命令"></a>const命令</h3><p><code>const</code> 声明一个只读的常量。一旦声明，常量的值就不能改变。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const PI = 3.1415;</div><div class="line">PI // 3.1415</div><div class="line"></div><div class="line">PI = 3;</div><div class="line">// TypeError: Assignment to constant variable.</div></pre></td></tr></table></figure>
+<p>上面代码表明改变常量的值会报错。</p>
+<p>const声明的变量不得改变值，这意味着，const一旦声明变量，就必须立即初始化，不能留到以后赋值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const foo;</div><div class="line">// SyntaxError: Missing initializer in const declaration</div></pre></td></tr></table></figure>
+<p>上面代码表示，对于const来说，只声明不赋值，就会报错。</p>
+<p>const的作用域与let命令相同：只在声明所在的块级作用域内有效,一样不可重复声明。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (true) &#123;</div><div class="line">  const MAX = 5;</div><div class="line">&#125;</div><div class="line"></div><div class="line">MAX // Uncaught ReferenceError: MAX is not defined</div></pre></td></tr></table></figure></p>
+<p>下面是另一个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const a = [];</div><div class="line">a.push(&apos;Hello&apos;); // 可执行</div><div class="line">a.length = 0;    // 可执行</div><div class="line">a = [&apos;Dave&apos;];    // 报错</div></pre></td></tr></table></figure></p>
+<p>上面代码中，常量a是一个数组，这个数组本身是可写的，但是如果将另一个数组赋值给a，就会报错。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>ES6提出了两个新的声明变量的命令：let和const。其中，let完全可以取代var，因为两者语义相同，而且let没有副作用。</p>
+<p>var命令存在变量提升效用，let命令没有这个问题。</p>
+<p>所以，建议不再使用var命令，而是使用let命令取代。</p>
+<p>在let和const之间，建议优先使用const，尤其是在全局环境，不应该设置变量，只应设置常量。这符合函数式编程思想，有利于将来的分布式运算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">var a = 1, b = 2, c = 3;</div><div class="line"></div><div class="line">// good</div><div class="line">const a = 1;</div><div class="line">const b = 2;</div><div class="line">const c = 3;</div><div class="line"></div><div class="line">// best</div><div class="line">const [a, b, c] = [1, 2, 3];</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/25/NodeJs学习笔记——基础01/" itemprop="url">
                   NodeJs学习笔记——基础01
                 </a>
@@ -910,7 +1189,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
