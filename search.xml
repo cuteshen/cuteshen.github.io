@@ -4,6 +4,52 @@
   
     
     <entry>
+      <title><![CDATA[NodeJs——多进程]]></title>
+      <url>http://yoursite.com/2016/09/01/NodeJs%E2%80%94%E2%80%94%E5%A4%9A%E8%BF%9B%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>nodejs是一个单进程单线程的服务器引擎，不管有多么的强大硬件，只能利用到单个CPU进行计算。所以，有人开发了第三方的cluster，让node可以利用多核CPU实现并行。</p>
+<p>在V0.6.0版本，Nodejs内置了cluster的特性。</p>
+</blockquote>
+<h5 id="下面介绍cluster的用法："><a href="#下面介绍cluster的用法：" class="headerlink" title="下面介绍cluster的用法："></a>下面介绍cluster的用法：</h5><h2 id="cluster-——集群"><a href="#cluster-——集群" class="headerlink" title="cluster:——集群"></a>cluster:——集群</h2><p>”集群“——一堆物理机器，组合起来变成并行网络</p>
+<p>cluster——一个进程、分裂出很多子进程(对应的就是cpu核数)</p>
+<h3 id="主进程的工作"><a href="#主进程的工作" class="headerlink" title="主进程的工作:"></a>主进程的工作:</h3><p>a). 分裂工作进程</p>
+<p>b). 子进程崩溃，重启</p>
+<h3 id="子进程-工作进程"><a href="#子进程-工作进程" class="headerlink" title="子进程(工作进程):"></a>子进程(工作进程):</h3><p>主要工作，文件读取、服务器搭建…..</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><pre><code>const cluster=require(&apos;cluter&apos;);
+</code></pre><p>判断主进程还是工作进程</p>
+<pre><code>cluster.isMaster        是否是主进程
+cluster.isWorker            是否是工作进程
+</code></pre><p>进程进程id:  pid</p>
+<pre><code>process.pid
+</code></pre><p>子进程崩溃事件:</p>
+<pre><code>cluster.on(&apos;exit&apos;,function(){  //有人崩溃
+
+})
+</code></pre><p>实际应用</p>
+<pre><code>//有子进程崩溃了
+cluster.on(&apos;exit&apos;,function(worker,code,signal){
+     //打印崩溃子进程的id
+    console.log(worker.id);
+    //重启进程
+    cluster.fork();
+});
+</code></pre><p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const os=require(&apos;os&apos;);</div><div class="line">const cluster=require(&apos;cluster&apos;);</div><div class="line"></div><div class="line">//获取cpu核数</div><div class="line">var cpus=os.cpus().length;</div><div class="line"></div><div class="line">if(cluster.isMaster)&#123;</div><div class="line">    //主进程</div><div class="line">    //分裂</div><div class="line">    for(var i=0;i&lt;cpus; i++)&#123;</div><div class="line">        cluster.fork();</div><div class="line">    &#125;</div><div class="line">    //子崩溃了</div><div class="line">    cluster.on(&apos;exit&apos;, function (worker,code,signal) &#123;</div><div class="line">        //打印崩溃进程id</div><div class="line">        console.log(worker.id+&apos;崩溃了&apos;);</div><div class="line">        //分裂</div><div class="line">        cluster.fork();</div><div class="line">    &#125;)</div><div class="line">&#125;else&#123;</div><div class="line">    //工作进程</div><div class="line">    console.log(&apos;子进程ID：&apos;+cluster.worker.id);</div><div class="line">    http.createServer(function (req, res) &#123;</div><div class="line">        if(Marh.random() &lt; 0.5)&#123;</div><div class="line">            res.writei(&apos;well&apos;);//此处我故意写错</div><div class="line">            res.end();</div><div class="line">        &#125;else&#123;</div><div class="line">            res.write(&apos;well&apos;);</div><div class="line">            res.end();</div><div class="line">        &#125;</div><div class="line">    &#125;).listen(8080);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>打印结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">子进程ID：1</div><div class="line">子进程ID：3</div><div class="line">子进程ID：2</div><div class="line">子进程ID：4</div><div class="line">d:\myjob\sql_cluster_md5\cluster.js:26</div><div class="line">        if(Marh.random() &lt; 0.5)&#123;</div><div class="line">           ^</div><div class="line"></div><div class="line">ReferenceError: Marh is not defined</div><div class="line">    at Server.&lt;anonymous&gt; (d:\myjob\sql_cluster_md5\cluster.js:26:12)</div><div class="line">    at emitTwo (events.js:87:13)</div><div class="line">    at Server.emit (events.js:172:7)</div><div class="line">    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:527:12)</div><div class="line">    at HTTPParser.parserOnHeadersComplete (_http_common.js:88:23)</div><div class="line">d:\myjob\sql_cluster_md5\cluster.js:26</div><div class="line">        if(Marh.random() &lt; 0.5)&#123;</div><div class="line">           ^</div><div class="line"></div><div class="line">ReferenceError: Marh is not defined</div><div class="line">    at Server.&lt;anonymous&gt; (d:\myjob\sql_cluster_md5\cluster.js:26:12)</div><div class="line">    at emitTwo (events.js:87:13)</div><div class="line">    at Server.emit (events.js:172:7)</div><div class="line">    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:527:12)</div><div class="line">    at HTTPParser.parserOnHeadersComplete (_http_common.js:88:23)</div><div class="line">4崩溃了</div><div class="line">2崩溃了</div><div class="line">子进程ID：5</div><div class="line">子进程ID：6</div></pre></td></tr></table></figure></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[NodeJs——文件下载]]></title>
+      <url>http://yoursite.com/2016/09/01/NodeJs%E2%80%94%E2%80%94%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</url>
+      <content type="html"><![CDATA[<p>在node中，实现文件下载，只需设置header即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&apos;content-disposition&apos;,&apos;attachment&apos;);  //所有文件都下载</div></pre></td></tr></table></figure>
+<p>另外attachment后还有个filename参数，用来定义下载文件名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&apos;content-disposition&apos;,&apos;attachment;filename=&quot;xxx.xxx&quot;&apos;);</div></pre></td></tr></table></figure>
+<p>用一个小例子体现一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    //获取url</div><div class="line">    var rs=fs.createReadStream(req.url.substring(1));</div><div class="line">    //定义可下载文件组</div><div class="line">    var downloadType=[&apos;.rar&apos;,&apos;.exe&apos;,&apos;.png&apos;,&apos;.jpg&apos;];</div><div class="line">    //获取文件后缀名</div><div class="line">    var extname=path.extname(req.url);</div><div class="line"></div><div class="line">    if(downloadType.indexOf(extname) != -1)&#123;</div><div class="line">        //时间戳</div><div class="line">        var filename=Date.now();</div><div class="line">        //写入头-content-disposition,attachment;filename&apos;&apos;;</div><div class="line">        res.setHeader(`content-disposition`,`attachment;filename=&quot;$&#123;filename&#125;$&#123;extname&#125;&quot;`);</div><div class="line">        //写入res</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;else&#123;</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;</div><div class="line">    rs.on(&apos;error&apos;, function () &#123;</div><div class="line">        res.writeHeader(404);</div><div class="line">        res.write(&apos;404&apos;);</div><div class="line">        res.end();</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">&#125;).listen(8080)</div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[前端自动化构建工具-gulp]]></title>
       <url>http://yoursite.com/2016/08/19/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7-gulp/</url>
       <content type="html"><![CDATA[<p>利用 Node.js 流实现前端资源文件的IO操作，其中包括第三方模块，需单独下载</p>

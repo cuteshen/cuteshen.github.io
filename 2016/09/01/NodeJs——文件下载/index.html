@@ -88,19 +88,25 @@
 
 
 
-<meta name="description" content="let 和 constlet命令基本用法ES6新增了let命令,用来声明变量，但其只在let命令所在的代码块中有效123456&amp;#123; let a=10; var b=20;&amp;#125;console.log(a)//ReferenceError: a is not definedconsole.log(b)//20
-上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调">
+<meta name="description" content="在node中，实现文件下载，只需设置header即可
+1res.setHeader(&amp;apos;content-disposition&amp;apos;,&amp;apos;attachment&amp;apos;);  //所有文件都下载
+另外attachment后还有个filename参数，用来定义下载文件名称
+1res.setHeader(&amp;apos;content-disposition&amp;apos;,&amp;apos">
 <meta property="og:type" content="article">
-<meta property="og:title" content="'ES6的let和const'">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/ES6的let和const/index.html">
+<meta property="og:title" content="NodeJs——文件下载">
+<meta property="og:url" content="http://yoursite.com/2016/09/01/NodeJs——文件下载/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="let 和 constlet命令基本用法ES6新增了let命令,用来声明变量，但其只在let命令所在的代码块中有效123456&amp;#123; let a=10; var b=20;&amp;#125;console.log(a)//ReferenceError: a is not definedconsole.log(b)//20
-上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调">
-<meta property="og:updated_time" content="2016-07-25T09:13:01.479Z">
+<meta property="og:description" content="在node中，实现文件下载，只需设置header即可
+1res.setHeader(&amp;apos;content-disposition&amp;apos;,&amp;apos;attachment&amp;apos;);  //所有文件都下载
+另外attachment后还有个filename参数，用来定义下载文件名称
+1res.setHeader(&amp;apos;content-disposition&amp;apos;,&amp;apos">
+<meta property="og:updated_time" content="2016-09-01T09:17:19.924Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="'ES6的let和const'">
-<meta name="twitter:description" content="let 和 constlet命令基本用法ES6新增了let命令,用来声明变量，但其只在let命令所在的代码块中有效123456&amp;#123; let a=10; var b=20;&amp;#125;console.log(a)//ReferenceError: a is not definedconsole.log(b)//20
-上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调">
+<meta name="twitter:title" content="NodeJs——文件下载">
+<meta name="twitter:description" content="在node中，实现文件下载，只需设置header即可
+1res.setHeader(&amp;apos;content-disposition&amp;apos;,&amp;apos;attachment&amp;apos;);  //所有文件都下载
+另外attachment后还有个filename参数，用来定义下载文件名称
+1res.setHeader(&amp;apos;content-disposition&amp;apos;,&amp;apos">
 
 
 
@@ -121,9 +127,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/ES6的let和const/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/01/NodeJs——文件下载/"/>
 
-  <title> 'ES6的let和const' | Mr.Shen </title>
+  <title> NodeJs——文件下载 | Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -286,7 +292,7 @@
             
             
               
-                'ES6的let和const'
+                NodeJs——文件下载
               
             
           </h1>
@@ -298,8 +304,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T17:12:33+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-09-01T17:16:59+08:00" content="2016-09-01">
+              2016-09-01
             </time>
           </span>
 
@@ -312,8 +318,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
                   </a>
                 </span>
 
@@ -328,8 +334,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/25/ES6的let和const/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的let和const/" itemprop="commentsCount"></span>
+                <a href="/2016/09/01/NodeJs——文件下载/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/NodeJs——文件下载/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -352,33 +358,12 @@
       
 
       
-        <h2 id="let-和-const"><a href="#let-和-const" class="headerlink" title="let 和 const"></a>let 和 const</h2><h3 id="let命令"><a href="#let命令" class="headerlink" title="let命令"></a>let命令</h3><h5 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h5><p>ES6新增了<code>let</code>命令,用来声明变量，但其只在<code>let</code>命令所在的代码块中有效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"> let a=10;</div><div class="line"> var b=20;</div><div class="line">&#125;</div><div class="line">console.log(a)//ReferenceError: a is not defined</div><div class="line">console.log(b)//20</div></pre></td></tr></table></figure></p>
-<p>上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调用这两个变量，结果let声明的变量报错，var声明的变量返回了正确的值。这表明，let声明的变量只在它所在的代码块有效。</p>
-<p><code>for</code>循环的计数器，就很合适使用let命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for (let i = 0; i &lt; arr.length; i++) &#123;&#125;</div><div class="line"></div><div class="line">console.log(i);</div><div class="line">//ReferenceError: i is not defined</div></pre></td></tr></table></figure></p>
-<h4 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h4><p><code>let</code>不像<code>var</code>那样会发生“变量提升”现象。所以，变量一定要在声明后使用，否则报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">console.log(foo); // 输出undefined</div><div class="line">console.log(bar); // 报错ReferenceError</div><div class="line"></div><div class="line">var foo = 2;</div><div class="line">let bar = 2;</div></pre></td></tr></table></figure></p>
-<p>变量foo用var命令声明，会发生变量提升，即脚本开始运行时，变量foo已经存在了，但是没有值，所以会输出undefined。变量bar用let命令声明，不会发生变量提升。这表示在声明它之前，变量bar是不存在的，这时如果用到它，就会抛出一个错误。</p>
-<h4 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a>暂时性死区</h4><p>只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var tmp = 123;</div><div class="line"></div><div class="line">if (true) &#123;</div><div class="line">  tmp = &apos;abc&apos;; // ReferenceError</div><div class="line">  let tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面代码中，存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，所以在let声明变量前，对tmp赋值会报错。</p>
-<p>ES6明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。</p>
-<p>总之，在代码块内，使用let命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称TDZ）。</p>
-<h4 id="不允许重复声明"><a href="#不允许重复声明" class="headerlink" title="不允许重复声明"></a>不允许重复声明</h4><p><code>let</code>不允许在相同作用域内，重复声明同一个变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 报错</div><div class="line">function () &#123;</div><div class="line">  let a = 10;</div><div class="line">  var a = 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 报错</div><div class="line">function () &#123;</div><div class="line">  let a = 10;</div><div class="line">  let a = 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>因此，不能在函数内部重新声明参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function func(arg) &#123;</div><div class="line">  let arg; // 报错</div><div class="line">&#125;</div><div class="line"></div><div class="line">function func(arg) &#123;</div><div class="line">  &#123;</div><div class="line">    let arg; // 不报错</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>let实际上为JavaScript新增了块级作用域。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f1() &#123;</div><div class="line">  let n = 5;</div><div class="line">  if (true) &#123;</div><div class="line">    let n = 10;</div><div class="line">  &#125;</div><div class="line">  console.log(n); // 5</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面的函数有两个代码块，都声明了变量n，运行后输出5。这表示外层代码块不受内层代码块的影响。如果使用var定义变量n，最后输出的值就是10。</p>
-<h3 id="const命令"><a href="#const命令" class="headerlink" title="const命令"></a>const命令</h3><p><code>const</code> 声明一个只读的常量。一旦声明，常量的值就不能改变。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const PI = 3.1415;</div><div class="line">PI // 3.1415</div><div class="line"></div><div class="line">PI = 3;</div><div class="line">// TypeError: Assignment to constant variable.</div></pre></td></tr></table></figure>
-<p>上面代码表明改变常量的值会报错。</p>
-<p>const声明的变量不得改变值，这意味着，const一旦声明变量，就必须立即初始化，不能留到以后赋值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const foo;</div><div class="line">// SyntaxError: Missing initializer in const declaration</div></pre></td></tr></table></figure>
-<p>上面代码表示，对于const来说，只声明不赋值，就会报错。</p>
-<p>const的作用域与let命令相同：只在声明所在的块级作用域内有效,一样不可重复声明。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (true) &#123;</div><div class="line">  const MAX = 5;</div><div class="line">&#125;</div><div class="line"></div><div class="line">MAX // Uncaught ReferenceError: MAX is not defined</div></pre></td></tr></table></figure></p>
-<p>下面是另一个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const a = [];</div><div class="line">a.push(&apos;Hello&apos;); // 可执行</div><div class="line">a.length = 0;    // 可执行</div><div class="line">a = [&apos;Dave&apos;];    // 报错</div></pre></td></tr></table></figure></p>
-<p>上面代码中，常量a是一个数组，这个数组本身是可写的，但是如果将另一个数组赋值给a，就会报错。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>ES6提出了两个新的声明变量的命令：let和const。其中，let完全可以取代var，因为两者语义相同，而且let没有副作用。</p>
-<p>var命令存在变量提升效用，let命令没有这个问题。</p>
-<p>所以，建议不再使用var命令，而是使用let命令取代。</p>
-<p>在let和const之间，建议优先使用const，尤其是在全局环境，不应该设置变量，只应设置常量。这符合函数式编程思想，有利于将来的分布式运算。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">var a = 1, b = 2, c = 3;</div><div class="line"></div><div class="line">// good</div><div class="line">const a = 1;</div><div class="line">const b = 2;</div><div class="line">const c = 3;</div><div class="line"></div><div class="line">// best</div><div class="line">const [a, b, c] = [1, 2, 3];</div></pre></td></tr></table></figure>
+        <p>在node中，实现文件下载，只需设置header即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&apos;content-disposition&apos;,&apos;attachment&apos;);  //所有文件都下载</div></pre></td></tr></table></figure>
+<p>另外attachment后还有个filename参数，用来定义下载文件名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&apos;content-disposition&apos;,&apos;attachment;filename=&quot;xxx.xxx&quot;&apos;);</div></pre></td></tr></table></figure>
+<p>用一个小例子体现一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    //获取url</div><div class="line">    var rs=fs.createReadStream(req.url.substring(1));</div><div class="line">    //定义可下载文件组</div><div class="line">    var downloadType=[&apos;.rar&apos;,&apos;.exe&apos;,&apos;.png&apos;,&apos;.jpg&apos;];</div><div class="line">    //获取文件后缀名</div><div class="line">    var extname=path.extname(req.url);</div><div class="line"></div><div class="line">    if(downloadType.indexOf(extname) != -1)&#123;</div><div class="line">        //时间戳</div><div class="line">        var filename=Date.now();</div><div class="line">        //写入头-content-disposition,attachment;filename&apos;&apos;;</div><div class="line">        res.setHeader(`content-disposition`,`attachment;filename=&quot;$&#123;filename&#125;$&#123;extname&#125;&quot;`);</div><div class="line">        //写入res</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;else&#123;</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;</div><div class="line">    rs.on(&apos;error&apos;, function () &#123;</div><div class="line">        res.writeHeader(404);</div><div class="line">        res.write(&apos;404&apos;);</div><div class="line">        res.end();</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">&#125;).listen(8080)</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -403,16 +388,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/25/NodeJs学习笔记——基础01/" rel="next" title="NodeJs学习笔记——基础01">
-                <i class="fa fa-chevron-left"></i> NodeJs学习笔记——基础01
+              <a href="/2016/08/19/前端自动化构建工具-gulp/" rel="next" title="前端自动化构建工具-gulp">
+                <i class="fa fa-chevron-left"></i> 前端自动化构建工具-gulp
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/25/ES6的Class/" rel="prev" title="'ES6的Class'">
-                'ES6的Class' <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/01/NodeJs——多进程/" rel="prev" title="NodeJs——多进程">
+                NodeJs——多进程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -439,8 +424,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/25/ES6的let和const/"
-           data-title="'ES6的let和const'" data-url="http://yoursite.com/2016/07/25/ES6的let和const/">
+      <div class="ds-thread" data-thread-key="2016/09/01/NodeJs——文件下载/"
+           data-title="NodeJs——文件下载" data-url="http://yoursite.com/2016/09/01/NodeJs——文件下载/">
       </div>
     
   </div>
@@ -535,7 +520,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#let-和-const"><span class="nav-number">1.</span> <span class="nav-text">let 和 const</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#let命令"><span class="nav-number">1.1.</span> <span class="nav-text">let命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基本用法"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">基本用法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不存在变量提升"><span class="nav-number">1.1.1.</span> <span class="nav-text">不存在变量提升</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暂时性死区"><span class="nav-number">1.1.2.</span> <span class="nav-text">暂时性死区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不允许重复声明"><span class="nav-number">1.1.3.</span> <span class="nav-text">不允许重复声明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const命令"><span class="nav-number">1.2.</span> <span class="nav-text">const命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.2.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
