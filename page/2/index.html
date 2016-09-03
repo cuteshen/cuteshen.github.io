@@ -285,6 +285,282 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/12/NodeJs学习笔记——Events事件驱动/" itemprop="url">
+                  NodeJs学习笔记——Events事件驱动
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-12T17:25:56+08:00" content="2016-08-12">
+              2016-08-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/12/NodeJs学习笔记——Events事件驱动/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/12/NodeJs学习笔记——Events事件驱动/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="利用events事件驱动实现数据解析"><a href="#利用events事件驱动实现数据解析" class="headerlink" title="利用events事件驱动实现数据解析"></a>利用events事件驱动实现数据解析</h2><blockquote>
+<p>Events–”订阅/发布”模式</p>
+<p>get-&gt;post-&gt;cookie-&gt;session-&gt;业务逻辑-&gt;写回session-&gt; 响应结束</p>
+</blockquote>
+<p>如何使用:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">const EventEmitter=require(&apos;events&apos;).EventEmitter;//引入模块</div><div class="line">var E=new EventEmitter();//实例化</div><div class="line">E.emit(&apos;msg&apos;)//发布</div><div class="line"></div><div class="line">E.on(&apos;msg&apos;,function()&#123;  	//addListener 订阅</div><div class="line">	//code</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="首先引入模块"><a href="#首先引入模块" class="headerlink" title="首先引入模块"></a>首先引入模块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const qs=require(&apos;querystring&apos;);</div><div class="line">const urlLib=require(&apos;url&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const EventEmitter=require(&apos;events&apos;).EventEmitter;</div><div class="line">const util=require(&apos;util&apos;)</div><div class="line">var E=new EventEmitter();</div></pre></td></tr></table></figure>
+<h4 id="创建http服务"><a href="#创建http服务" class="headerlink" title="创建http服务"></a>创建http服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    //发射get，post事件</div><div class="line">    E.emit(&apos;get&apos;,req,res);</div><div class="line">    E.emit(&apos;post&apos;,req,res);</div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure>
+<h4 id="为GET注册事件监听-E-emit-‘get’-req-res"><a href="#为GET注册事件监听-E-emit-‘get’-req-res" class="headerlink" title="为GET注册事件监听(E.emit(‘get’,req,res);)"></a>为GET注册事件监听(E.emit(‘get’,req,res);)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;get&apos;, function (req, res) &#123;</div><div class="line">    req.url=urlLib.parse(req.url,true).pathname;</div><div class="line">    req.get=urlLib.parse(req.url,true).query;</div><div class="line">    //发射cookie事件</div><div class="line">    E.emit(&apos;cookie&apos;,req,res);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="POST事件监听-E-emit-‘post’-req-res"><a href="#POST事件监听-E-emit-‘post’-req-res" class="headerlink" title="POST事件监听(E.emit(‘post’,req,res);)"></a>POST事件监听(E.emit(‘post’,req,res);)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">E.emit(&apos;post&apos;, function (req, res) &#123;</div><div class="line">    var str=&quot;&quot;;</div><div class="line">    req.on(&apos;data&apos;, function (chunk) &#123;</div><div class="line">        str+=chunk;</div><div class="line">    &#125;);</div><div class="line">    req.on(&apos;end&apos;, function () &#123;</div><div class="line">        req.post=qs.parse(str);</div><div class="line">        //发射cookie事件</div><div class="line">        E.emit(&apos;cookie&apos;,req,res);</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;cookie&apos;, function (req, res) &#123;</div><div class="line">    //格式化cookie为&#123;a:1;b:2&#125;</div><div class="line">    req.cookie=qs.parse(req.headers.cookie,&apos;; &apos;);</div><div class="line">    //发射session事件</div><div class="line">    E.emit(&apos;session&apos;,req,res);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;session&apos;, function (req, res) &#123;</div><div class="line">    if(!req.cookie.sessid)&#123;</div><div class="line">        //添加sessid为cookie并赋值随机数</div><div class="line">        req.cookie.sessid=Date.now()+Math.random();</div><div class="line">    &#125;</div><div class="line">    //发射readSession事件</div><div class="line">    E.emit(&apos;readSession&apos;,req,res);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="readSession"><a href="#readSession" class="headerlink" title="readSession"></a>readSession</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;readSession&apos;, function (req, res) &#123;</div><div class="line">    fs.readFile(&apos;session/&apos;+req.cookie.sessid, function (err, data) &#123;</div><div class="line">        if(err)&#123;</div><div class="line">            req.session=&#123;&#125;;</div><div class="line">        &#125;else&#123;</div><div class="line">            req.session=JSON.parse(data.toString());</div><div class="line">        &#125;</div><div class="line">        //发布 业务 事件</div><div class="line">        E.emit(&apos;do&apos;,req,res);</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="do"><a href="#do" class="headerlink" title="do"></a>do</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;do&apos;, function (req, res) &#123;</div><div class="line">    //设置访问次数</div><div class="line">    if(req.session.visite)&#123;</div><div class="line">        req.session.visite++;</div><div class="line">    &#125;else&#123;</div><div class="line">        req.session.visite=1;</div><div class="line">    &#125;</div><div class="line">    console.log(&apos;访问了&apos;+req.session.visite+&quot;次&quot;);</div><div class="line">    //E.emit()如果有人监听了，返回true，如果没有人监听，返回false</div><div class="line">    var b= E.emit(req.url,req,res);</div><div class="line">    if(b==false)&#123;</div><div class="line">        E.emit(&apos;read-file&apos;,req,res);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="read-file"><a href="#read-file" class="headerlink" title="read-file"></a>read-file</h4><blockquote>
+<p>b==false</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;read-file&apos;, function (req, res) &#123;</div><div class="line">    fs.readFile(&apos;www&apos;+req.url, function (err, data) &#123;</div><div class="line">        if(err)&#123;</div><div class="line">            res.writeHeader(&quot;404&quot;)</div><div class="line">        &#125;else&#123;</div><div class="line">            res.setHeader(&apos;content-type&apos;,&apos;text/html; charset=utf-8&apos;);</div><div class="line">            res.write(data);</div><div class="line">        &#125;</div><div class="line">        //业务处理完成，写入session</div><div class="line">        E.emit(&apos;writeSession&apos;,req,res);</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>b==true</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;/news&apos;, function (req, res) &#123;</div><div class="line">    res.write(</div><div class="line">        JSON.stringify(&#123;data:[</div><div class="line">                &#123;title:&quot;标题1&quot;,desc:&quot;简介&quot;&#125;,</div><div class="line">                &#123;title:&quot;标题2&quot;,desc:&quot;简介&quot;&#125;,</div><div class="line">                &#123;title:&quot;标题3&quot;,desc:&quot;简介&quot;&#125;,</div><div class="line">                &#123;title:&quot;标题4&quot;,desc:&quot;简介&quot;&#125;</div><div class="line">            ]&#125;)</div><div class="line">    )</div><div class="line">    //业务处理完成，写入session</div><div class="line">    E.emit(&apos;writeSession&apos;,req,res);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="writeSession"><a href="#writeSession" class="headerlink" title="writeSession"></a>writeSession</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;writeSession&apos;, function (req, res) &#123;</div><div class="line">    fs.writeFile(&apos;session/&apos;+req.cookie.sessid,JSON.stringify(req.session), function (err) &#123;</div><div class="line">        if(err)&#123;</div><div class="line">            res.write(&quot;session写入失败&quot;)</div><div class="line">        &#125;else&#123;</div><div class="line">           // res.write(&quot;session写入成功&quot;)</div><div class="line">           //解析结束</div><div class="line">            E.emit(&apos;end&apos;,req,res);</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="end"><a href="#end" class="headerlink" title="end"></a>end</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;end&apos;, function (req, res) &#123;</div><div class="line">    console.log(&apos;数据解析完成&apos;);</div><div class="line">    res.end();</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="events常用方法"><a href="#events常用方法" class="headerlink" title="events常用方法"></a>events常用方法</h4><p>EventEmitter.on(event, listener) 为指定事件注册一个监听器，接受一个字<br>符串 event 和一个回调函数 listener。</p>
+<p>EventEmitter.emit(event, [arg1], [arg2], […]) 发射 event 事件，传<br>递若干可选参数到事件监听器的参数表。</p>
+<p>EventEmitter.once(event, listener) 为指定事件注册一个单次监听器，即<br>监听器最多只会触发一次，触发后立刻解除该监听器。</p>
+<p>EventEmitter.removeListener(event, listener) 移除指定事件的某个监听<br>器，listener 必须是该事件已经注册过的监听器。</p>
+<p>EventEmitter.removeAllListeners([event]) 移除所有事件的所有监听器，<br>如果指定 event，则移除指定事件的所有监听器。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/05/NodeJs学习笔记-—简单登录/" itemprop="url">
+                  NodeJs学习笔记-—简单登录
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-05T19:42:46+08:00" content="2016-08-05">
+              2016-08-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/05/NodeJs学习笔记-—简单登录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/NodeJs学习笔记-—简单登录/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="实现简单登陆功能"><a href="#实现简单登陆功能" class="headerlink" title="实现简单登陆功能"></a>实现简单登陆功能</h3><blockquote>
+<p>通过url与fs模块读取本地文件实现</p>
+<h4 id="user-data文件内容："><a href="#user-data文件内容：" class="headerlink" title="user.data文件内容："></a>user.data文件内容：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[&#123;&quot;username&quot;:&quot;aaa&quot;,&quot;password&quot;:&quot;aaa&quot;&#125;,&#123;&quot;username&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;admin&quot;&#125;]</div></pre></td></tr></table></figure>
+<p>通过fs模块读取user.data文件，进行登陆验证，若不存在用户，则写入此条用户</p>
+</blockquote>
+<p>server.js代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line">var http=require(&quot;http&quot;);</div><div class="line">var fs=require(&quot;fs&quot;);</div><div class="line">var urlLib=require(&quot;url&quot;);</div><div class="line">var qs=require(&quot;querystring&quot;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    var url=&quot;&quot;;</div><div class="line">    var str=&quot;&quot;;</div><div class="line">    //获取get数据</div><div class="line">    url=urlLib.parse(req.url).pathname;</div><div class="line">    req.get=urlLib.parse(req.url).query;</div><div class="line">    //获取post数据</div><div class="line">    req.on(&quot;data&quot;,function(chunk)&#123;</div><div class="line">        str+=chunk;</div><div class="line">        console.log(str);</div><div class="line">    &#125;);</div><div class="line">    req.on(&quot;end&quot;,function()&#123;</div><div class="line">        req.post=qs.parse(str);</div><div class="line"></div><div class="line">    &#125;);</div><div class="line">    if(url==&apos;/login&apos;)&#123;//若为登陆请求</div><div class="line">    	//读取user.data文件</div><div class="line">        fs.readFile(&quot;user.data&quot;,function(err,data)&#123;</div><div class="line">            if(err)&#123;</div><div class="line">                console.log(&quot;读取失败&quot;);</div><div class="line">            &#125;else&#123;</div><div class="line">                var userLib=&quot;&quot;;</div><div class="line">                var arr=[];</div><div class="line">                if(data != &quot;&quot;)&#123;</div><div class="line">                  //将user.data文件内容的 JSON 字符串转换成对象</div><div class="line">                    userLib=JSON.parse(data);</div><div class="line">                    //遍历userLib</div><div class="line">                    userLib.forEach(function(item,index)&#123;</div><div class="line">                        if(item.username == req.post.username)&#123;</div><div class="line">                            if(item.password == req.post.password)&#123;</div><div class="line">                                res.write(&apos;&#123;err:0,msg:&quot;登陆成功&quot;&#125;&apos;)</div><div class="line">                            &#125;else&#123;</div><div class="line">                                res.write(&apos;&#123;err:1,msg:&quot;密码错误&quot;&#125;&apos;)</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                        //将用户名存入数组</div><div class="line">                        arr.push(item.username);</div><div class="line">                    &#125;)</div><div class="line">                &#125;</div><div class="line">               // console.log(arr.length)</div><div class="line">               //目前愚钝的我只想到了这个笨方法</div><div class="line">               //将user.data取出的用户名存入数组，然后通过post用户名去indexOf去验证是否存在用户名</div><div class="line">                if(arr.length &gt; 0)&#123;</div><div class="line">                	//indexOf(post用户名)</div><div class="line">                    if(arr.toString().indexOf(req.post.username) == -1)&#123;</div><div class="line">                        if(req.post.username != &quot;&quot;)&#123;</div><div class="line">                        	//push进userLib</div><div class="line">                            userLib.push(req.post);</div><div class="line">                            console.log(userLib);</div><div class="line">                            //如果直接写入userLib，则user.data内容会变为[Object,Object]，所以需要JSON.stringify</div><div class="line">                            fs.writeFile(&quot;user.data&quot;,JSON.stringify(userLib),function(err)&#123;</div><div class="line">                                if(err)&#123;</div><div class="line">                                	console.log(err);</div><div class="line">                                &#125;else&#123;</div><div class="line">                                    console.log(&quot;写入成功&quot;)</div><div class="line">                                &#125;</div><div class="line"></div><div class="line">                            &#125;)</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;else&#123;</div><div class="line">                	//若user.data文件为空</div><div class="line">                    fs.writeFile(&quot;user.data&quot;,&quot;[&quot;+JSON.stringify(req.post)+&quot;]&quot;,function(err)&#123;</div><div class="line">                        if(err)&#123;</div><div class="line">                        	console.log(err);</div><div class="line">                        &#125;else&#123;</div><div class="line">                            console.log(&quot;写入成功&quot;)</div><div class="line">                        &#125;</div><div class="line"></div><div class="line">                    &#125;)</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            res.end();</div><div class="line">        &#125;)</div><div class="line">    &#125;else&#123;</div><div class="line">        fs.readFile(&quot;www&quot;+url,function(err,data)&#123;</div><div class="line">            if(err)&#123;</div><div class="line">                res.write(&quot;404&quot;);</div><div class="line">            &#125;else&#123;</div><div class="line">                res.write(data);</div><div class="line">            &#125;</div><div class="line">            res.end();</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure></p>
+<p>html代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;input-group&quot;&gt;</div><div class="line">    &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;username&quot; aria-describedby=&quot;sizing-addon2&quot; id=&quot;username&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;input-group&quot;&gt;</div><div class="line">    &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;password&quot; aria-describedby=&quot;sizing-addon2&quot; id=&quot;password&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot; id=&quot;btn&quot;&gt;Submit&lt;/button&gt;</div><div class="line">&lt;script&gt;</div><div class="line">   $(function()&#123;</div><div class="line">       $(&quot;#btn&quot;).on(&apos;click&apos;,function()&#123;</div><div class="line">           $.ajax(&#123;</div><div class="line">               type : &quot;POST&quot;,  //提交方式</div><div class="line">               url : &quot;login&quot;,//路径</div><div class="line">               data : &#123;</div><div class="line">                   &quot;username&quot; : $(&quot;#username&quot;).val(),</div><div class="line">                   &quot;password&quot; : $(&quot;#password&quot;).val()</div><div class="line">               &#125;,</div><div class="line">               success : function(result) &#123;</div><div class="line">                   if(result != &quot;&quot;)&#123;</div><div class="line">                       var json=eval(&apos;(&apos;+result+&apos;)&apos;);</div><div class="line"></div><div class="line">                       if(json.err)&#123;</div><div class="line">                           alert(json.msg);</div><div class="line">                       &#125;else&#123;</div><div class="line">                           alert(json.msg);</div><div class="line">                       &#125;</div><div class="line">                   &#125;else&#123;</div><div class="line">                       console.log(&quot;404&quot;)</div><div class="line">                   &#125;</div><div class="line">               &#125;</div><div class="line">           &#125;);</div><div class="line">       &#125;)</div><div class="line">   &#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="又通过angular实现了一次前台功能"><a href="#又通过angular实现了一次前台功能" class="headerlink" title="又通过angular实现了一次前台功能"></a>又通过angular实现了一次前台功能</h3><p>html代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;app&quot;&gt;</div><div class="line">&lt;div ng-controller=&quot;login&quot;&gt;</div><div class="line">    &lt;div class=&quot;input-group&quot;&gt;</div><div class="line">        &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;username&quot; aria-describedby=&quot;sizing-addon2&quot; id=&quot;username&quot; ng-model=&quot;user.username&quot;&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div class=&quot;input-group&quot;&gt;</div><div class="line">        &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;password&quot; aria-describedby=&quot;sizing-addon2&quot; id=&quot;password&quot; ng-model=&quot;user.password&quot;&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div class=&quot;button&quot; ng-click=&quot;login()&quot;&gt;登录&lt;/div&gt;</div><div class="line">    &lt;div ng-show=&quot;errormsg.length &gt; 0&quot; ng-bind=&quot;errormsg&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>angularJs代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line"></div><div class="line">    var app = angular.module(&quot;app&quot;, [], function ($httpProvider) &#123;</div><div class="line">        //修改angular http请求头，</div><div class="line">        $httpProvider.defaults.headers.post[&quot;Content-Type&quot;] = &quot;application/x-www-form-urlencoded;charset=utf-8&quot;;</div><div class="line">        $httpProvider.defaults.headers.put[&apos;Content-Type&apos;] = &apos;application/x-www-form-urlencoded;charset=utf-8&apos;;</div><div class="line">        var param = function (obj) &#123;</div><div class="line">            var query = &quot;&quot;, name, value, fullSubName, subName, subValue, innerObj, i;</div><div class="line">            for (name in obj) &#123;</div><div class="line">                value = obj[name];</div><div class="line">                if (value instanceof Array) &#123;</div><div class="line">                    for (i = 0; i &lt; value.length; ++i) &#123;</div><div class="line">                        subValue = value[i];</div><div class="line">                        fullSubName = name + &quot;[&quot; + i + &quot;]&quot;;</div><div class="line">                        innerObj = &#123;&#125;;</div><div class="line">                        innerObj[fullSubName] = subValue;</div><div class="line">                        query += param(innerObj) + &quot;&amp;&quot;;</div><div class="line">                    &#125;</div><div class="line">                &#125; else if (value instanceof Object) &#123;</div><div class="line">                    for (subName in value) &#123;</div><div class="line">                        subValue = value[subName];</div><div class="line">                        fullSubName = name + &quot;[&quot; + subName + &quot;]&quot;;</div><div class="line">                        innerObj = &#123;&#125;;</div><div class="line">                        innerObj[fullSubName] = subValue;</div><div class="line">                        query += param(innerObj) + &quot;&amp;&quot;;</div><div class="line">                    &#125;</div><div class="line">                &#125; else if (value !== undefined &amp;&amp; value !== null) &#123;</div><div class="line">                    query += encodeURIComponent(name) + &quot;=&quot; + encodeURIComponent(value) + &quot;&amp;&quot;;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            return query.length ? query.substr(0, query.length - 1) : query;</div><div class="line">        &#125;;</div><div class="line">        $httpProvider.defaults.transformRequest = [function (data) &#123;</div><div class="line">            return angular.isObject(data) &amp;&amp; String(data) !== &quot;[object File]&quot; ? param(data) : data;</div><div class="line">        &#125;];</div><div class="line">    &#125;);</div><div class="line">    app.controller(&quot;login&quot;, function ($scope, $http) &#123;</div><div class="line">        $scope.user=&#123;username:&apos;&apos;,password:&apos;&apos;&#125;;</div><div class="line">        $scope.errormsg=&quot;&quot;;</div><div class="line">         //login控制器</div><div class="line">        $scope.login=function(data)&#123;</div><div class="line">            $http(&#123;</div><div class="line">                method : &apos;POST&apos;,</div><div class="line">                url : &apos;/login&apos;,</div><div class="line">                data: $scope.user</div><div class="line">            &#125;).success(function(data, status, headers, config) &#123;</div><div class="line">                    console.log(data)</div><div class="line">                    //此处data会报错</div><div class="line">                    //因为server.js里写入的res.write(&apos;&#123;err:0,msg:&quot;登陆成功&quot;&#125;&apos;)</div><div class="line">                    //这里的格式问题，如果写个字符串就ok</div><div class="line">                    //angular中这个问题还在研究中</div><div class="line"></div><div class="line">            &#125;).error(function(data, status, headers, config) &#123;</div><div class="line"></div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/05/NodeJs学习笔记——基础02/" itemprop="url">
                   NodeJs学习笔记——基础02
                 </a>
@@ -1462,112 +1738,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/10/hello-world/" itemprop="url">
-                  hello world
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-10T17:14:49+08:00" content="2016-07-10">
-              2016-07-10
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/10/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/10/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>高潮时享受成就，低潮时享受人生，有心思时干有意义的活，没心情时做有意思的事。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1608,7 +1783,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

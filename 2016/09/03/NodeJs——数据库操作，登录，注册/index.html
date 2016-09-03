@@ -1,0 +1,801 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mrshen, nodejs" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="核心方法12345678910var db=mysql.createConnection(&amp;#123;    host:       &amp;apos;localhost&amp;apos;,    user:       &amp;apos;root&amp;apos;,    password:   &amp;apos;xxxx&amp;apos;,    database:   &amp;apos;数据库名称&amp;apos;&amp;#125;)db.qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeJs——数据库操作，登录，注册">
+<meta property="og:url" content="http://yoursite.com/2016/09/03/NodeJs——数据库操作，登录，注册/index.html">
+<meta property="og:site_name" content="Mr.Shen">
+<meta property="og:description" content="核心方法12345678910var db=mysql.createConnection(&amp;#123;    host:       &amp;apos;localhost&amp;apos;,    user:       &amp;apos;root&amp;apos;,    password:   &amp;apos;xxxx&amp;apos;,    database:   &amp;apos;数据库名称&amp;apos;&amp;#125;)db.qu">
+<meta property="og:updated_time" content="2016-09-03T13:42:59.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NodeJs——数据库操作，登录，注册">
+<meta name="twitter:description" content="核心方法12345678910var db=mysql.createConnection(&amp;#123;    host:       &amp;apos;localhost&amp;apos;,    user:       &amp;apos;root&amp;apos;,    password:   &amp;apos;xxxx&amp;apos;,    database:   &amp;apos;数据库名称&amp;apos;&amp;#125;)db.qu">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/09/03/NodeJs——数据库操作，登录，注册/"/>
+
+  <title> NodeJs——数据库操作，登录，注册 | Mr.Shen </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1431c9fab2d4da96c2122f2351783e32";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Mr.Shen</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                NodeJs——数据库操作，登录，注册
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-03T21:42:31+08:00" content="2016-09-03">
+              2016-09-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/03/NodeJs——数据库操作，登录，注册/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/NodeJs——数据库操作，登录，注册/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var db=mysql.createConnection(&#123;</div><div class="line">    host:       &apos;localhost&apos;,</div><div class="line">    user:       &apos;root&apos;,</div><div class="line">    password:   &apos;xxxx&apos;,</div><div class="line">    database:   &apos;数据库名称&apos;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">db.query(sql,function(err,data)&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="MD5加密模块"><a href="#MD5加密模块" class="headerlink" title="MD5加密模块"></a>MD5加密模块</h2><h3 id="为了方便使用，提前写成node模块"><a href="#为了方便使用，提前写成node模块" class="headerlink" title="为了方便使用，提前写成node模块:"></a>为了方便使用，提前写成node模块:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//引入node加密模块crypto</div><div class="line">const crypto=require(&apos;crypto&apos;);</div><div class="line">//定义加密方法</div><div class="line">function md5(str)&#123;</div><div class="line">    //设置为md5加密</div><div class="line">    var obj=crypto.createHash(&apos;md5&apos;);</div><div class="line">    //带入参数</div><div class="line">    obj.update(str);</div><div class="line">    //以16进制进行加密</div><div class="line">    return obj.digest(&apos;hex&apos;);</div><div class="line">&#125;</div><div class="line">//暴露出去</div><div class="line">exports.md5=md5;</div></pre></td></tr></table></figure>
+<h3 id="调用方式："><a href="#调用方式：" class="headerlink" title="调用方式："></a>调用方式：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const md5=require(&apos;./md5&apos;).md5;</div><div class="line"></div><div class="line">console.log(md5(&apos;1234567&apos;));</div></pre></td></tr></table></figure>
+<h2 id="前端代码-angular-http方法"><a href="#前端代码-angular-http方法" class="headerlink" title="前端代码-angular $http方法"></a>前端代码-angular $http方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head lang=&quot;en&quot;&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">    &lt;script src=&quot;js/angular.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">        var app=angular.module(&apos;app&apos;,[]);</div><div class="line">        app.controller(&apos;login-register&apos;, function ($scope, $http) &#123;</div><div class="line">            $scope.reg= function () &#123;</div><div class="line">                console.log(&apos;1&apos;)</div><div class="line">                $http.get(&apos;user&apos;,&#123;</div><div class="line">                    params:&#123;act:&apos;add&apos;,username:$scope.username,password:$scope.password&#125;</div><div class="line">                &#125;).success(function (res) &#123;</div><div class="line">                    console.log(2);</div><div class="line">                    alert(JSON.stringify(res));</div><div class="line">                &#125;).error(function(err)&#123;</div><div class="line">                    console.log(err);</div><div class="line">                &#125;)</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">            $scope.login= function () &#123;</div><div class="line">                $http.get(&apos;user&apos;,&#123;</div><div class="line">                    params:&#123;act:&apos;login&apos;,username:$scope.username,password:$scope.password&#125;</div><div class="line">                &#125;).success(function (res) &#123;</div><div class="line">                    alert(JSON.stringify(res.msg));</div><div class="line">                &#125;).error(function(err)&#123;</div><div class="line">                    console.log(err);</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body ng-app=&quot;app&quot;&gt;</div><div class="line">&lt;div ng-controller=&quot;login-register&quot;&gt;</div><div class="line">    user:</div><div class="line">    &lt;input type=&quot;text&quot; ng-model=&quot;username&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    pass:</div><div class="line">    &lt;input type=&quot;password&quot; ng-model=&quot;password&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;button&quot; value=&quot;注册&quot; ng-click=&quot;reg()&quot;&gt;</div><div class="line">    &lt;input type=&quot;button&quot; value=&quot;登录&quot; ng-click=&quot;login()&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h2 id="主要业务实现"><a href="#主要业务实现" class="headerlink" title="主要业务实现"></a>主要业务实现</h2><h3 id="定义接口"><a href="#定义接口" class="headerlink" title="定义接口"></a>定义接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">    //链接数据库</div><div class="line">    var db=mysql.createConnection(&#123;</div><div class="line">        host:       &apos;localhost&apos;,</div><div class="line">        user:       &apos;root&apos;,</div><div class="line">        password:   &apos;root&apos;,</div><div class="line">        database:   &apos;user&apos;</div><div class="line">    &#125;)</div><div class="line">    //处理具体业务</div><div class="line">    var act=req.get.act;</div><div class="line">    console.log(req.get.act);</div><div class="line">    switch (act)&#123;</div><div class="line">        case &apos;add&apos;:</div><div class="line">            //注册</div><div class="line">            E.emit(&apos;add-user&apos;,req,res,db);</div><div class="line">            break;</div><div class="line">        case &apos;login&apos;:</div><div class="line">            //登录</div><div class="line">            E.emit(&apos;login-user&apos;,req,res,db);</div><div class="line">            break;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="注册方法"><a href="#注册方法" class="headerlink" title="注册方法"></a>注册方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;add-user&apos;, function (req, res, db) &#123;</div><div class="line">    var username=req.get.username;</div><div class="line">    var password=req.get.password;</div><div class="line"></div><div class="line">    var sql=`SELECT username FROM users WHERE username=&quot;$&#123;username&#125;&quot;`;</div><div class="line">    db.query(sql, function (err, data) &#123;</div><div class="line">        if(err)&#123;</div><div class="line">            res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库出问题&quot;&#125;));</div><div class="line">        &#125;else&#123;</div><div class="line">            if(data.length)&#123;</div><div class="line">                res.end(JSON.stringify(&#123;err:1,msg:&quot;此用户名已存在&quot;&#125;));</div><div class="line">            &#125;else&#123;</div><div class="line">                var I_SQL=`INSERT INTO users VALUES(null,&quot;$&#123;username&#125;&quot;,&quot;$&#123;md5(md5(password))&#125;&quot;)`;</div><div class="line">                db.query(I_SQL, function (err, data) &#123;</div><div class="line">                    if(err)&#123;</div><div class="line">                        res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">                    &#125;else&#123;</div><div class="line">                        res.end(JSON.stringify(&#123;err:0,msg:&quot;注册成功&quot;&#125;));</div><div class="line">                    &#125;</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="登录方法"><a href="#登录方法" class="headerlink" title="登录方法"></a>登录方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;login-user&apos;, function (req, res, db) &#123;</div><div class="line">    var username=req.get.username;</div><div class="line">    var password=req.get.password;</div><div class="line"></div><div class="line">    var SQL=`SELECT * From users WHERE username=&quot;$&#123;username&#125;&quot;`;</div><div class="line">    db.query(SQL, function (err, data) &#123;</div><div class="line">        if(err)&#123;</div><div class="line">            res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">        &#125;else&#123;</div><div class="line">            if(data.length)&#123;</div><div class="line">                if(data[0].password == md5(md5(password)))&#123;</div><div class="line">                    res.end(JSON.stringify(&#123;err:0,msg:&quot;登录成功&quot;&#125;));</div><div class="line">                &#125;else&#123;</div><div class="line">                    res.end(JSON.stringify(&#123;err:1,msg:&quot;密码错误&quot;&#125;));</div><div class="line">                &#125;</div><div class="line">            &#125;else&#123;</div><div class="line">                res.end(JSON.stringify(&#123;err:1,msg:&quot;此用户不存在&quot;&#125;));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>完整项目地址：原来github还按项目收费，好吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line">const http = require(&apos;http&apos;);</div><div class="line">const fs = require(&apos;fs&apos;);</div><div class="line">const os = require(&apos;os&apos;);</div><div class="line">const cluster = require(&apos;cluster&apos;);</div><div class="line">const EventEmitter = require(&apos;events&apos;).EventEmitter;</div><div class="line">const mysql=require(&apos;mysql&apos;)</div><div class="line">const urlLib=require(&apos;url&apos;);</div><div class="line">var cpus=os.cpus().length;</div><div class="line"></div><div class="line">if(cluster.isMaster)&#123;</div><div class="line">    for(var i=1; i&lt;cpus; i++)&#123;</div><div class="line">        cluster.fork();</div><div class="line">    &#125;</div><div class="line">    cluster.on(&apos;exit&apos;, function (worker, code, signal) &#123;</div><div class="line">        cluster.fork();</div><div class="line">    &#125;)</div><div class="line">&#125;else&#123;</div><div class="line">    var E=new EventEmitter();</div><div class="line"></div><div class="line">    http.createServer(function (req, res) &#123;</div><div class="line">        E.emit(&apos;get-parse&apos;,req,res);</div><div class="line">    &#125;).listen(8080);</div><div class="line">    E.on(&apos;get-parse&apos;, function (req, res) &#123;</div><div class="line">        req.get=urlLib.parse(req.url,true).query;</div><div class="line">        req.url=urlLib.parse(req.url,true).pathname;</div><div class="line"></div><div class="line">        E.emit(&apos;buss-do&apos;,req,res);</div><div class="line">    &#125;)</div><div class="line">    E.on(&apos;buss-do&apos;, function (req, res) &#123;</div><div class="line">        var bool=E.emit(req.url,req,res);</div><div class="line">        if(bool == false)&#123;</div><div class="line">            E.emit(&apos;read-file&apos;,req,res);</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    E.on(&apos;read-file&apos;, function (req, res) &#123;</div><div class="line"></div><div class="line">        var rs=fs.createReadStream(&apos;www&apos;+req.url);</div><div class="line">        rs.pipe(res);</div><div class="line">        rs.on(&apos;error&apos;, function () &#123;</div><div class="line">            res.writeHeader(404);</div><div class="line">            res.write(&apos;404&apos;);</div><div class="line">            res.end();</div><div class="line">        &#125;)</div><div class="line">    &#125;)</div><div class="line">    //以下处理接口</div><div class="line">    E.on(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">        //链接数据库</div><div class="line">        var db=mysql.createConnection(&#123;</div><div class="line">            host:       &apos;localhost&apos;,</div><div class="line">            user:       &apos;root&apos;,</div><div class="line">            password:   &apos;root&apos;,</div><div class="line">            database:   &apos;user&apos;</div><div class="line">        &#125;)</div><div class="line">        //处理具体业务</div><div class="line">        var act=req.get.act;</div><div class="line">        console.log(req.get.act);</div><div class="line">        switch (act)&#123;</div><div class="line">            case &apos;add&apos;:</div><div class="line">                E.emit(&apos;add-user&apos;,req,res,db);</div><div class="line">                break;</div><div class="line">            case &apos;login&apos;:</div><div class="line">                E.emit(&apos;login-user&apos;,req,res,db);</div><div class="line">                break;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    //注册</div><div class="line">    E.on(&apos;add-user&apos;, function (req, res, db) &#123;</div><div class="line">        var username=req.get.username;</div><div class="line">        var password=req.get.password;</div><div class="line"></div><div class="line">        var sql=`SELECT username FROM users WHERE username=&quot;$&#123;username&#125;&quot;`;</div><div class="line">        db.query(sql, function (err, data) &#123;</div><div class="line">            if(err)&#123;</div><div class="line">                res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">            &#125;else&#123;</div><div class="line">                if(data.length)&#123;</div><div class="line">                    res.end(JSON.stringify(&#123;err:1,msg:&quot;此用户名已存在&quot;&#125;));</div><div class="line">                &#125;else&#123;</div><div class="line">                    var I_SQL=`INSERT INTO users VALUES(null,&quot;$&#123;username&#125;&quot;,&quot;$&#123;md5(md5(password))&#125;&quot;)`;</div><div class="line">                    db.query(I_SQL, function (err, data) &#123;</div><div class="line">                        if(err)&#123;</div><div class="line">                            res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">                        &#125;else&#123;</div><div class="line">                            res.end(JSON.stringify(&#123;err:0,msg:&quot;注册成功&quot;&#125;));</div><div class="line">                        &#125;</div><div class="line">                    &#125;)</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    //登录</div><div class="line">    E.on(&apos;login-user&apos;, function (req, res, db) &#123;</div><div class="line">        var username=req.get.username;</div><div class="line">        var password=req.get.password;</div><div class="line"></div><div class="line">        var SQL=`SELECT * From users WHERE username=&quot;$&#123;username&#125;&quot;`;</div><div class="line">        db.query(SQL, function (err, data) &#123;</div><div class="line">            if(err)&#123;</div><div class="line">                res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">            &#125;else&#123;</div><div class="line">                if(data.length)&#123;</div><div class="line">                    if(data[0].password == md5(md5(password)))&#123;</div><div class="line">                        res.end(JSON.stringify(&#123;err:0,msg:&quot;登录成功&quot;&#125;));</div><div class="line">                    &#125;else&#123;</div><div class="line">                        res.end(JSON.stringify(&#123;err:1,msg:&quot;密码错误&quot;&#125;));</div><div class="line">                    &#125;</div><div class="line">                &#125;else&#123;</div><div class="line">                    res.end(JSON.stringify(&#123;err:1,msg:&quot;此用户不存在&quot;&#125;));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/03/NodeJs——数据库操作mysql/" rel="next" title="NodeJs——数据库操作mysql">
+                <i class="fa fa-chevron-left"></i> NodeJs——数据库操作mysql
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/03/NodeJs——数据库操作，登录，注册/"
+           data-title="NodeJs——数据库操作，登录，注册" data-url="http://yoursite.com/2016/09/03/NodeJs——数据库操作，登录，注册/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Mr.Shen" />
+          <p class="site-author-name" itemprop="name">Mr.Shen</p>
+          <p class="site-description motion-element" itemprop="description">彩笔前端爬坑历程</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cuteshen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心方法"><span class="nav-number">1.</span> <span class="nav-text">核心方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MD5加密模块"><span class="nav-number">2.</span> <span class="nav-text">MD5加密模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为了方便使用，提前写成node模块"><span class="nav-number">2.1.</span> <span class="nav-text">为了方便使用，提前写成node模块:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用方式："><span class="nav-number">2.2.</span> <span class="nav-text">调用方式：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端代码-angular-http方法"><span class="nav-number">3.</span> <span class="nav-text">前端代码-angular $http方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要业务实现"><span class="nav-number">4.</span> <span class="nav-text">主要业务实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义接口"><span class="nav-number">4.1.</span> <span class="nav-text">定义接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册方法"><span class="nav-number">4.2.</span> <span class="nav-text">注册方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录方法"><span class="nav-number">4.3.</span> <span class="nav-text">登录方法</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Shen</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cuteshen"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="//cdn.jsdelivr.net/ua-parser.js/0.7.10/ua-parser.min.js"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
