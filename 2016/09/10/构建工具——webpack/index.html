@@ -88,19 +88,30 @@
 
 
 
-<meta name="description" content="let 和 constlet命令基本用法ES6新增了let命令,用来声明变量，但其只在let命令所在的代码块中有效123456&amp;#123; let a=10; var b=20;&amp;#125;console.log(a)//ReferenceError: a is not definedconsole.log(b)//20
-上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调">
+<meta name="description" content="安装webpack1npm install webpack -g
+当然如果常规项目还是把依赖写入 package.json 包去更人性化：
+123npm initnpm install webpack --save-dev
+添加第三方模块package.json:
+12345678910111213141516171819202122232425&amp;quot;devDependencies&amp;quot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="'ES6的let和const'">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/ES6的let和const/index.html">
+<meta property="og:title" content="构建工具——webpack">
+<meta property="og:url" content="http://yoursite.com/2016/09/10/构建工具——webpack/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="let 和 constlet命令基本用法ES6新增了let命令,用来声明变量，但其只在let命令所在的代码块中有效123456&amp;#123; let a=10; var b=20;&amp;#125;console.log(a)//ReferenceError: a is not definedconsole.log(b)//20
-上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调">
-<meta property="og:updated_time" content="2016-07-25T09:13:01.479Z">
+<meta property="og:description" content="安装webpack1npm install webpack -g
+当然如果常规项目还是把依赖写入 package.json 包去更人性化：
+123npm initnpm install webpack --save-dev
+添加第三方模块package.json:
+12345678910111213141516171819202122232425&amp;quot;devDependencies&amp;quot">
+<meta property="og:image" content="http://yoursite.com/img/webpack.png">
+<meta property="og:updated_time" content="2016-09-10T11:00:03.965Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="'ES6的let和const'">
-<meta name="twitter:description" content="let 和 constlet命令基本用法ES6新增了let命令,用来声明变量，但其只在let命令所在的代码块中有效123456&amp;#123; let a=10; var b=20;&amp;#125;console.log(a)//ReferenceError: a is not definedconsole.log(b)//20
-上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调">
+<meta name="twitter:title" content="构建工具——webpack">
+<meta name="twitter:description" content="安装webpack1npm install webpack -g
+当然如果常规项目还是把依赖写入 package.json 包去更人性化：
+123npm initnpm install webpack --save-dev
+添加第三方模块package.json:
+12345678910111213141516171819202122232425&amp;quot;devDependencies&amp;quot">
+<meta name="twitter:image" content="http://yoursite.com/img/webpack.png">
 
 
 
@@ -121,9 +132,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/ES6的let和const/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/10/构建工具——webpack/"/>
 
-  <title> 'ES6的let和const' | Mr.Shen </title>
+  <title> 构建工具——webpack | Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -286,7 +297,7 @@
             
             
               
-                'ES6的let和const'
+                构建工具——webpack
               
             
           </h1>
@@ -298,8 +309,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T17:12:33+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-09-10T18:58:08+08:00" content="2016-09-10">
+              2016-09-10
             </time>
           </span>
 
@@ -312,8 +323,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
                   </a>
                 </span>
 
@@ -328,8 +339,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/25/ES6的let和const/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的let和const/" itemprop="commentsCount"></span>
+                <a href="/2016/09/10/构建工具——webpack/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/10/构建工具——webpack/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -352,33 +363,23 @@
       
 
       
-        <h2 id="let-和-const"><a href="#let-和-const" class="headerlink" title="let 和 const"></a>let 和 const</h2><h3 id="let命令"><a href="#let命令" class="headerlink" title="let命令"></a>let命令</h3><h5 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h5><p>ES6新增了<code>let</code>命令,用来声明变量，但其只在<code>let</code>命令所在的代码块中有效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"> let a=10;</div><div class="line"> var b=20;</div><div class="line">&#125;</div><div class="line">console.log(a)//ReferenceError: a is not defined</div><div class="line">console.log(b)//20</div></pre></td></tr></table></figure></p>
-<p>上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调用这两个变量，结果let声明的变量报错，var声明的变量返回了正确的值。这表明，let声明的变量只在它所在的代码块有效。</p>
-<p><code>for</code>循环的计数器，就很合适使用let命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for (let i = 0; i &lt; arr.length; i++) &#123;&#125;</div><div class="line"></div><div class="line">console.log(i);</div><div class="line">//ReferenceError: i is not defined</div></pre></td></tr></table></figure></p>
-<h4 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h4><p><code>let</code>不像<code>var</code>那样会发生“变量提升”现象。所以，变量一定要在声明后使用，否则报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">console.log(foo); // 输出undefined</div><div class="line">console.log(bar); // 报错ReferenceError</div><div class="line"></div><div class="line">var foo = 2;</div><div class="line">let bar = 2;</div></pre></td></tr></table></figure></p>
-<p>变量foo用var命令声明，会发生变量提升，即脚本开始运行时，变量foo已经存在了，但是没有值，所以会输出undefined。变量bar用let命令声明，不会发生变量提升。这表示在声明它之前，变量bar是不存在的，这时如果用到它，就会抛出一个错误。</p>
-<h4 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a>暂时性死区</h4><p>只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var tmp = 123;</div><div class="line"></div><div class="line">if (true) &#123;</div><div class="line">  tmp = &apos;abc&apos;; // ReferenceError</div><div class="line">  let tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面代码中，存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，所以在let声明变量前，对tmp赋值会报错。</p>
-<p>ES6明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。</p>
-<p>总之，在代码块内，使用let命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称TDZ）。</p>
-<h4 id="不允许重复声明"><a href="#不允许重复声明" class="headerlink" title="不允许重复声明"></a>不允许重复声明</h4><p><code>let</code>不允许在相同作用域内，重复声明同一个变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 报错</div><div class="line">function () &#123;</div><div class="line">  let a = 10;</div><div class="line">  var a = 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 报错</div><div class="line">function () &#123;</div><div class="line">  let a = 10;</div><div class="line">  let a = 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>因此，不能在函数内部重新声明参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function func(arg) &#123;</div><div class="line">  let arg; // 报错</div><div class="line">&#125;</div><div class="line"></div><div class="line">function func(arg) &#123;</div><div class="line">  &#123;</div><div class="line">    let arg; // 不报错</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>let实际上为JavaScript新增了块级作用域。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f1() &#123;</div><div class="line">  let n = 5;</div><div class="line">  if (true) &#123;</div><div class="line">    let n = 10;</div><div class="line">  &#125;</div><div class="line">  console.log(n); // 5</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面的函数有两个代码块，都声明了变量n，运行后输出5。这表示外层代码块不受内层代码块的影响。如果使用var定义变量n，最后输出的值就是10。</p>
-<h3 id="const命令"><a href="#const命令" class="headerlink" title="const命令"></a>const命令</h3><p><code>const</code> 声明一个只读的常量。一旦声明，常量的值就不能改变。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const PI = 3.1415;</div><div class="line">PI // 3.1415</div><div class="line"></div><div class="line">PI = 3;</div><div class="line">// TypeError: Assignment to constant variable.</div></pre></td></tr></table></figure>
-<p>上面代码表明改变常量的值会报错。</p>
-<p>const声明的变量不得改变值，这意味着，const一旦声明变量，就必须立即初始化，不能留到以后赋值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const foo;</div><div class="line">// SyntaxError: Missing initializer in const declaration</div></pre></td></tr></table></figure>
-<p>上面代码表示，对于const来说，只声明不赋值，就会报错。</p>
-<p>const的作用域与let命令相同：只在声明所在的块级作用域内有效,一样不可重复声明。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (true) &#123;</div><div class="line">  const MAX = 5;</div><div class="line">&#125;</div><div class="line"></div><div class="line">MAX // Uncaught ReferenceError: MAX is not defined</div></pre></td></tr></table></figure></p>
-<p>下面是另一个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const a = [];</div><div class="line">a.push(&apos;Hello&apos;); // 可执行</div><div class="line">a.length = 0;    // 可执行</div><div class="line">a = [&apos;Dave&apos;];    // 报错</div></pre></td></tr></table></figure></p>
-<p>上面代码中，常量a是一个数组，这个数组本身是可写的，但是如果将另一个数组赋值给a，就会报错。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>ES6提出了两个新的声明变量的命令：let和const。其中，let完全可以取代var，因为两者语义相同，而且let没有副作用。</p>
-<p>var命令存在变量提升效用，let命令没有这个问题。</p>
-<p>所以，建议不再使用var命令，而是使用let命令取代。</p>
-<p>在let和const之间，建议优先使用const，尤其是在全局环境，不应该设置变量，只应设置常量。这符合函数式编程思想，有利于将来的分布式运算。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">var a = 1, b = 2, c = 3;</div><div class="line"></div><div class="line">// good</div><div class="line">const a = 1;</div><div class="line">const b = 2;</div><div class="line">const c = 3;</div><div class="line"></div><div class="line">// best</div><div class="line">const [a, b, c] = [1, 2, 3];</div></pre></td></tr></table></figure>
+        <h2 id="安装webpack"><a href="#安装webpack" class="headerlink" title="安装webpack"></a>安装webpack</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install webpack -g</div></pre></td></tr></table></figure>
+<p>当然如果常规项目还是把依赖写入 package.json 包去更人性化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm init</div><div class="line"></div><div class="line">npm install webpack --save-dev</div></pre></td></tr></table></figure>
+<h2 id="添加第三方模块"><a href="#添加第三方模块" class="headerlink" title="添加第三方模块"></a>添加第三方模块</h2><p>package.json:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&quot;devDependencies&quot;: &#123;</div><div class="line">  &quot;autoprefixer-loader&quot;: &quot;^3.2.0&quot;,</div><div class="line">  &quot;babel-core&quot;: &quot;^6.14.0&quot;,</div><div class="line">  &quot;babel-loader&quot;: &quot;^6.2.5&quot;,</div><div class="line">  &quot;babel-plugin-transform-runtime&quot;: &quot;^6.15.0&quot;,</div><div class="line">  &quot;babel-preset-es2015&quot;: &quot;^6.14.0&quot;,</div><div class="line">  &quot;babel-runtime&quot;: &quot;^6.11.6&quot;,</div><div class="line">  &quot;css-loader&quot;: &quot;^0.25.0&quot;,</div><div class="line">  &quot;file-loader&quot;: &quot;^0.9.0&quot;,</div><div class="line">  &quot;html-loader&quot;: &quot;^0.4.3&quot;,</div><div class="line">  &quot;node-sass&quot;: &quot;^3.9.3&quot;,</div><div class="line">  &quot;sass-loader&quot;: &quot;^4.0.2&quot;,</div><div class="line">  &quot;style-loader&quot;: &quot;^0.13.1&quot;,</div><div class="line">  &quot;url-loader&quot;: &quot;^0.5.7&quot;,</div><div class="line">  &quot;vue-hot-reload-api&quot;: &quot;^1.3.3&quot;,</div><div class="line">  &quot;vue-html-loader&quot;: &quot;^1.2.3&quot;,</div><div class="line">  &quot;vue-loader&quot;: &quot;^8.5.2&quot;,</div><div class="line">  &quot;vue-router&quot;: &quot;^0.7.13&quot;,</div><div class="line">  &quot;vue-style-loader&quot;: &quot;^1.0.0&quot;,</div><div class="line">  &quot;webpack&quot;: &quot;^1.13.2&quot;,</div><div class="line">  &quot;webpack-dev-server&quot;: &quot;^1.15.1&quot;</div><div class="line">&#125;,</div><div class="line">&quot;dependencies&quot;: &#123;</div><div class="line">  &quot;vue&quot;: &quot;^1.0.26&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p><img src="/img/webpack.png" alt="img"></p>
+<h2 id="编写webpack-config-js"><a href="#编写webpack-config-js" class="headerlink" title="编写webpack.config.js"></a>编写webpack.config.js</h2><p>每个项目下都必须配置有一个 webpack.config.js ，它的作用如同常规的 gulpfile.js/Gruntfile.js 一样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">var Webpack = require(&quot;webpack&quot;);</div><div class="line">var path = require(&apos;path&apos;);</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    //入口文件配置也可以是数组</div><div class="line">    entry: &apos;./src/main.js&apos;,</div><div class="line">    //输出项配置</div><div class="line">    output: &#123;</div><div class="line">            path: path.join(__dirname, &apos;./dist&apos;),</div><div class="line">            // 文件地址，使用绝对路径形式</div><div class="line">            filename: &apos;[name].js&apos;,</div><div class="line">            //[name]这里是webpack提供的根据路口文件自动生成的名字</div><div class="line">            publicPath: &apos;/dist/&apos;</div><div class="line">            // 公共文件生成的地址</div><div class="line">        &#125;,</div><div class="line">    // 服务器配置相关，自动刷新!</div><div class="line">    devServer: &#123;</div><div class="line">        historyApiFallback: true,</div><div class="line">        hot: false,</div><div class="line">        inline: true,</div><div class="line">        grogress: true,</div><div class="line">    &#125;,</div><div class="line">    //加载器配置,告知 webpack 每一种文件都需要使用什么加载器来处理：</div><div class="line">    module: &#123;</div><div class="line">        loaders: [</div><div class="line">            // 解析.vue文件</div><div class="line">            &#123; test: /\.vue$/, loader: &apos;vue&apos; &#125;,</div><div class="line">            // 转化ES6的语法</div><div class="line">            &#123; test: /\.js$/, loader: &apos;babel&apos;, exclude: /node_modules/ &#125;,</div><div class="line">            // 编译css并自动添加css前缀</div><div class="line">            &#123; test: /\.css$/, loader: &apos;style!css!autoprefixer&apos;&#125;,</div><div class="line">            //.scss 文件想要编译，scss就需要这些东西！来编译处理</div><div class="line">            //install css-loader style-loader sass-loader node-sass --save-dev</div><div class="line">            &#123; test: /\.scss$/, loader: &apos;style!css!sass?sourceMap&apos;&#125;,</div><div class="line">            //limit小于16k的图片转换成base64格式</div><div class="line">            &#123; test: /\.(png|jpg|gif)$/, loader: &apos;url-loader?limit=16000&apos;&#125;,</div><div class="line">            //html模板编译？</div><div class="line">            &#123; test: /\.(html|tpl)$/, loader: &apos;html-loader&apos; &#125;,</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    // .vue的配置。需要单独出来配置，其实没什么必要--因为我删了也没保错，不过这里就留这把，因为官网文档里是可以有单独的配置的。</div><div class="line">    vue: &#123;</div><div class="line">        loaders: &#123;</div><div class="line">            css: &apos;style!css!autoprefixer&apos;,</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    resolve: &#123;</div><div class="line">        // require时省略的扩展名，如：require(&apos;module&apos;) 不需要module.js</div><div class="line">        extensions: [&apos;&apos;, &apos;.js&apos;, &apos;.vue&apos;],</div><div class="line">        // 别名，可以直接使用别名来代表设定的路径以及其他</div><div class="line">        alias: &#123;</div><div class="line">            filter: path.join(__dirname, &apos;./src/filters&apos;),</div><div class="line">            components: path.join(__dirname, &apos;./src/components&apos;)</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    //插件配置</div><div class="line">    plugins: [</div><div class="line">        new Webpack.BannerPlugin(&quot;这里是打包文件头部注释！&quot;)//注意这是一个数组..</div><div class="line">    ],</div><div class="line">    //采用source-map的形式直接显示你出错代码的位置</div><div class="line">    devtool: &apos;eval-source-map&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="新建html"><a href="#新建html" class="headerlink" title="新建html"></a>新建html</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head lang=&quot;en&quot;&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div id=&quot;app&quot;&gt;</div><div class="line">    &lt;router-view&gt;&lt;/router-view&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;!--引入webpack编译后的输出文件main.js--&gt;</div><div class="line">&lt;script src=&quot;dist/main.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<h2 id="package-json配置命令"><a href="#package-json配置命令" class="headerlink" title="package.json配置命令"></a>package.json配置命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;start&quot;: &quot;webpack-dev-server --inline&quot;</div><div class="line">  &#125;,</div></pre></td></tr></table></figure>
+<p>执行webpack执行构建</p>
+<p>webpack –config XXX.js   //通过文件名执行（比如webpack.config2.js）来打包</p>
+<p>webpack –watch   //监听变动并自动打包</p>
+<p>webpack -p    //压缩混淆脚本，这个非常非常重要！</p>
+<p>webpack -d    //生成map映射文件，告知哪些模块被最终打包到哪里了</p>
+<h4 id="也可以通过执行npm-run-start执行构建并监听"><a href="#也可以通过执行npm-run-start执行构建并监听" class="headerlink" title="也可以通过执行npm run start执行构建并监听"></a>也可以通过执行npm run start执行构建并监听</h4><p>另外webpack-dev-server监听需要访问localhost:8080/webpack-dev-server浏览器才会自动刷新</p>
+
       
     </div>
 
@@ -403,17 +404,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/25/NodeJs学习笔记——基础01/" rel="next" title="NodeJs学习笔记——基础01">
-                <i class="fa fa-chevron-left"></i> NodeJs学习笔记——基础01
+              <a href="/2016/09/03/NodeJs——数据库操作，登录，注册/" rel="next" title="NodeJs——数据库操作，登录，注册">
+                <i class="fa fa-chevron-left"></i> NodeJs——数据库操作，登录，注册
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/ES6的Class/" rel="prev" title="'ES6的Class'">
-                'ES6的Class' <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -439,8 +436,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/25/ES6的let和const/"
-           data-title="'ES6的let和const'" data-url="http://yoursite.com/2016/07/25/ES6的let和const/">
+      <div class="ds-thread" data-thread-key="2016/09/10/构建工具——webpack/"
+           data-title="构建工具——webpack" data-url="http://yoursite.com/2016/09/10/构建工具——webpack/">
       </div>
     
   </div>
@@ -535,7 +532,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#let-和-const"><span class="nav-number">1.</span> <span class="nav-text">let 和 const</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#let命令"><span class="nav-number">1.1.</span> <span class="nav-text">let命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基本用法"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">基本用法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不存在变量提升"><span class="nav-number">1.1.1.</span> <span class="nav-text">不存在变量提升</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暂时性死区"><span class="nav-number">1.1.2.</span> <span class="nav-text">暂时性死区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不允许重复声明"><span class="nav-number">1.1.3.</span> <span class="nav-text">不允许重复声明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const命令"><span class="nav-number">1.2.</span> <span class="nav-text">const命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.2.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装webpack"><span class="nav-number">1.</span> <span class="nav-text">安装webpack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加第三方模块"><span class="nav-number">2.</span> <span class="nav-text">添加第三方模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录结构"><span class="nav-number">3.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写webpack-config-js"><span class="nav-number">4.</span> <span class="nav-text">编写webpack.config.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建html"><span class="nav-number">5.</span> <span class="nav-text">新建html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#package-json配置命令"><span class="nav-number">6.</span> <span class="nav-text">package.json配置命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#也可以通过执行npm-run-start执行构建并监听"><span class="nav-number">6.0.1.</span> <span class="nav-text">也可以通过执行npm run start执行构建并监听</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
