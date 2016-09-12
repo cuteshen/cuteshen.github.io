@@ -285,6 +285,501 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/12/express-渲染模版页面/" itemprop="url">
+                  express-渲染模版页面
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-12T14:55:23+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/12/express-渲染模版页面/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/express-渲染模版页面/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="模块consolidate（需下载）"><a href="#模块consolidate（需下载）" class="headerlink" title="模块consolidate（需下载）"></a>模块consolidate（需下载）</h2><p>需要在应用中进行如下设置才能让 Express 渲染模板文件：</p>
+<p>views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)</p>
+<p>view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)</p>
+<p>使用:</p>
+<pre><code>const consolidate=require(&apos;consolidate&apos;);
+</code></pre><p>配置:</p>
+<pre><code>server.set(&apos;views&apos;,&apos;template&apos;); //设置模板目录
+server.set(&apos;view engine&apos;,&apos;html&apos;); //设置模板名称也可设置为ejs,jade...
+server.engine(&apos;html&apos;,consolidate.ejs); //对应模板引擎
+</code></pre><p>渲染：</p>
+<pre><code>res.render(模板地址,数据);
+</code></pre><p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const ejs=require(&apos;ejs&apos;);</div><div class="line">const consolidate=require(&apos;consolidate&apos;);</div><div class="line"></div><div class="line">var server=express();</div><div class="line"></div><div class="line">server.listen(8081);</div><div class="line"></div><div class="line">server.set(&apos;views&apos;,&apos;template&apos;); //设置模板目录</div><div class="line">server.set(&apos;view engine&apos;,&apos;html&apos;); //设置模板名称</div><div class="line"></div><div class="line">server.engine(&apos;html&apos;,consolidate.ejs); //对应上模板引擎</div><div class="line"></div><div class="line">server.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.render(&apos;index&apos;,&#123;msg:&apos;welcome welcome&apos;&#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.get(&apos;/news&apos;,function(req,res)&#123;</div><div class="line">    res.render(&apos;news&apos;,&#123;msg:&apos;news&apos;&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>template目录下模版文件</p>
+<p>index.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h3&gt;</div><div class="line">        &lt;%=msg%&gt;</div><div class="line">        &lt;!--welcome welcome--&gt;</div><div class="line">    &lt;/h3&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<p>news.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h3&gt;</div><div class="line">        &lt;%=msg%&gt;</div><div class="line">        &lt;!--news--&gt;</div><div class="line">    &lt;/h3&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/12/node-express的cookie，session，fs文件操作/" itemprop="url">
+                  node-express的cookie，session，fs文件操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-12T14:54:27+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/12/node-express的cookie，session，fs文件操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/node-express的cookie，session，fs文件操作/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="cookie数据"><a href="#cookie数据" class="headerlink" title="cookie数据"></a>cookie数据</h2><blockquote>
+<p>解析客户端cookie数据</p>
+</blockquote>
+<p>node原始方法：</p>
+<pre><code>req.headers[&apos;cookie&apos;]
+//a=1; b=2; c=3
+</code></pre><p>express方法：</p>
+<p>1，引入模块cookie-parser(需下载)</p>
+<pre><code>const cookieParser=require(&apos;cookie-parser&apos;);
+</code></pre><p>2，调用</p>
+<pre><code>app.use(cookieParser());
+</code></pre><p>3,写入cookie</p>
+<pre><code>res.setHeader(&apos;set-cookie&apos;,&apos;a=1&apos;)  //原生node
+res.cookie(name,value)  //express
+
+设置过期时间:
+
+res.setHeader(&apos;set-cookie&apos;,&apos;a=1;expires=oDate&apos;) //原生node
+
+res.cookie(name,value,options)  //express
+
+    ----option:{maxAge:毫秒，path:&apos;/&apos;}
+</code></pre><p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">app.use(cookieParser());</div><div class="line"></div><div class="line">app.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.cookie(&apos;bb&apos;,&apos;123&apos;,&#123;maxAge:2000&#125;);</div><div class="line">    res.send(req.cookies);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="session数据"><a href="#session数据" class="headerlink" title="session数据"></a>session数据</h2><p>1，引入模块cookie-session(需下载)</p>
+<pre><code>const cookieSession=require(&apos;cookie-session&apos;);
+</code></pre><p>2，调用：</p>
+<pre><code>app.use(cookieSession({
+    name:&apos;zns_sessid&apos;,    //session名称
+    keys:[&apos;aaa&apos;,&apos;bbb&apos;,&apos;cccc&apos;],  //循环签名session
+    maxAge:20*60*1000    //过期时间
+}));
+
+app.get(&apos;/&apos;,function(req,res){
+    if(req.session.visite){
+        req.session.visite++;
+    }else{
+        req.session.visite=1;
+    }
+    res.send(&apos;到访了&apos;+req.session.visite+&apos;次&apos;);
+});
+</code></pre><p>也可以通过<code>express-session</code>模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const expressSession=require(&apos;express-session&apos;);</div><div class="line"></div><div class="line">var app=express(); //创建一个服务器</div><div class="line"></div><div class="line">app.listen(8081);</div><div class="line"></div><div class="line">//调用</div><div class="line">app.use(expressSession(&#123;</div><div class="line">    secret: &apos;abc&apos;,  //加密，名字</div><div class="line">    resave: false,  //如果你有更好session存储的地方,否则在false</div><div class="line">    saveUninitialized: true,  //初始化存储</div><div class="line">    cookie: &#123; maxAge: 20*60*1000&#125;</div><div class="line">&#125;));</div><div class="line"></div><div class="line">app.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    if(req.session.visite)&#123;</div><div class="line">        req.session.visite++;</div><div class="line">    &#125;else&#123;</div><div class="line">        req.session.visite=1;</div><div class="line">    &#125;</div><div class="line">    res.send(&apos;到访了&apos;+req.session.visite+&apos;次&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="读取文件-fs-readFile"><a href="#读取文件-fs-readFile" class="headerlink" title="读取文件 fs.readFile"></a>读取文件 fs.readFile</h2><p>设置header</p>
+<pre><code>res.setHeader(&apos;content-type&apos;,&apos;text/html&apos;); //node原生方法
+
+res.set(&apos;content-type&apos;,&apos;text/html&apos;);    //express提供
+</code></pre><p>设置状态码：</p>
+<pre><code>res.status(404)
+或
+res.statusCode=404;
+</code></pre><p>也可以这样写</p>
+<pre><code>res.status(404).send(data)
+</code></pre><p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var app=express(); //创建一个服务器</div><div class="line"></div><div class="line">app.listen(8081);</div><div class="line"></div><div class="line"></div><div class="line">app.get(&apos;/form.html&apos;,function(req,res)&#123;</div><div class="line">    //res.setHeader(&apos;content-type&apos;,&apos;text/html&apos;); //原生</div><div class="line">    res.set(&apos;content-type&apos;,&apos;text/html&apos;); //express提供设置头部  set</div><div class="line"></div><div class="line">    fs.readFile(&apos;form.html&apos;,function(err,data)&#123;</div><div class="line">        if(err)&#123;</div><div class="line">            //res.writeHeader(404,null); //原生</div><div class="line">            res.status(404);</div><div class="line">            res.send(&apos;404&apos;);</div><div class="line">        &#125;else&#123;</div><div class="line">            res.send(data);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="替换readFile"><a href="#替换readFile" class="headerlink" title="替换readFile"></a>替换readFile</h2><p>读取文件在express中可直接通过res.sendFile(path)，其中path路径必须是绝对的：</p>
+<pre><code>res.sendFile(__dirname+&apos;/download.html&apos;);
+
+或
+
+res.sendFile(&apos;download.html&apos;,{root:__dirname});
+</code></pre><h2 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h2><p>如果原生node方式需要设置header才可以下载文件</p>
+<pre><code>res.setHeader(&apos;content-disposition&apos;,&apos;attachment;filename=xxxx&apos;);
+</code></pre><p>通过express可直接用res.download()，无需任何设置</p>
+<pre><code>res.download(filename,newName)
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/12/node-express数据解析实例/" itemprop="url">
+                  node-express数据解析实例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-12T14:53:27+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/12/node-express数据解析实例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/node-express数据解析实例/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="express-安装"><a href="#express-安装" class="headerlink" title="express 安装"></a>express 安装</h2><ol>
+<li>npm install express</li>
+<li>const express=require(‘express’);</li>
+</ol>
+<h2 id="创建服务器"><a href="#创建服务器" class="headerlink" title="创建服务器"></a>创建服务器</h2><pre><code>const express=require(&apos;express&apos;);
+
+var app=express(); //创建一个服务器
+
+app.listen(8081);
+</code></pre><h3 id="get请求方法"><a href="#get请求方法" class="headerlink" title="get请求方法"></a>get请求方法</h3><blockquote>
+<p>app.get(地址,fnCb)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.get(‘/’,function(req,res)&#123;</div><div class="line">	res.send(string/json/array....)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在express中res.send()代替了原生node的res.write(),res.end()，</p>
+<p>因此可统一使用res.send();</p>
+<h4 id="获取get数据"><a href="#获取get数据" class="headerlink" title="获取get数据"></a>获取get数据</h4><p>假设我的url请求是：localhost:8081/user?username=admin&amp;password=admin</p>
+<p>通过req.query获取的数据为<code>{ username: &#39;admin&#39;, password: &#39;admin&#39; }</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.get(‘/user’,function(req,res)&#123;</div><div class="line">    console.log(req.query);</div><div class="line">    //&#123; username: &apos;admin&apos;, password: &apos;admin&apos; &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="post请求方法"><a href="#post请求方法" class="headerlink" title="post请求方法"></a>post请求方法</h3><p>若用node原始获取post数据方式是这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">app.use(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">    var str=&apos;&apos;;</div><div class="line">    req.on(&apos;data&apos;,function(s)&#123;</div><div class="line">        str+=s;</div><div class="line">    &#125;);</div><div class="line">    req.on(&apos;end&apos;,function()&#123;</div><div class="line">        req.post=querystring.parse(str);</div><div class="line">        res.send(req.post);</div><div class="line">    &#125;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="通过body-parser获取post数据"><a href="#通过body-parser获取post数据" class="headerlink" title="通过body-parser获取post数据"></a>通过body-parser获取post数据</h4><p>安装模块</p>
+<pre><code>const bodyParser=require(&apos;body-parser&apos;);
+</code></pre><p>调用中间件</p>
+<pre><code>app.use(bodyParser.urlencoded({extended:false}))
+</code></pre><p><code>extended:false</code></p>
+<p>通过body-parser返回的对象是一个键值对，当extended为false的时候，键值对中的值就为’String’或’Array’形式，为true的时候，则可为任何数据类型。</p>
+<p><code>limit</code></p>
+<p>post数据大小限制，默认100</p>
+<p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.use(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">    res.send(req.body);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h5 id="form属性为enctype-”multipart-form-data”的post表单处理"><a href="#form属性为enctype-”multipart-form-data”的post表单处理" class="headerlink" title="form属性为enctype=”multipart/form-data”的post表单处理"></a>form属性为enctype=”multipart/form-data”的post表单处理</h5><p>通过第三方模块 multer</p>
+<pre><code>const multerLib=require(&apos;multer&apos;);
+</code></pre><p>使用：</p>
+<pre><code>const multerLib=require(&apos;multer&apos;);
+var multer=multerLib({dest:&apos;upload&apos;});
+app.use(multer.any());
+</code></pre><p>获取方式：</p>
+<pre><code>req.files
+</code></pre><p>req.files：</p>
+<pre><code>fieldname    字段名称
+
+originalname    源文件名称
+
+mimetype    文件类型
+
+path        文件路径
+</code></pre><p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const bodyParser=require(&apos;body-parser&apos;);</div><div class="line">const multerLib=require(&apos;multer&apos;);</div><div class="line"></div><div class="line">var app=express();</div><div class="line">var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);</div><div class="line"></div><div class="line">app.listen(8081);</div><div class="line"></div><div class="line">app.use(bodyParser.urlencoded(&#123;extended:false&#125;))</div><div class="line"></div><div class="line">app.use(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">    console.log(req.body);</div><div class="line">    console.log(req.files);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>html:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8081/user&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">    user:</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    pass:</div><div class="line">    &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;pic&quot;/&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; value=&quot;登录&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<h2 id="app-get-app-post通用方法"><a href="#app-get-app-post通用方法" class="headerlink" title="app.get,app.post通用方法"></a>app.get,app.post通用方法</h2><pre><code>app.use(地址,fnCb);
+</code></pre><p>无论get,post都会执行</p>
+<p>如果同时有，get和use，会按顺序执行</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><h3 id="获取get数据方式"><a href="#获取get数据方式" class="headerlink" title="获取get数据方式:"></a>获取get数据方式:</h3><p>直接req.query</p>
+<h3 id="获取post数据方式"><a href="#获取post数据方式" class="headerlink" title="获取post数据方式:"></a>获取post数据方式:</h3><p>(application/x-www-form-urlencoded)–通过body-parser模块–req.body</p>
+<p>(multipart/form-data)–通过multer模块</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/10/构建工具——webpack/" itemprop="url">
                   构建工具——webpack
                 </a>
@@ -1257,433 +1752,6 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/19/split()函数在buffer中的实现/" itemprop="url">
-                  split()函数在buffer中的实现
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T13:34:01+08:00" content="2016-08-19">
-              2016-08-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/19/split()函数在buffer中的实现/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/split()函数在buffer中的实现/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="javascript中的用法："><a href="#javascript中的用法：" class="headerlink" title="javascript中的用法："></a>javascript中的用法：</h2><blockquote>
-<p>split() 方法用于把一个字符串分割成字符串数组。</p>
-</blockquote>
-<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>stringObject.split(separator,howmany)</p>
-<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p><code>separator</code> 必需。字符串或正则表达式，从该参数指定的地方分割 stringObject。</p>
-<p><code>howmany</code> 可选。该参数可指定返回的数组的最大长度。如果设置了该参数，返回的子串不会多于这个参数指定的数组。如果没有设置该参数，整个字符串都会被分割，不考虑它的长度。</p>
-<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>一个字符串数组。该数组是通过在 separator 指定的边界处将字符串 stringObject 分割成子串创建的。返回的数组中的字串不包括 separator 自身。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">str=&quot;2,2,3,5,6,6&quot;; //这是一字符串</div><div class="line">var strs= new Array(); //定义一数组</div><div class="line">strs=str.split(&quot;,&quot;); //字符分割</div><div class="line">for (i=0;i&lt;strs.length ;i++ )</div><div class="line">&#123;</div><div class="line">document.write(strs[i]+&quot;&lt;br&gt;&quot;); //分割后的字符输出</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上述代码输出结果为：2 2 3 5 6</p>
-<h2 id="buffer中的实现"><a href="#buffer中的实现" class="headerlink" title="buffer中的实现"></a>buffer中的实现</h2><p>nodeJs开发操作buffer时，buffer中是没有split()方法的;</p>
-<p>如下代码执行会报错<code>TypeError: buffer.splice is not a function</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height background apple banana&apos;);</div><div class="line">console.log(buffer.splice(&apos; &apos;))</div></pre></td></tr></table></figure></p>
-<p>因此需要自己实现split()方法；</p>
-<p>1，toString()，不建议<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height&apos;);</div><div class="line"></div><div class="line">console.log(buffer.toString().split(&apos; &apos;));</div><div class="line"></div><div class="line">//[ &apos;width&apos;, &apos;height&apos; ]</div></pre></td></tr></table></figure></p>
-<p>buffer数据tostring之后，想再回到buffer，数据就被损坏了，因此不建议toString;</p>
-<h5 id="通过slice："><a href="#通过slice：" class="headerlink" title="通过slice："></a>通过slice：</h5><p>buffer中是可以使用slice方法的，因此可以通过使用slice() 达到split的效果</p>
-<blockquote>
-<p>bufferSplit(buffer数据，切割字符串);</p>
-</blockquote>
-<p>首先创建buffer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height background apple banana&apos;);</div></pre></td></tr></table></figure></p>
-<p>这时输出buffer是一个连续的文件流<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(buffer);</div><div class="line">//&lt;Buffer 77 69 64 74 68 20 68 65 69 67 68 74 20 62 61 63 6b 67 72 6f 75 6e 64 20 61 70 70 6c 65 20 62 61 6e 61 6e 61&gt;</div></pre></td></tr></table></figure></p>
-<p>若要得到buffer中的某一段数据，则需要先进行切割：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height background apple banana&apos;);</div><div class="line">var b=new Buffer(&apos; &apos;); //分割标志</div><div class="line"></div><div class="line">var arr=[];</div><div class="line">var start=0;//开始位置</div><div class="line">var index=0;//b开始的位置</div><div class="line"></div><div class="line">while((index=buffer.indexOf(b,start))!=-1)&#123;</div><div class="line">    arr.push(buffer.slice(start,index));</div><div class="line">    start=index+b.length;</div><div class="line">&#125;</div><div class="line">arr.push(buffer.slice(start));</div><div class="line">console.log(arr);</div><div class="line">//输出结果：</div><div class="line">[ &lt;Buffer 77 69 64 74 68&gt;,</div><div class="line">  &lt;Buffer 68 65 69 67 68 74&gt;,</div><div class="line">  &lt;Buffer 62 61 63 6b 67 72 6f 75 6e 64&gt;,</div><div class="line">  &lt;Buffer 61 70 70 6c 65&gt;,</div><div class="line">  &lt;Buffer 62 61 6e 61 6e 61&gt; ]</div><div class="line"></div><div class="line">console.log(arr.toString());</div><div class="line">//输出结果:width,height,background,apple,banana</div></pre></td></tr></table></figure></p>
-<p>实际应用中，可以将此方法进行封装，或以模块的形式导入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function bufferSplit(buffer,spliter)&#123;</div><div class="line">    var b=new Buffer(spliter);</div><div class="line">    var arr=[];</div><div class="line">    var start=0;</div><div class="line">    var index=0;</div><div class="line">    while((index=buffer.indexOf(b,start))!=-1)&#123;</div><div class="line">        arr.push(buffer.slice(start,index));</div><div class="line">        start=index+b.length;</div><div class="line">    &#125;</div><div class="line">    arr.push(buffer.slice(start));</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/16/NodeJs——post第三方模块/" itemprop="url">
-                  NodeJs——post第三方模块
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-16T17:47:08+08:00" content="2016-08-16">
-              2016-08-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/16/NodeJs——post第三方模块/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/NodeJs——post第三方模块/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer</p>
-<h3 id="formidable"><a href="#formidable" class="headerlink" title="formidable"></a>formidable</h3><blockquote>
-<p>以文件形式上传</p>
-</blockquote>
-<p>首先需要从npm安装模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install formidable</div></pre></td></tr></table></figure>
-<p>html代码,file-multiple可上传多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8080/abc&quot; method=&quot;post&quot;  enctype=&quot;multipart/form-data&quot; &gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;name&quot; id=&quot;name&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;age&quot; id=&quot;age&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;pic&quot; id=&quot;pic&quot; multiple/&gt;</div><div class="line">    &lt;input type=&quot;submit&quot;/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
-<p>node代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const formidable=require(&apos;formidable&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    //需要实例化formidable模块中的IncomingForm()方法</div><div class="line">    var form=new formidable.IncomingForm();</div><div class="line"></div><div class="line">    form.parse(req,function(err,fileds,files)&#123;</div><div class="line">        console.log(fileds, files);</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
-<p>表单填写：name:abc; age:abc; pic:1.jpg,pic:2.jpg提交表单</p>
-<p>fileds为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; name: &apos;abc&apos;, age: &apos;abc&apos; &#125;</div></pre></td></tr></table></figure>
-<p>files为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&#123; pic:</div><div class="line">   [ File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 693534,</div><div class="line">       path: &apos;upload\\upload_701ff760b9dcba389d87dcb89d93adfb&apos;,</div><div class="line">       name: &apos;1.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125;,</div><div class="line">     File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 232615,</div><div class="line">       path: &apos;upload\\upload_a00ba7289c3690b2d45aa2910a84d0f1&apos;,</div><div class="line">       name: &apos;2.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125; ] &#125;</div></pre></td></tr></table></figure></p>
-<p>其中几个常用的字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">files.pic</div><div class="line">	.size</div><div class="line">	.path	//临时把文件放到 c盘里面</div><div class="line">	.name</div><div class="line">	.type</div><div class="line">	.lastModifiedDate</div></pre></td></tr></table></figure></p>
-<p>其中path是没有后缀名的文件名称，因此需要用到fs.rename方法将后缀名添加进去</p>
-<p>完整代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const formidable=require(&apos;formidable&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    var form= new formidable.IncomingForm();</div><div class="line">    form.uploadDir=&apos;upload&apos;;</div><div class="line">    form.multiples=true;</div><div class="line"></div><div class="line">    form.parse(req, function(err, fields, files) &#123;</div><div class="line">        var arrFiles=files.pic;</div><div class="line">        for(var i=0; i &lt; arrFiles.length; i++)&#123;</div><div class="line">            //获取文件后缀名</div><div class="line">            var extname=path.extname(arrFiles[i].name);</div><div class="line">            //修改path名称，添加后缀名</div><div class="line">            fs.rename(arrFiles[i].path,arrFiles[i].path+extname, function (err) &#123;</div><div class="line">                console.log(err);</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure>
-<h4 id="multer"><a href="#multer" class="headerlink" title="multer"></a>multer</h4><blockquote>
-<p>以二进制流形式上传</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install multer</div></pre></td></tr></table></figure>
-<p>设置上传目录，及文件类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);//设置文件上传路径</div><div class="line">var multerHandler=multer.any();//设置文件类型为任何类型</div></pre></td></tr></table></figure></p>
-<p>回调方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">multerHandler(req,res,function()&#123;</div><div class="line">    console.log(req.body.name);//user内容</div><div class="line">    console.log(req.body.age);//age内容</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>其中req.files内容为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[ &#123; fieldname: &apos;pic&apos;,</div><div class="line">    originalname: &apos;1.jpg&apos;,</div><div class="line">    encoding: &apos;7bit&apos;,</div><div class="line">    mimetype: &apos;image/png&apos;,</div><div class="line">    destination: &apos;upload&apos;,</div><div class="line">    filename: &apos;82519811ec7e4793c658e6dbd75dcd6a&apos;,</div><div class="line">    path: &apos;upload\\82519811ec7e4793c658e6dbd75dcd6a&apos;,</div><div class="line">    size: 693534 &#125;,</div><div class="line">  &#123; fieldname: &apos;pic&apos;,</div><div class="line">    originalname: &apos;2.jpg&apos;,</div><div class="line">    encoding: &apos;7bit&apos;,</div><div class="line">    mimetype: &apos;image/jpeg&apos;,</div><div class="line">    destination: &apos;upload&apos;,</div><div class="line">    filename: &apos;7f3b211b0127e872e9ca0bd1d6dea6a7&apos;,</div><div class="line">    path: &apos;upload\\7f3b211b0127e872e9ca0bd1d6dea6a7&apos;,</div><div class="line">    size: 232615 &#125; ]</div></pre></td></tr></table></figure></p>
-<p>重写名称，添加后缀<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">for(var files in req.files)&#123;</div><div class="line">    //获取后缀名</div><div class="line">    var extname=path.extname(req.files[files].originalname);</div><div class="line">    //重写文件名称</div><div class="line">    fs.rename(req.files[files].path,req.files[files].path+extname, function (err) &#123;</div><div class="line">        console.log(err);</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>完整代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const multerLib=require(&apos;multer&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);</div><div class="line">    var multerHandler=multer.any();</div><div class="line"></div><div class="line">    multerHandler(req,res,function()&#123;</div><div class="line">        console.log(req.files);</div><div class="line"></div><div class="line">        for(var files in req.files)&#123;</div><div class="line">            var extname=path.extname(req.files[files].originalname);</div><div class="line">            console.log(req.files[files].originalname);</div><div class="line">            fs.rename(req.files[files].path,req.files[files].path+extname, function (err) &#123;</div><div class="line">                console.log(err);</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure></p>
-<p>两个模块具体api信息，还需参阅npm官网</p>
-<p><a href="https://www.npmjs.com/package/formidable" target="_blank" rel="external">https://www.npmjs.com/package/formidable</a></p>
-<p><a href="https://www.npmjs.com/package/multer" target="_blank" rel="external">https://www.npmjs.com/package/multer</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/16/NodeJs——post数据深入解析/" itemprop="url">
-                  NodeJs——post数据深入解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-16T17:42:03+08:00" content="2016-08-16">
-              2016-08-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/16/NodeJs——post数据深入解析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/NodeJs——post数据深入解析/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="multipart-form-data和application-x-www-form-urlencoded的区别"><a href="#multipart-form-data和application-x-www-form-urlencoded的区别" class="headerlink" title="multipart/form-data和application/x-www-form-urlencoded的区别"></a>multipart/form-data和application/x-www-form-urlencoded的区别</h3><p>FORM元素的enctype属性指定了表单数据向服务器提交时所采用的编码类型，默认的缺省值是<code>application/x-www-form-urlencoded</code>。</p>
-<p>然而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时这种编码方式效率很低。</p>
-<p>  在文件上载时，所使用的编码类型应当是<code>multipart/form-data</code>，它既可以发送文本数据，也支持二进制数据上载。</p>
-<p>客户端端<code>&lt;form&gt;</code>表单的ENCTYPE属性值为<code>multipart/form-data</code>，它告诉我们传输的数据要用到多媒体传输协议，由于多媒体传输的都是大量的数据，所以规定上传文件必须是post方法，<code>&lt;input&gt;</code>的type属性必须是file。</p>
-<h3 id="通过multipart-form-data获取数据"><a href="#通过multipart-form-data获取数据" class="headerlink" title="通过multipart/form-data获取数据"></a>通过<code>multipart/form-data</code>获取数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8081/abc&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">    user:</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;user&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;file1&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;submit&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
-<p>提交后，通过<code>req.headers[&#39;content-type&#39;]</code>得到的数据是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">multipart/form-data; boundary=----WebKitFormBoundaryqFAIe2bYb7F35kSq</div></pre></td></tr></table></figure>
-<h4 id="执行post数据解析相关操作获取post信息"><a href="#执行post数据解析相关操作获取post信息" class="headerlink" title="执行post数据解析相关操作获取post信息"></a>执行post数据解析相关操作获取post信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">req.on(&apos;data&apos;,function(s)&#123;</div><div class="line">    arr.push(s);</div><div class="line">&#125;);</div><div class="line"> req.on(&apos;end&apos;,function()&#123;</div><div class="line">    var buffer=Buffer.concat(arr);</div><div class="line">    //console.log(buffer.toString());</div><div class="line">    if(mime==&apos;multipart/form-data&apos;)&#123;</div><div class="line">        //文件型</div><div class="line">    &#125;else&#123;</div><div class="line">        //普通post数据</div><div class="line">        post=querystring.parse(buffer.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    console.log(post);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>上述代码中所获取的post信息存在arr中，并通过Buffer.concat拼接</p>
-<p>所得到的内容如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">------WebKitFormBoundaryLBhBQAIOiPjVA13J</div><div class="line">Content-Disposition: form-data; name=&quot;user&quot;</div><div class="line"></div><div class="line">myname</div><div class="line">------WebKitFormBoundaryLBhBQAIOiPjVA13J</div><div class="line">Content-Disposition: form-data; name=&quot;file1&quot;; filename=&quot;右上角LOGO.jpg&quot;</div><div class="line">Content-Type: image/jpeg</div><div class="line"></div><div class="line">//此处为图片二进制流信息，太长了就不复制进来了</div></pre></td></tr></table></figure>
-<p>通过一些列字符串操作及切割方法最终要得到表单信息<code>user</code>及<code>file</code>，下面是所有的代码</p>
-<h4 id="创建http服务"><a href="#创建http服务" class="headerlink" title="创建http服务"></a>创建http服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const querystring=require(&apos;querystring&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">    parsePostDeep(req,function(fileds,files)&#123;</div><div class="line">        console.log(fileds,files)</div><div class="line">    &#125;);</div><div class="line"></div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
-<h4 id="解析multipart-form-data信息"><a href="#解析multipart-form-data信息" class="headerlink" title="解析multipart/form-data信息"></a>解析<code>multipart/form-data</code>信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">function parsePostDeep(req,fnCb)&#123;</div><div class="line">    var post=&#123;&#125;;</div><div class="line">    var files=&#123;&#125;;</div><div class="line"></div><div class="line">    //multipart/form-data; boundary=----WebKitFormBoundaryqFAIe2bYb7F35kSq</div><div class="line">    //console.log(req.headers[&apos;content-type&apos;]);</div><div class="line">    if(req.headers[&apos;content-type&apos;])&#123;</div><div class="line">        var mime=req.headers[&apos;content-type&apos;].split(&apos;; &apos;)[0];</div><div class="line">        var boundaryInfo=req.headers[&apos;content-type&apos;].split(&apos;; &apos;)[1];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var arr=[];</div><div class="line">    req.on(&apos;data&apos;,function(s)&#123;</div><div class="line">        arr.push(s);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    req.on(&apos;end&apos;,function()&#123;</div><div class="line">        var buffer=Buffer.concat(arr);</div><div class="line">        //console.log(buffer.toString());</div><div class="line">        if(mime==&apos;multipart/form-data&apos;)&#123;</div><div class="line">            //文件型</div><div class="line">            var boundary=&apos;--&apos;+boundaryInfo.split(&apos;=&apos;)[1];</div><div class="line">            //切</div><div class="line">            var arrBuffer=bufferSplit(buffer,boundary);</div><div class="line"></div><div class="line">            //删除首尾</div><div class="line">            arrBuffer.pop();</div><div class="line">            arrBuffer.shift();</div><div class="line"></div><div class="line">            //去除数组中的每个首尾换行 -&gt; \r\n</div><div class="line">            for(var i=0; i&lt;arrBuffer.length; i++)&#123;</div><div class="line">                arrBuffer[i]=arrBuffer[i].slice(2,arrBuffer[i].length-2);</div><div class="line">            &#125;</div><div class="line">            //用两个换行切每个buffer</div><div class="line">            for(var i=0; i&lt;arrBuffer.length; i++)&#123;</div><div class="line">                var arrBufferInfo=bufferSplit(arrBuffer[i],&apos;\r\n\r\n&apos;);</div><div class="line"></div><div class="line">                //内容</div><div class="line">                var content=arrBufferInfo[1];</div><div class="line">                //其他相关信息 name filename filetype</div><div class="line">                //区分开file和post字段</div><div class="line">                if(arrBufferInfo[0].indexOf(&apos;\r\n&apos;)!=-1)&#123;</div><div class="line">                    //files</div><div class="line">                    var arrFilesInfo=bufferSplit(arrBufferInfo[0],&apos;\r\n&apos;);</div><div class="line">                    var name=querystring.parse(arrFilesInfo[0].toString(),&apos;; &apos;).name;</div><div class="line">                    name=name.substring(1,name.length-1);</div><div class="line">                    var filename=querystring.parse(arrFilesInfo[0].toString(),&apos;; &apos;).filename;</div><div class="line">                    filename=filename.substring(1,filename.length-1);</div><div class="line"></div><div class="line">                    var filetype=arrFilesInfo[1].toString().split(&apos;: &apos;)[1];</div><div class="line"></div><div class="line">                    //console.log(name,filename,filetype);</div><div class="line"></div><div class="line">                    files[name]=&#123;</div><div class="line">                        filename:filename,</div><div class="line">                        filetype:filetype,</div><div class="line">                        content:content</div><div class="line">                    &#125;;</div><div class="line">                &#125;else&#123;</div><div class="line">                    //普通</div><div class="line">                    var name=querystring.parse(arrBufferInfo[0].toString(),&apos;; &apos;).name;</div><div class="line">                    name=name.substring(1,name.length-1);</div><div class="line"></div><div class="line">                    post[name]=content.toString();</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            //console.log(arrBuffer.toString());</div><div class="line">        &#125;else&#123;</div><div class="line">            //普通post数据</div><div class="line">            post=querystring.parse(buffer.toString());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        fnCb &amp;&amp; fnCb(post,files);</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="buffer切割方法（上个方法里面有用到）"><a href="#buffer切割方法（上个方法里面有用到）" class="headerlink" title="buffer切割方法（上个方法里面有用到）"></a>buffer切割方法（上个方法里面有用到）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function bufferSplit(buffer,spliter)&#123;</div><div class="line">    var b=new Buffer(spliter);</div><div class="line">    var arr=[];</div><div class="line">    var start=0;</div><div class="line">    var index=0;</div><div class="line">    while((index=buffer.indexOf(b,start))!=-1)&#123;</div><div class="line">        arr.push(buffer.slice(start,index));</div><div class="line">        start=index+b.length;</div><div class="line">    &#125;</div><div class="line">    arr.push(buffer.slice(start));</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最终得到post数据信息</p>
-<blockquote>
-<p>下一篇介绍 post解析<code>multipart/form-data</code>数据的插件使用。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1729,7 +1797,7 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1743,6 +1811,13 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
             </div>
           
 
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
           
 
         </nav>

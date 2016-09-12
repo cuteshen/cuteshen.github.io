@@ -4,6 +4,162 @@
   
     
     <entry>
+      <title><![CDATA[express-渲染模版页面]]></title>
+      <url>http://yoursite.com/2016/09/12/express-%E6%B8%B2%E6%9F%93%E6%A8%A1%E7%89%88%E9%A1%B5%E9%9D%A2/</url>
+      <content type="html"><![CDATA[<h2 id="模块consolidate（需下载）"><a href="#模块consolidate（需下载）" class="headerlink" title="模块consolidate（需下载）"></a>模块consolidate（需下载）</h2><p>需要在应用中进行如下设置才能让 Express 渲染模板文件：</p>
+<p>views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)</p>
+<p>view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)</p>
+<p>使用:</p>
+<pre><code>const consolidate=require(&apos;consolidate&apos;);
+</code></pre><p>配置:</p>
+<pre><code>server.set(&apos;views&apos;,&apos;template&apos;); //设置模板目录
+server.set(&apos;view engine&apos;,&apos;html&apos;); //设置模板名称也可设置为ejs,jade...
+server.engine(&apos;html&apos;,consolidate.ejs); //对应模板引擎
+</code></pre><p>渲染：</p>
+<pre><code>res.render(模板地址,数据);
+</code></pre><p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const ejs=require(&apos;ejs&apos;);</div><div class="line">const consolidate=require(&apos;consolidate&apos;);</div><div class="line"></div><div class="line">var server=express();</div><div class="line"></div><div class="line">server.listen(8081);</div><div class="line"></div><div class="line">server.set(&apos;views&apos;,&apos;template&apos;); //设置模板目录</div><div class="line">server.set(&apos;view engine&apos;,&apos;html&apos;); //设置模板名称</div><div class="line"></div><div class="line">server.engine(&apos;html&apos;,consolidate.ejs); //对应上模板引擎</div><div class="line"></div><div class="line">server.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.render(&apos;index&apos;,&#123;msg:&apos;welcome welcome&apos;&#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.get(&apos;/news&apos;,function(req,res)&#123;</div><div class="line">    res.render(&apos;news&apos;,&#123;msg:&apos;news&apos;&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>template目录下模版文件</p>
+<p>index.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h3&gt;</div><div class="line">        &lt;%=msg%&gt;</div><div class="line">        &lt;!--welcome welcome--&gt;</div><div class="line">    &lt;/h3&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<p>news.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h3&gt;</div><div class="line">        &lt;%=msg%&gt;</div><div class="line">        &lt;!--news--&gt;</div><div class="line">    &lt;/h3&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[node-express的cookie，session，fs文件操作]]></title>
+      <url>http://yoursite.com/2016/09/12/node-express%E7%9A%84cookie%EF%BC%8Csession%EF%BC%8Cfs%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+      <content type="html"><![CDATA[<h2 id="cookie数据"><a href="#cookie数据" class="headerlink" title="cookie数据"></a>cookie数据</h2><blockquote>
+<p>解析客户端cookie数据</p>
+</blockquote>
+<p>node原始方法：</p>
+<pre><code>req.headers[&apos;cookie&apos;]
+//a=1; b=2; c=3
+</code></pre><p>express方法：</p>
+<p>1，引入模块cookie-parser(需下载)</p>
+<pre><code>const cookieParser=require(&apos;cookie-parser&apos;);
+</code></pre><p>2，调用</p>
+<pre><code>app.use(cookieParser());
+</code></pre><p>3,写入cookie</p>
+<pre><code>res.setHeader(&apos;set-cookie&apos;,&apos;a=1&apos;)  //原生node
+res.cookie(name,value)  //express
+
+设置过期时间:
+
+res.setHeader(&apos;set-cookie&apos;,&apos;a=1;expires=oDate&apos;) //原生node
+
+res.cookie(name,value,options)  //express
+
+    ----option:{maxAge:毫秒，path:&apos;/&apos;}
+</code></pre><p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">app.use(cookieParser());</div><div class="line"></div><div class="line">app.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.cookie(&apos;bb&apos;,&apos;123&apos;,&#123;maxAge:2000&#125;);</div><div class="line">    res.send(req.cookies);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="session数据"><a href="#session数据" class="headerlink" title="session数据"></a>session数据</h2><p>1，引入模块cookie-session(需下载)</p>
+<pre><code>const cookieSession=require(&apos;cookie-session&apos;);
+</code></pre><p>2，调用：</p>
+<pre><code>app.use(cookieSession({
+    name:&apos;zns_sessid&apos;,    //session名称
+    keys:[&apos;aaa&apos;,&apos;bbb&apos;,&apos;cccc&apos;],  //循环签名session
+    maxAge:20*60*1000    //过期时间
+}));
+
+app.get(&apos;/&apos;,function(req,res){
+    if(req.session.visite){
+        req.session.visite++;
+    }else{
+        req.session.visite=1;
+    }
+    res.send(&apos;到访了&apos;+req.session.visite+&apos;次&apos;);
+});
+</code></pre><p>也可以通过<code>express-session</code>模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const expressSession=require(&apos;express-session&apos;);</div><div class="line"></div><div class="line">var app=express(); //创建一个服务器</div><div class="line"></div><div class="line">app.listen(8081);</div><div class="line"></div><div class="line">//调用</div><div class="line">app.use(expressSession(&#123;</div><div class="line">    secret: &apos;abc&apos;,  //加密，名字</div><div class="line">    resave: false,  //如果你有更好session存储的地方,否则在false</div><div class="line">    saveUninitialized: true,  //初始化存储</div><div class="line">    cookie: &#123; maxAge: 20*60*1000&#125;</div><div class="line">&#125;));</div><div class="line"></div><div class="line">app.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    if(req.session.visite)&#123;</div><div class="line">        req.session.visite++;</div><div class="line">    &#125;else&#123;</div><div class="line">        req.session.visite=1;</div><div class="line">    &#125;</div><div class="line">    res.send(&apos;到访了&apos;+req.session.visite+&apos;次&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="读取文件-fs-readFile"><a href="#读取文件-fs-readFile" class="headerlink" title="读取文件 fs.readFile"></a>读取文件 fs.readFile</h2><p>设置header</p>
+<pre><code>res.setHeader(&apos;content-type&apos;,&apos;text/html&apos;); //node原生方法
+
+res.set(&apos;content-type&apos;,&apos;text/html&apos;);    //express提供
+</code></pre><p>设置状态码：</p>
+<pre><code>res.status(404)
+或
+res.statusCode=404;
+</code></pre><p>也可以这样写</p>
+<pre><code>res.status(404).send(data)
+</code></pre><p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var app=express(); //创建一个服务器</div><div class="line"></div><div class="line">app.listen(8081);</div><div class="line"></div><div class="line"></div><div class="line">app.get(&apos;/form.html&apos;,function(req,res)&#123;</div><div class="line">    //res.setHeader(&apos;content-type&apos;,&apos;text/html&apos;); //原生</div><div class="line">    res.set(&apos;content-type&apos;,&apos;text/html&apos;); //express提供设置头部  set</div><div class="line"></div><div class="line">    fs.readFile(&apos;form.html&apos;,function(err,data)&#123;</div><div class="line">        if(err)&#123;</div><div class="line">            //res.writeHeader(404,null); //原生</div><div class="line">            res.status(404);</div><div class="line">            res.send(&apos;404&apos;);</div><div class="line">        &#125;else&#123;</div><div class="line">            res.send(data);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="替换readFile"><a href="#替换readFile" class="headerlink" title="替换readFile"></a>替换readFile</h2><p>读取文件在express中可直接通过res.sendFile(path)，其中path路径必须是绝对的：</p>
+<pre><code>res.sendFile(__dirname+&apos;/download.html&apos;);
+
+或
+
+res.sendFile(&apos;download.html&apos;,{root:__dirname});
+</code></pre><h2 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h2><p>如果原生node方式需要设置header才可以下载文件</p>
+<pre><code>res.setHeader(&apos;content-disposition&apos;,&apos;attachment;filename=xxxx&apos;);
+</code></pre><p>通过express可直接用res.download()，无需任何设置</p>
+<pre><code>res.download(filename,newName)
+</code></pre>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[node-express数据解析实例]]></title>
+      <url>http://yoursite.com/2016/09/12/node-express%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E5%AE%9E%E4%BE%8B/</url>
+      <content type="html"><![CDATA[<h2 id="express-安装"><a href="#express-安装" class="headerlink" title="express 安装"></a>express 安装</h2><ol>
+<li>npm install express</li>
+<li>const express=require(‘express’);</li>
+</ol>
+<h2 id="创建服务器"><a href="#创建服务器" class="headerlink" title="创建服务器"></a>创建服务器</h2><pre><code>const express=require(&apos;express&apos;);
+
+var app=express(); //创建一个服务器
+
+app.listen(8081);
+</code></pre><h3 id="get请求方法"><a href="#get请求方法" class="headerlink" title="get请求方法"></a>get请求方法</h3><blockquote>
+<p>app.get(地址,fnCb)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.get(‘/’,function(req,res)&#123;</div><div class="line">	res.send(string/json/array....)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在express中res.send()代替了原生node的res.write(),res.end()，</p>
+<p>因此可统一使用res.send();</p>
+<h4 id="获取get数据"><a href="#获取get数据" class="headerlink" title="获取get数据"></a>获取get数据</h4><p>假设我的url请求是：localhost:8081/user?username=admin&amp;password=admin</p>
+<p>通过req.query获取的数据为<code>{ username: &#39;admin&#39;, password: &#39;admin&#39; }</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.get(‘/user’,function(req,res)&#123;</div><div class="line">    console.log(req.query);</div><div class="line">    //&#123; username: &apos;admin&apos;, password: &apos;admin&apos; &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="post请求方法"><a href="#post请求方法" class="headerlink" title="post请求方法"></a>post请求方法</h3><p>若用node原始获取post数据方式是这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">app.use(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">    var str=&apos;&apos;;</div><div class="line">    req.on(&apos;data&apos;,function(s)&#123;</div><div class="line">        str+=s;</div><div class="line">    &#125;);</div><div class="line">    req.on(&apos;end&apos;,function()&#123;</div><div class="line">        req.post=querystring.parse(str);</div><div class="line">        res.send(req.post);</div><div class="line">    &#125;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="通过body-parser获取post数据"><a href="#通过body-parser获取post数据" class="headerlink" title="通过body-parser获取post数据"></a>通过body-parser获取post数据</h4><p>安装模块</p>
+<pre><code>const bodyParser=require(&apos;body-parser&apos;);
+</code></pre><p>调用中间件</p>
+<pre><code>app.use(bodyParser.urlencoded({extended:false}))
+</code></pre><p><code>extended:false</code></p>
+<p>通过body-parser返回的对象是一个键值对，当extended为false的时候，键值对中的值就为’String’或’Array’形式，为true的时候，则可为任何数据类型。</p>
+<p><code>limit</code></p>
+<p>post数据大小限制，默认100</p>
+<p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.use(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">    res.send(req.body);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h5 id="form属性为enctype-”multipart-form-data”的post表单处理"><a href="#form属性为enctype-”multipart-form-data”的post表单处理" class="headerlink" title="form属性为enctype=”multipart/form-data”的post表单处理"></a>form属性为enctype=”multipart/form-data”的post表单处理</h5><p>通过第三方模块 multer</p>
+<pre><code>const multerLib=require(&apos;multer&apos;);
+</code></pre><p>使用：</p>
+<pre><code>const multerLib=require(&apos;multer&apos;);
+var multer=multerLib({dest:&apos;upload&apos;});
+app.use(multer.any());
+</code></pre><p>获取方式：</p>
+<pre><code>req.files
+</code></pre><p>req.files：</p>
+<pre><code>fieldname    字段名称
+
+originalname    源文件名称
+
+mimetype    文件类型
+
+path        文件路径
+</code></pre><p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const bodyParser=require(&apos;body-parser&apos;);</div><div class="line">const multerLib=require(&apos;multer&apos;);</div><div class="line"></div><div class="line">var app=express();</div><div class="line">var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);</div><div class="line"></div><div class="line">app.listen(8081);</div><div class="line"></div><div class="line">app.use(bodyParser.urlencoded(&#123;extended:false&#125;))</div><div class="line"></div><div class="line">app.use(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">    console.log(req.body);</div><div class="line">    console.log(req.files);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>html:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8081/user&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">    user:</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    pass:</div><div class="line">    &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;pic&quot;/&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; value=&quot;登录&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<h2 id="app-get-app-post通用方法"><a href="#app-get-app-post通用方法" class="headerlink" title="app.get,app.post通用方法"></a>app.get,app.post通用方法</h2><pre><code>app.use(地址,fnCb);
+</code></pre><p>无论get,post都会执行</p>
+<p>如果同时有，get和use，会按顺序执行</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><h3 id="获取get数据方式"><a href="#获取get数据方式" class="headerlink" title="获取get数据方式:"></a>获取get数据方式:</h3><p>直接req.query</p>
+<h3 id="获取post数据方式"><a href="#获取post数据方式" class="headerlink" title="获取post数据方式:"></a>获取post数据方式:</h3><p>(application/x-www-form-urlencoded)–通过body-parser模块–req.body</p>
+<p>(multipart/form-data)–通过multer模块</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[构建工具——webpack]]></title>
       <url>http://yoursite.com/2016/09/10/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94webpack/</url>
       <content type="html"><![CDATA[<h2 id="安装webpack"><a href="#安装webpack" class="headerlink" title="安装webpack"></a>安装webpack</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install webpack -g</div></pre></td></tr></table></figure>

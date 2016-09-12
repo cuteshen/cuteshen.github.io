@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Mrshen, nodejs" />
+  <meta name="keywords" content="express," />
 
 
 
@@ -88,34 +88,28 @@
 
 
 
-<meta name="description" content="上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer
-formidable
-以文件形式上传
-
-首先需要从npm安装模块
-1npm install formidable
-html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
+<meta name="description" content="模块consolidate（需下载）需要在应用中进行如下设置才能让 Express 渲染模板文件：
+views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)
+view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)
+使用:
+const consolidate=require(&amp;apos;consolidate&amp;ap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NodeJs——post第三方模块">
-<meta property="og:url" content="http://yoursite.com/2016/08/16/NodeJs——post第三方模块/index.html">
+<meta property="og:title" content="express-渲染模版页面">
+<meta property="og:url" content="http://yoursite.com/2016/09/12/express-渲染模版页面/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer
-formidable
-以文件形式上传
-
-首先需要从npm安装模块
-1npm install formidable
-html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
-<meta property="og:updated_time" content="2016-08-16T09:51:55.177Z">
+<meta property="og:description" content="模块consolidate（需下载）需要在应用中进行如下设置才能让 Express 渲染模板文件：
+views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)
+view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)
+使用:
+const consolidate=require(&amp;apos;consolidate&amp;ap">
+<meta property="og:updated_time" content="2016-09-12T06:55:49.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NodeJs——post第三方模块">
-<meta name="twitter:description" content="上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer
-formidable
-以文件形式上传
-
-首先需要从npm安装模块
-1npm install formidable
-html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
+<meta name="twitter:title" content="express-渲染模版页面">
+<meta name="twitter:description" content="模块consolidate（需下载）需要在应用中进行如下设置才能让 Express 渲染模板文件：
+views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)
+view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)
+使用:
+const consolidate=require(&amp;apos;consolidate&amp;ap">
 
 
 
@@ -136,9 +130,9 @@ html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/08/16/NodeJs——post第三方模块/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/12/express-渲染模版页面/"/>
 
-  <title> NodeJs——post第三方模块 | Mr.Shen </title>
+  <title> express-渲染模版页面 | Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -301,7 +295,7 @@ html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
             
             
               
-                NodeJs——post第三方模块
+                express-渲染模版页面
               
             
           </h1>
@@ -313,8 +307,8 @@ html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-16T17:47:08+08:00" content="2016-08-16">
-              2016-08-16
+            <time itemprop="dateCreated" datetime="2016-09-12T14:55:23+08:00" content="2016-09-12">
+              2016-09-12
             </time>
           </span>
 
@@ -343,8 +337,8 @@ html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/16/NodeJs——post第三方模块/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/NodeJs——post第三方模块/" itemprop="commentsCount"></span>
+                <a href="/2016/09/12/express-渲染模版页面/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/express-渲染模版页面/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -367,36 +361,24 @@ html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
       
 
       
-        <p>上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer</p>
-<h3 id="formidable"><a href="#formidable" class="headerlink" title="formidable"></a>formidable</h3><blockquote>
-<p>以文件形式上传</p>
-</blockquote>
-<p>首先需要从npm安装模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install formidable</div></pre></td></tr></table></figure>
-<p>html代码,file-multiple可上传多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8080/abc&quot; method=&quot;post&quot;  enctype=&quot;multipart/form-data&quot; &gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;name&quot; id=&quot;name&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;age&quot; id=&quot;age&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;pic&quot; id=&quot;pic&quot; multiple/&gt;</div><div class="line">    &lt;input type=&quot;submit&quot;/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
-<p>node代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const formidable=require(&apos;formidable&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    //需要实例化formidable模块中的IncomingForm()方法</div><div class="line">    var form=new formidable.IncomingForm();</div><div class="line"></div><div class="line">    form.parse(req,function(err,fileds,files)&#123;</div><div class="line">        console.log(fileds, files);</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
-<p>表单填写：name:abc; age:abc; pic:1.jpg,pic:2.jpg提交表单</p>
-<p>fileds为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; name: &apos;abc&apos;, age: &apos;abc&apos; &#125;</div></pre></td></tr></table></figure>
-<p>files为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&#123; pic:</div><div class="line">   [ File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 693534,</div><div class="line">       path: &apos;upload\\upload_701ff760b9dcba389d87dcb89d93adfb&apos;,</div><div class="line">       name: &apos;1.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125;,</div><div class="line">     File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 232615,</div><div class="line">       path: &apos;upload\\upload_a00ba7289c3690b2d45aa2910a84d0f1&apos;,</div><div class="line">       name: &apos;2.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125; ] &#125;</div></pre></td></tr></table></figure></p>
-<p>其中几个常用的字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">files.pic</div><div class="line">	.size</div><div class="line">	.path	//临时把文件放到 c盘里面</div><div class="line">	.name</div><div class="line">	.type</div><div class="line">	.lastModifiedDate</div></pre></td></tr></table></figure></p>
-<p>其中path是没有后缀名的文件名称，因此需要用到fs.rename方法将后缀名添加进去</p>
-<p>完整代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const formidable=require(&apos;formidable&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    var form= new formidable.IncomingForm();</div><div class="line">    form.uploadDir=&apos;upload&apos;;</div><div class="line">    form.multiples=true;</div><div class="line"></div><div class="line">    form.parse(req, function(err, fields, files) &#123;</div><div class="line">        var arrFiles=files.pic;</div><div class="line">        for(var i=0; i &lt; arrFiles.length; i++)&#123;</div><div class="line">            //获取文件后缀名</div><div class="line">            var extname=path.extname(arrFiles[i].name);</div><div class="line">            //修改path名称，添加后缀名</div><div class="line">            fs.rename(arrFiles[i].path,arrFiles[i].path+extname, function (err) &#123;</div><div class="line">                console.log(err);</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure>
-<h4 id="multer"><a href="#multer" class="headerlink" title="multer"></a>multer</h4><blockquote>
-<p>以二进制流形式上传</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install multer</div></pre></td></tr></table></figure>
-<p>设置上传目录，及文件类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);//设置文件上传路径</div><div class="line">var multerHandler=multer.any();//设置文件类型为任何类型</div></pre></td></tr></table></figure></p>
-<p>回调方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">multerHandler(req,res,function()&#123;</div><div class="line">    console.log(req.body.name);//user内容</div><div class="line">    console.log(req.body.age);//age内容</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>其中req.files内容为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[ &#123; fieldname: &apos;pic&apos;,</div><div class="line">    originalname: &apos;1.jpg&apos;,</div><div class="line">    encoding: &apos;7bit&apos;,</div><div class="line">    mimetype: &apos;image/png&apos;,</div><div class="line">    destination: &apos;upload&apos;,</div><div class="line">    filename: &apos;82519811ec7e4793c658e6dbd75dcd6a&apos;,</div><div class="line">    path: &apos;upload\\82519811ec7e4793c658e6dbd75dcd6a&apos;,</div><div class="line">    size: 693534 &#125;,</div><div class="line">  &#123; fieldname: &apos;pic&apos;,</div><div class="line">    originalname: &apos;2.jpg&apos;,</div><div class="line">    encoding: &apos;7bit&apos;,</div><div class="line">    mimetype: &apos;image/jpeg&apos;,</div><div class="line">    destination: &apos;upload&apos;,</div><div class="line">    filename: &apos;7f3b211b0127e872e9ca0bd1d6dea6a7&apos;,</div><div class="line">    path: &apos;upload\\7f3b211b0127e872e9ca0bd1d6dea6a7&apos;,</div><div class="line">    size: 232615 &#125; ]</div></pre></td></tr></table></figure></p>
-<p>重写名称，添加后缀<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">for(var files in req.files)&#123;</div><div class="line">    //获取后缀名</div><div class="line">    var extname=path.extname(req.files[files].originalname);</div><div class="line">    //重写文件名称</div><div class="line">    fs.rename(req.files[files].path,req.files[files].path+extname, function (err) &#123;</div><div class="line">        console.log(err);</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>完整代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const multerLib=require(&apos;multer&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);</div><div class="line">    var multerHandler=multer.any();</div><div class="line"></div><div class="line">    multerHandler(req,res,function()&#123;</div><div class="line">        console.log(req.files);</div><div class="line"></div><div class="line">        for(var files in req.files)&#123;</div><div class="line">            var extname=path.extname(req.files[files].originalname);</div><div class="line">            console.log(req.files[files].originalname);</div><div class="line">            fs.rename(req.files[files].path,req.files[files].path+extname, function (err) &#123;</div><div class="line">                console.log(err);</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure></p>
-<p>两个模块具体api信息，还需参阅npm官网</p>
-<p><a href="https://www.npmjs.com/package/formidable" target="_blank" rel="external">https://www.npmjs.com/package/formidable</a></p>
-<p><a href="https://www.npmjs.com/package/multer" target="_blank" rel="external">https://www.npmjs.com/package/multer</a></p>
-
+        <h2 id="模块consolidate（需下载）"><a href="#模块consolidate（需下载）" class="headerlink" title="模块consolidate（需下载）"></a>模块consolidate（需下载）</h2><p>需要在应用中进行如下设置才能让 Express 渲染模板文件：</p>
+<p>views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)</p>
+<p>view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)</p>
+<p>使用:</p>
+<pre><code>const consolidate=require(&apos;consolidate&apos;);
+</code></pre><p>配置:</p>
+<pre><code>server.set(&apos;views&apos;,&apos;template&apos;); //设置模板目录
+server.set(&apos;view engine&apos;,&apos;html&apos;); //设置模板名称也可设置为ejs,jade...
+server.engine(&apos;html&apos;,consolidate.ejs); //对应模板引擎
+</code></pre><p>渲染：</p>
+<pre><code>res.render(模板地址,数据);
+</code></pre><p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const ejs=require(&apos;ejs&apos;);</div><div class="line">const consolidate=require(&apos;consolidate&apos;);</div><div class="line"></div><div class="line">var server=express();</div><div class="line"></div><div class="line">server.listen(8081);</div><div class="line"></div><div class="line">server.set(&apos;views&apos;,&apos;template&apos;); //设置模板目录</div><div class="line">server.set(&apos;view engine&apos;,&apos;html&apos;); //设置模板名称</div><div class="line"></div><div class="line">server.engine(&apos;html&apos;,consolidate.ejs); //对应上模板引擎</div><div class="line"></div><div class="line">server.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.render(&apos;index&apos;,&#123;msg:&apos;welcome welcome&apos;&#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.get(&apos;/news&apos;,function(req,res)&#123;</div><div class="line">    res.render(&apos;news&apos;,&#123;msg:&apos;news&apos;&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>template目录下模版文件</p>
+<p>index.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h3&gt;</div><div class="line">        &lt;%=msg%&gt;</div><div class="line">        &lt;!--welcome welcome--&gt;</div><div class="line">    &lt;/h3&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<p>news.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h3&gt;</div><div class="line">        &lt;%=msg%&gt;</div><div class="line">        &lt;!--news--&gt;</div><div class="line">    &lt;/h3&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -416,22 +398,24 @@ html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/express/" rel="tag">#express</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/16/NodeJs——post数据深入解析/" rel="next" title="NodeJs——post数据深入解析">
-                <i class="fa fa-chevron-left"></i> NodeJs——post数据深入解析
+              <a href="/2016/09/12/node-express的cookie，session，fs文件操作/" rel="next" title="node-express的cookie，session，fs文件操作">
+                <i class="fa fa-chevron-left"></i> node-express的cookie，session，fs文件操作
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/19/split()函数在buffer中的实现/" rel="prev" title="split()函数在buffer中的实现">
-                split()函数在buffer中的实现 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -457,8 +441,8 @@ html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/16/NodeJs——post第三方模块/"
-           data-title="NodeJs——post第三方模块" data-url="http://yoursite.com/2016/08/16/NodeJs——post第三方模块/">
+      <div class="ds-thread" data-thread-key="2016/09/12/express-渲染模版页面/"
+           data-title="express-渲染模版页面" data-url="http://yoursite.com/2016/09/12/express-渲染模版页面/">
       </div>
     
   </div>
@@ -560,7 +544,7 @@ html代码,file-multiple可上传多个文件12345678&amp;lt;fo">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#formidable"><span class="nav-number">1.</span> <span class="nav-text">formidable</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multer"><span class="nav-number">1.1.</span> <span class="nav-text">multer</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块consolidate（需下载）"><span class="nav-number">1.</span> <span class="nav-text">模块consolidate（需下载）</span></a></li></ol></div>
             
           </div>
         </section>

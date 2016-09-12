@@ -285,6 +285,433 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/19/split()函数在buffer中的实现/" itemprop="url">
+                  split()函数在buffer中的实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-19T13:34:01+08:00" content="2016-08-19">
+              2016-08-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/19/split()函数在buffer中的实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/split()函数在buffer中的实现/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="javascript中的用法："><a href="#javascript中的用法：" class="headerlink" title="javascript中的用法："></a>javascript中的用法：</h2><blockquote>
+<p>split() 方法用于把一个字符串分割成字符串数组。</p>
+</blockquote>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>stringObject.split(separator,howmany)</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p><code>separator</code> 必需。字符串或正则表达式，从该参数指定的地方分割 stringObject。</p>
+<p><code>howmany</code> 可选。该参数可指定返回的数组的最大长度。如果设置了该参数，返回的子串不会多于这个参数指定的数组。如果没有设置该参数，整个字符串都会被分割，不考虑它的长度。</p>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>一个字符串数组。该数组是通过在 separator 指定的边界处将字符串 stringObject 分割成子串创建的。返回的数组中的字串不包括 separator 自身。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">str=&quot;2,2,3,5,6,6&quot;; //这是一字符串</div><div class="line">var strs= new Array(); //定义一数组</div><div class="line">strs=str.split(&quot;,&quot;); //字符分割</div><div class="line">for (i=0;i&lt;strs.length ;i++ )</div><div class="line">&#123;</div><div class="line">document.write(strs[i]+&quot;&lt;br&gt;&quot;); //分割后的字符输出</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述代码输出结果为：2 2 3 5 6</p>
+<h2 id="buffer中的实现"><a href="#buffer中的实现" class="headerlink" title="buffer中的实现"></a>buffer中的实现</h2><p>nodeJs开发操作buffer时，buffer中是没有split()方法的;</p>
+<p>如下代码执行会报错<code>TypeError: buffer.splice is not a function</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height background apple banana&apos;);</div><div class="line">console.log(buffer.splice(&apos; &apos;))</div></pre></td></tr></table></figure></p>
+<p>因此需要自己实现split()方法；</p>
+<p>1，toString()，不建议<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height&apos;);</div><div class="line"></div><div class="line">console.log(buffer.toString().split(&apos; &apos;));</div><div class="line"></div><div class="line">//[ &apos;width&apos;, &apos;height&apos; ]</div></pre></td></tr></table></figure></p>
+<p>buffer数据tostring之后，想再回到buffer，数据就被损坏了，因此不建议toString;</p>
+<h5 id="通过slice："><a href="#通过slice：" class="headerlink" title="通过slice："></a>通过slice：</h5><p>buffer中是可以使用slice方法的，因此可以通过使用slice() 达到split的效果</p>
+<blockquote>
+<p>bufferSplit(buffer数据，切割字符串);</p>
+</blockquote>
+<p>首先创建buffer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height background apple banana&apos;);</div></pre></td></tr></table></figure></p>
+<p>这时输出buffer是一个连续的文件流<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(buffer);</div><div class="line">//&lt;Buffer 77 69 64 74 68 20 68 65 69 67 68 74 20 62 61 63 6b 67 72 6f 75 6e 64 20 61 70 70 6c 65 20 62 61 6e 61 6e 61&gt;</div></pre></td></tr></table></figure></p>
+<p>若要得到buffer中的某一段数据，则需要先进行切割：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var buffer=new Buffer(&apos;width height background apple banana&apos;);</div><div class="line">var b=new Buffer(&apos; &apos;); //分割标志</div><div class="line"></div><div class="line">var arr=[];</div><div class="line">var start=0;//开始位置</div><div class="line">var index=0;//b开始的位置</div><div class="line"></div><div class="line">while((index=buffer.indexOf(b,start))!=-1)&#123;</div><div class="line">    arr.push(buffer.slice(start,index));</div><div class="line">    start=index+b.length;</div><div class="line">&#125;</div><div class="line">arr.push(buffer.slice(start));</div><div class="line">console.log(arr);</div><div class="line">//输出结果：</div><div class="line">[ &lt;Buffer 77 69 64 74 68&gt;,</div><div class="line">  &lt;Buffer 68 65 69 67 68 74&gt;,</div><div class="line">  &lt;Buffer 62 61 63 6b 67 72 6f 75 6e 64&gt;,</div><div class="line">  &lt;Buffer 61 70 70 6c 65&gt;,</div><div class="line">  &lt;Buffer 62 61 6e 61 6e 61&gt; ]</div><div class="line"></div><div class="line">console.log(arr.toString());</div><div class="line">//输出结果:width,height,background,apple,banana</div></pre></td></tr></table></figure></p>
+<p>实际应用中，可以将此方法进行封装，或以模块的形式导入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function bufferSplit(buffer,spliter)&#123;</div><div class="line">    var b=new Buffer(spliter);</div><div class="line">    var arr=[];</div><div class="line">    var start=0;</div><div class="line">    var index=0;</div><div class="line">    while((index=buffer.indexOf(b,start))!=-1)&#123;</div><div class="line">        arr.push(buffer.slice(start,index));</div><div class="line">        start=index+b.length;</div><div class="line">    &#125;</div><div class="line">    arr.push(buffer.slice(start));</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/16/NodeJs——post第三方模块/" itemprop="url">
+                  NodeJs——post第三方模块
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T17:47:08+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/NodeJs——post第三方模块/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/NodeJs——post第三方模块/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>上篇写了post数据multipart/form-data形式的文件上传方法，既然代码那么多，那不如直接用第三方模块去实现，一边提升开发效率，介绍2个第三方模块，分别是formidable和multer</p>
+<h3 id="formidable"><a href="#formidable" class="headerlink" title="formidable"></a>formidable</h3><blockquote>
+<p>以文件形式上传</p>
+</blockquote>
+<p>首先需要从npm安装模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install formidable</div></pre></td></tr></table></figure>
+<p>html代码,file-multiple可上传多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8080/abc&quot; method=&quot;post&quot;  enctype=&quot;multipart/form-data&quot; &gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;name&quot; id=&quot;name&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;age&quot; id=&quot;age&quot;/&gt;</div><div class="line">    &lt;br/&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;pic&quot; id=&quot;pic&quot; multiple/&gt;</div><div class="line">    &lt;input type=&quot;submit&quot;/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>node代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const formidable=require(&apos;formidable&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    //需要实例化formidable模块中的IncomingForm()方法</div><div class="line">    var form=new formidable.IncomingForm();</div><div class="line"></div><div class="line">    form.parse(req,function(err,fileds,files)&#123;</div><div class="line">        console.log(fileds, files);</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
+<p>表单填写：name:abc; age:abc; pic:1.jpg,pic:2.jpg提交表单</p>
+<p>fileds为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; name: &apos;abc&apos;, age: &apos;abc&apos; &#125;</div></pre></td></tr></table></figure>
+<p>files为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&#123; pic:</div><div class="line">   [ File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 693534,</div><div class="line">       path: &apos;upload\\upload_701ff760b9dcba389d87dcb89d93adfb&apos;,</div><div class="line">       name: &apos;1.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125;,</div><div class="line">     File &#123;</div><div class="line">       domain: null,</div><div class="line">       _events: &#123;&#125;,</div><div class="line">       _eventsCount: 0,</div><div class="line">       _maxListeners: undefined,</div><div class="line">       size: 232615,</div><div class="line">       path: &apos;upload\\upload_a00ba7289c3690b2d45aa2910a84d0f1&apos;,</div><div class="line">       name: &apos;2.jpg&apos;,</div><div class="line">       type: &apos;image/jpeg&apos;,</div><div class="line">       hash: null,</div><div class="line">       lastModifiedDate: Tue Aug 16 2016 17:26:50 GMT+0800 (中国标准时间),</div><div class="line">       _writeStream: [Object] &#125; ] &#125;</div></pre></td></tr></table></figure></p>
+<p>其中几个常用的字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">files.pic</div><div class="line">	.size</div><div class="line">	.path	//临时把文件放到 c盘里面</div><div class="line">	.name</div><div class="line">	.type</div><div class="line">	.lastModifiedDate</div></pre></td></tr></table></figure></p>
+<p>其中path是没有后缀名的文件名称，因此需要用到fs.rename方法将后缀名添加进去</p>
+<p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const formidable=require(&apos;formidable&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    var form= new formidable.IncomingForm();</div><div class="line">    form.uploadDir=&apos;upload&apos;;</div><div class="line">    form.multiples=true;</div><div class="line"></div><div class="line">    form.parse(req, function(err, fields, files) &#123;</div><div class="line">        var arrFiles=files.pic;</div><div class="line">        for(var i=0; i &lt; arrFiles.length; i++)&#123;</div><div class="line">            //获取文件后缀名</div><div class="line">            var extname=path.extname(arrFiles[i].name);</div><div class="line">            //修改path名称，添加后缀名</div><div class="line">            fs.rename(arrFiles[i].path,arrFiles[i].path+extname, function (err) &#123;</div><div class="line">                console.log(err);</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure>
+<h4 id="multer"><a href="#multer" class="headerlink" title="multer"></a>multer</h4><blockquote>
+<p>以二进制流形式上传</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install multer</div></pre></td></tr></table></figure>
+<p>设置上传目录，及文件类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);//设置文件上传路径</div><div class="line">var multerHandler=multer.any();//设置文件类型为任何类型</div></pre></td></tr></table></figure></p>
+<p>回调方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">multerHandler(req,res,function()&#123;</div><div class="line">    console.log(req.body.name);//user内容</div><div class="line">    console.log(req.body.age);//age内容</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>其中req.files内容为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[ &#123; fieldname: &apos;pic&apos;,</div><div class="line">    originalname: &apos;1.jpg&apos;,</div><div class="line">    encoding: &apos;7bit&apos;,</div><div class="line">    mimetype: &apos;image/png&apos;,</div><div class="line">    destination: &apos;upload&apos;,</div><div class="line">    filename: &apos;82519811ec7e4793c658e6dbd75dcd6a&apos;,</div><div class="line">    path: &apos;upload\\82519811ec7e4793c658e6dbd75dcd6a&apos;,</div><div class="line">    size: 693534 &#125;,</div><div class="line">  &#123; fieldname: &apos;pic&apos;,</div><div class="line">    originalname: &apos;2.jpg&apos;,</div><div class="line">    encoding: &apos;7bit&apos;,</div><div class="line">    mimetype: &apos;image/jpeg&apos;,</div><div class="line">    destination: &apos;upload&apos;,</div><div class="line">    filename: &apos;7f3b211b0127e872e9ca0bd1d6dea6a7&apos;,</div><div class="line">    path: &apos;upload\\7f3b211b0127e872e9ca0bd1d6dea6a7&apos;,</div><div class="line">    size: 232615 &#125; ]</div></pre></td></tr></table></figure></p>
+<p>重写名称，添加后缀<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">for(var files in req.files)&#123;</div><div class="line">    //获取后缀名</div><div class="line">    var extname=path.extname(req.files[files].originalname);</div><div class="line">    //重写文件名称</div><div class="line">    fs.rename(req.files[files].path,req.files[files].path+extname, function (err) &#123;</div><div class="line">        console.log(err);</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>完整代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const multerLib=require(&apos;multer&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);</div><div class="line">    var multerHandler=multer.any();</div><div class="line"></div><div class="line">    multerHandler(req,res,function()&#123;</div><div class="line">        console.log(req.files);</div><div class="line"></div><div class="line">        for(var files in req.files)&#123;</div><div class="line">            var extname=path.extname(req.files[files].originalname);</div><div class="line">            console.log(req.files[files].originalname);</div><div class="line">            fs.rename(req.files[files].path,req.files[files].path+extname, function (err) &#123;</div><div class="line">                console.log(err);</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure></p>
+<p>两个模块具体api信息，还需参阅npm官网</p>
+<p><a href="https://www.npmjs.com/package/formidable" target="_blank" rel="external">https://www.npmjs.com/package/formidable</a></p>
+<p><a href="https://www.npmjs.com/package/multer" target="_blank" rel="external">https://www.npmjs.com/package/multer</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/16/NodeJs——post数据深入解析/" itemprop="url">
+                  NodeJs——post数据深入解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T17:42:03+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/NodeJs——post数据深入解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/NodeJs——post数据深入解析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="multipart-form-data和application-x-www-form-urlencoded的区别"><a href="#multipart-form-data和application-x-www-form-urlencoded的区别" class="headerlink" title="multipart/form-data和application/x-www-form-urlencoded的区别"></a>multipart/form-data和application/x-www-form-urlencoded的区别</h3><p>FORM元素的enctype属性指定了表单数据向服务器提交时所采用的编码类型，默认的缺省值是<code>application/x-www-form-urlencoded</code>。</p>
+<p>然而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时这种编码方式效率很低。</p>
+<p>  在文件上载时，所使用的编码类型应当是<code>multipart/form-data</code>，它既可以发送文本数据，也支持二进制数据上载。</p>
+<p>客户端端<code>&lt;form&gt;</code>表单的ENCTYPE属性值为<code>multipart/form-data</code>，它告诉我们传输的数据要用到多媒体传输协议，由于多媒体传输的都是大量的数据，所以规定上传文件必须是post方法，<code>&lt;input&gt;</code>的type属性必须是file。</p>
+<h3 id="通过multipart-form-data获取数据"><a href="#通过multipart-form-data获取数据" class="headerlink" title="通过multipart/form-data获取数据"></a>通过<code>multipart/form-data</code>获取数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://localhost:8081/abc&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">    user:</div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;user&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;file1&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;submit&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p>提交后，通过<code>req.headers[&#39;content-type&#39;]</code>得到的数据是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">multipart/form-data; boundary=----WebKitFormBoundaryqFAIe2bYb7F35kSq</div></pre></td></tr></table></figure>
+<h4 id="执行post数据解析相关操作获取post信息"><a href="#执行post数据解析相关操作获取post信息" class="headerlink" title="执行post数据解析相关操作获取post信息"></a>执行post数据解析相关操作获取post信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">req.on(&apos;data&apos;,function(s)&#123;</div><div class="line">    arr.push(s);</div><div class="line">&#125;);</div><div class="line"> req.on(&apos;end&apos;,function()&#123;</div><div class="line">    var buffer=Buffer.concat(arr);</div><div class="line">    //console.log(buffer.toString());</div><div class="line">    if(mime==&apos;multipart/form-data&apos;)&#123;</div><div class="line">        //文件型</div><div class="line">    &#125;else&#123;</div><div class="line">        //普通post数据</div><div class="line">        post=querystring.parse(buffer.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    console.log(post);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>上述代码中所获取的post信息存在arr中，并通过Buffer.concat拼接</p>
+<p>所得到的内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">------WebKitFormBoundaryLBhBQAIOiPjVA13J</div><div class="line">Content-Disposition: form-data; name=&quot;user&quot;</div><div class="line"></div><div class="line">myname</div><div class="line">------WebKitFormBoundaryLBhBQAIOiPjVA13J</div><div class="line">Content-Disposition: form-data; name=&quot;file1&quot;; filename=&quot;右上角LOGO.jpg&quot;</div><div class="line">Content-Type: image/jpeg</div><div class="line"></div><div class="line">//此处为图片二进制流信息，太长了就不复制进来了</div></pre></td></tr></table></figure>
+<p>通过一些列字符串操作及切割方法最终要得到表单信息<code>user</code>及<code>file</code>，下面是所有的代码</p>
+<h4 id="创建http服务"><a href="#创建http服务" class="headerlink" title="创建http服务"></a>创建http服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const querystring=require(&apos;querystring&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">    parsePostDeep(req,function(fileds,files)&#123;</div><div class="line">        console.log(fileds,files)</div><div class="line">    &#125;);</div><div class="line"></div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
+<h4 id="解析multipart-form-data信息"><a href="#解析multipart-form-data信息" class="headerlink" title="解析multipart/form-data信息"></a>解析<code>multipart/form-data</code>信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">function parsePostDeep(req,fnCb)&#123;</div><div class="line">    var post=&#123;&#125;;</div><div class="line">    var files=&#123;&#125;;</div><div class="line"></div><div class="line">    //multipart/form-data; boundary=----WebKitFormBoundaryqFAIe2bYb7F35kSq</div><div class="line">    //console.log(req.headers[&apos;content-type&apos;]);</div><div class="line">    if(req.headers[&apos;content-type&apos;])&#123;</div><div class="line">        var mime=req.headers[&apos;content-type&apos;].split(&apos;; &apos;)[0];</div><div class="line">        var boundaryInfo=req.headers[&apos;content-type&apos;].split(&apos;; &apos;)[1];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var arr=[];</div><div class="line">    req.on(&apos;data&apos;,function(s)&#123;</div><div class="line">        arr.push(s);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    req.on(&apos;end&apos;,function()&#123;</div><div class="line">        var buffer=Buffer.concat(arr);</div><div class="line">        //console.log(buffer.toString());</div><div class="line">        if(mime==&apos;multipart/form-data&apos;)&#123;</div><div class="line">            //文件型</div><div class="line">            var boundary=&apos;--&apos;+boundaryInfo.split(&apos;=&apos;)[1];</div><div class="line">            //切</div><div class="line">            var arrBuffer=bufferSplit(buffer,boundary);</div><div class="line"></div><div class="line">            //删除首尾</div><div class="line">            arrBuffer.pop();</div><div class="line">            arrBuffer.shift();</div><div class="line"></div><div class="line">            //去除数组中的每个首尾换行 -&gt; \r\n</div><div class="line">            for(var i=0; i&lt;arrBuffer.length; i++)&#123;</div><div class="line">                arrBuffer[i]=arrBuffer[i].slice(2,arrBuffer[i].length-2);</div><div class="line">            &#125;</div><div class="line">            //用两个换行切每个buffer</div><div class="line">            for(var i=0; i&lt;arrBuffer.length; i++)&#123;</div><div class="line">                var arrBufferInfo=bufferSplit(arrBuffer[i],&apos;\r\n\r\n&apos;);</div><div class="line"></div><div class="line">                //内容</div><div class="line">                var content=arrBufferInfo[1];</div><div class="line">                //其他相关信息 name filename filetype</div><div class="line">                //区分开file和post字段</div><div class="line">                if(arrBufferInfo[0].indexOf(&apos;\r\n&apos;)!=-1)&#123;</div><div class="line">                    //files</div><div class="line">                    var arrFilesInfo=bufferSplit(arrBufferInfo[0],&apos;\r\n&apos;);</div><div class="line">                    var name=querystring.parse(arrFilesInfo[0].toString(),&apos;; &apos;).name;</div><div class="line">                    name=name.substring(1,name.length-1);</div><div class="line">                    var filename=querystring.parse(arrFilesInfo[0].toString(),&apos;; &apos;).filename;</div><div class="line">                    filename=filename.substring(1,filename.length-1);</div><div class="line"></div><div class="line">                    var filetype=arrFilesInfo[1].toString().split(&apos;: &apos;)[1];</div><div class="line"></div><div class="line">                    //console.log(name,filename,filetype);</div><div class="line"></div><div class="line">                    files[name]=&#123;</div><div class="line">                        filename:filename,</div><div class="line">                        filetype:filetype,</div><div class="line">                        content:content</div><div class="line">                    &#125;;</div><div class="line">                &#125;else&#123;</div><div class="line">                    //普通</div><div class="line">                    var name=querystring.parse(arrBufferInfo[0].toString(),&apos;; &apos;).name;</div><div class="line">                    name=name.substring(1,name.length-1);</div><div class="line"></div><div class="line">                    post[name]=content.toString();</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            //console.log(arrBuffer.toString());</div><div class="line">        &#125;else&#123;</div><div class="line">            //普通post数据</div><div class="line">            post=querystring.parse(buffer.toString());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        fnCb &amp;&amp; fnCb(post,files);</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="buffer切割方法（上个方法里面有用到）"><a href="#buffer切割方法（上个方法里面有用到）" class="headerlink" title="buffer切割方法（上个方法里面有用到）"></a>buffer切割方法（上个方法里面有用到）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function bufferSplit(buffer,spliter)&#123;</div><div class="line">    var b=new Buffer(spliter);</div><div class="line">    var arr=[];</div><div class="line">    var start=0;</div><div class="line">    var index=0;</div><div class="line">    while((index=buffer.indexOf(b,start))!=-1)&#123;</div><div class="line">        arr.push(buffer.slice(start,index));</div><div class="line">        start=index+b.length;</div><div class="line">    &#125;</div><div class="line">    arr.push(buffer.slice(start));</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最终得到post数据信息</p>
+<blockquote>
+<p>下一篇介绍 post解析<code>multipart/form-data</code>数据的插件使用。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/12/JSON字符串转换为JSON对象的2种方式/" itemprop="url">
                   JSON字符串转换为JSON对象的2种方式
                 </a>
@@ -1221,502 +1648,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/25/ES6的let和const/" itemprop="url">
-                  'ES6的let和const'
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T17:12:33+08:00" content="2016-07-25">
-              2016-07-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/25/ES6的let和const/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的let和const/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="let-和-const"><a href="#let-和-const" class="headerlink" title="let 和 const"></a>let 和 const</h2><h3 id="let命令"><a href="#let命令" class="headerlink" title="let命令"></a>let命令</h3><h5 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h5><p>ES6新增了<code>let</code>命令,用来声明变量，但其只在<code>let</code>命令所在的代码块中有效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"> let a=10;</div><div class="line"> var b=20;</div><div class="line">&#125;</div><div class="line">console.log(a)//ReferenceError: a is not defined</div><div class="line">console.log(b)//20</div></pre></td></tr></table></figure></p>
-<p>上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调用这两个变量，结果let声明的变量报错，var声明的变量返回了正确的值。这表明，let声明的变量只在它所在的代码块有效。</p>
-<p><code>for</code>循环的计数器，就很合适使用let命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for (let i = 0; i &lt; arr.length; i++) &#123;&#125;</div><div class="line"></div><div class="line">console.log(i);</div><div class="line">//ReferenceError: i is not defined</div></pre></td></tr></table></figure></p>
-<h4 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h4><p><code>let</code>不像<code>var</code>那样会发生“变量提升”现象。所以，变量一定要在声明后使用，否则报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">console.log(foo); // 输出undefined</div><div class="line">console.log(bar); // 报错ReferenceError</div><div class="line"></div><div class="line">var foo = 2;</div><div class="line">let bar = 2;</div></pre></td></tr></table></figure></p>
-<p>变量foo用var命令声明，会发生变量提升，即脚本开始运行时，变量foo已经存在了，但是没有值，所以会输出undefined。变量bar用let命令声明，不会发生变量提升。这表示在声明它之前，变量bar是不存在的，这时如果用到它，就会抛出一个错误。</p>
-<h4 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a>暂时性死区</h4><p>只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var tmp = 123;</div><div class="line"></div><div class="line">if (true) &#123;</div><div class="line">  tmp = &apos;abc&apos;; // ReferenceError</div><div class="line">  let tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面代码中，存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，所以在let声明变量前，对tmp赋值会报错。</p>
-<p>ES6明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。</p>
-<p>总之，在代码块内，使用let命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称TDZ）。</p>
-<h4 id="不允许重复声明"><a href="#不允许重复声明" class="headerlink" title="不允许重复声明"></a>不允许重复声明</h4><p><code>let</code>不允许在相同作用域内，重复声明同一个变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 报错</div><div class="line">function () &#123;</div><div class="line">  let a = 10;</div><div class="line">  var a = 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 报错</div><div class="line">function () &#123;</div><div class="line">  let a = 10;</div><div class="line">  let a = 1;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>因此，不能在函数内部重新声明参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function func(arg) &#123;</div><div class="line">  let arg; // 报错</div><div class="line">&#125;</div><div class="line"></div><div class="line">function func(arg) &#123;</div><div class="line">  &#123;</div><div class="line">    let arg; // 不报错</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>let实际上为JavaScript新增了块级作用域。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f1() &#123;</div><div class="line">  let n = 5;</div><div class="line">  if (true) &#123;</div><div class="line">    let n = 10;</div><div class="line">  &#125;</div><div class="line">  console.log(n); // 5</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面的函数有两个代码块，都声明了变量n，运行后输出5。这表示外层代码块不受内层代码块的影响。如果使用var定义变量n，最后输出的值就是10。</p>
-<h3 id="const命令"><a href="#const命令" class="headerlink" title="const命令"></a>const命令</h3><p><code>const</code> 声明一个只读的常量。一旦声明，常量的值就不能改变。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const PI = 3.1415;</div><div class="line">PI // 3.1415</div><div class="line"></div><div class="line">PI = 3;</div><div class="line">// TypeError: Assignment to constant variable.</div></pre></td></tr></table></figure>
-<p>上面代码表明改变常量的值会报错。</p>
-<p>const声明的变量不得改变值，这意味着，const一旦声明变量，就必须立即初始化，不能留到以后赋值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const foo;</div><div class="line">// SyntaxError: Missing initializer in const declaration</div></pre></td></tr></table></figure>
-<p>上面代码表示，对于const来说，只声明不赋值，就会报错。</p>
-<p>const的作用域与let命令相同：只在声明所在的块级作用域内有效,一样不可重复声明。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (true) &#123;</div><div class="line">  const MAX = 5;</div><div class="line">&#125;</div><div class="line"></div><div class="line">MAX // Uncaught ReferenceError: MAX is not defined</div></pre></td></tr></table></figure></p>
-<p>下面是另一个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const a = [];</div><div class="line">a.push(&apos;Hello&apos;); // 可执行</div><div class="line">a.length = 0;    // 可执行</div><div class="line">a = [&apos;Dave&apos;];    // 报错</div></pre></td></tr></table></figure></p>
-<p>上面代码中，常量a是一个数组，这个数组本身是可写的，但是如果将另一个数组赋值给a，就会报错。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>ES6提出了两个新的声明变量的命令：let和const。其中，let完全可以取代var，因为两者语义相同，而且let没有副作用。</p>
-<p>var命令存在变量提升效用，let命令没有这个问题。</p>
-<p>所以，建议不再使用var命令，而是使用let命令取代。</p>
-<p>在let和const之间，建议优先使用const，尤其是在全局环境，不应该设置变量，只应设置常量。这符合函数式编程思想，有利于将来的分布式运算。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">var a = 1, b = 2, c = 3;</div><div class="line"></div><div class="line">// good</div><div class="line">const a = 1;</div><div class="line">const b = 2;</div><div class="line">const c = 3;</div><div class="line"></div><div class="line">// best</div><div class="line">const [a, b, c] = [1, 2, 3];</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/25/NodeJs学习笔记——基础01/" itemprop="url">
-                  NodeJs学习笔记——基础01
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T17:00:38+08:00" content="2016-07-25">
-              2016-07-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/25/NodeJs学习笔记——基础01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/NodeJs学习笔记——基础01/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><h5 id="在node中，以下两个东西不能用："><a href="#在node中，以下两个东西不能用：" class="headerlink" title="在node中，以下两个东西不能用："></a>在node中，以下两个东西不能用：</h5><ol>
-<li>DOM    document</li>
-<li>BOM    window</li>
-</ol>
-<h5 id="魔术变量-全局提供的东西-："><a href="#魔术变量-全局提供的东西-：" class="headerlink" title="魔术变量(全局提供的东西)："></a>魔术变量(全局提供的东西)：</h5><blockquote>
-<p>node中自己封装一个 定时器(setInterval,setTimeout)</p>
-</blockquote>
-<h5 id="node-内置方法"><a href="#node-内置方法" class="headerlink" title="node 内置方法"></a>node 内置方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(__dirname);//获取当前路径</div><div class="line">console.log(__filename);//获取包含本身文件名的路径</div></pre></td></tr></table></figure>
-<h5 id="编写一个http服务器"><a href="#编写一个http服务器" class="headerlink" title="编写一个http服务器"></a>编写一个http服务器</h5><blockquote>
-<p>1,引入模块</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div></pre></td></tr></table></figure>
-<blockquote>
-<p>2,建服务器</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http.createServer(function()&#123;&#125;);</div></pre></td></tr></table></figure>
-<blockquote>
-<p>3,设置端口号</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http.listen(8080)//8080未被占用的情况下</div></pre></td></tr></table></figure>
-<blockquote>
-<p>4,通信</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function(request,response)&#123;&#125;</div><div class="line"></div><div class="line">    request.url;// 客户端地址</div><div class="line">    response.write(&apos;well&apos;);//输出内容，最好是字符串</div><div class="line">    response.end();//结束请求</div></pre></td></tr></table></figure>
-<blockquote>
-<p>最终代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line"></div><div class="line">var httpObj=http.createServer(function(req,res)&#123;</div><div class="line">    //req 请求 客户端-&gt;服务器</div><div class="line">    //res 响应 服务器-&gt;客户端</div><div class="line">    console.log(&apos;有人来访问了&apos;+req.url);//req.url获取访问者进来的路径</div><div class="line">    res.write(&apos;hello node&apos;);</div><div class="line">    res.end();//结束了</div><div class="line">&#125;)</div><div class="line"></div><div class="line">httpObj.listen(8080);</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h4 id="通过http-fs实现"><a href="#通过http-fs实现" class="headerlink" title="通过http+fs实现"></a>通过http+fs实现</h4><p>fs通用方法</p>
-<blockquote>
-<p>fs.readFile读文件</p>
-<p>fs.exists是否存在</p>
-<p>fs.stat查看状态</p>
-<p>fs.rename重命名</p>
-</blockquote>
-<p>文件夹</p>
-<blockquote>
-<p>fs.rmdir新建文件夹</p>
-<p>fs.rmdir删除文件夹</p>
-</blockquote>
-<p>文件</p>
-<blockquote>
-<p>fs.writeFile新建文件</p>
-<p>fs.appendFile追加内容</p>
-<p>fs.unlink删除文件</p>
-</blockquote>
-<p>fs读取内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fs.readFile(路径，[编码],function(err, data)&#123;//异步过程</div><div class="line">    </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>具体实现方法：</p>
-<p>首先在项目文件夹内录新建<code>www</code>文件夹并创建页面<code>index.html</code>,<code>a.html</code>,<code>b.html</code>;</p>
-<blockquote>
-<p>页面内容：</p>
-</blockquote>
-<p>index.html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/a&quot;&gt;A页面&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/b&quot;&gt;B页面&lt;/a&gt;&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div><div class="line">&lt;h3&gt;这是首页&lt;/h3&gt;</div></pre></td></tr></table></figure></p>
-<p>a.html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/a&quot;&gt;A页面&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/b&quot;&gt;B页面&lt;/a&gt;&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div><div class="line">&lt;h3&gt;这是A页&lt;/h3&gt;</div></pre></td></tr></table></figure></p>
-<p>b.html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/a&quot;&gt;A页面&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/b&quot;&gt;B页面&lt;/a&gt;&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div><div class="line">&lt;h3&gt;这是B页&lt;/h3&gt;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>在项目根目录创建server_fs.js</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">//建立服务</div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    //console.log(&quot;有人来了&quot;+req.url)</div><div class="line">    var url=req.url==&apos;/&apos;?&apos;/index&apos;:req.url;</div><div class="line">    //验证请求的url，如果为localhost:8080则访问localhost:8080/index</div><div class="line"></div><div class="line">    fs.readFile(&apos;wwww&apos;+url+&apos;.html&apos;,function(err,data)&#123;//异步过程</div><div class="line">        if(err)&#123;</div><div class="line">            //console.log(&quot;404&quot;);</div><div class="line">            res.write(&apos;404&apos;)</div><div class="line">        &#125;else&#123;</div><div class="line">            //console.log(data);</div><div class="line">            res.write(data);</div><div class="line">        &#125;</div><div class="line">        res.end();//结束响应</div><div class="line">    &#125;)</div><div class="line">     </div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure>
-<p>通过ES6箭头函数的实现方法稍作改动即可:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">//建立服务</div><div class="line">http.createServer((req,res)=&gt;&#123;</div><div class="line">    console.log(&apos;有人来了:&apos;+req.url);</div><div class="line">    // wwww//</div><div class="line">    var url=req.url==&apos;/&apos;?&apos;/index&apos;:req.url;</div><div class="line">    console.log(&apos;wwww&apos;+url+&apos;.html&apos;);</div><div class="line">    fs.readFile(&apos;wwww&apos;+url+&apos;.html&apos;,(err,data) =&gt; &#123;</div><div class="line">        if(err)&#123;</div><div class="line">            //console.log(err);</div><div class="line">            res.write(&apos;404&apos;);</div><div class="line">        &#125;else&#123;</div><div class="line">            //console.log(data);</div><div class="line">            res.write(data);</div><div class="line">        &#125;</div><div class="line">        res.end();</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(8080);</div></pre></td></tr></table></figure></p>
-<p>这样一个简单的萌新node功能就实现了。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/19/js命名空间/" itemprop="url">
-                  js命名空间
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-19T15:28:34+08:00" content="2016-07-19">
-              2016-07-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/19/js命名空间/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/19/js命名空间/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-为什么要用js命名空间"><a href="#1-为什么要用js命名空间" class="headerlink" title="1.为什么要用js命名空间"></a>1.为什么要用js命名空间</h3><p>项目中，如果多个人为同一个页面写js的话，命名冲突就有可能发生，如果所有的函数都是全局的话，如下：</p>
-<blockquote>
-<p>a.js中</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">com</span></span>()</div><div class="line">&#123;</div><div class="line">  .....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>b.js中</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">com</span></span>()</div><div class="line">&#123;</div><div class="line">  .....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>而且一个页面同时引用了这两个js文件，这样我们调用的时候会出问题，可能总是调用到第一个文件里面的函数了！</p>
-<blockquote>
-<p>如果我弄一个命名空间，这样a.js里面的函数在a空间中，b.js里面的函数在b命令空间中。</p>
-</blockquote>
-<p>调用的时候就可以如下调用：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a.com();</div><div class="line">b.com();</div></pre></td></tr></table></figure>
-<h3 id="2-如何制造命名空间"><a href="#2-如何制造命名空间" class="headerlink" title="2.如何制造命名空间"></a>2.如何制造命名空间</h3><blockquote>
-<p>其实就是利用js对象字面量这个语法来实现js的命名空间的</p>
-</blockquote>
-<p>接着上面的上面提出的这个问题，要想实现如下调用:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a.com();</div><div class="line">b.com();</div></pre></td></tr></table></figure>
-<p>可以用如下方法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var  a=&#123;</div><div class="line">      com: <span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">        ..........</div><div class="line">      &#125;</div><div class="line">&#125;</div><div class="line">var b=&#123;</div><div class="line">      com: <span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">        ..........</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上面都是采用对象字面量的方法，定义了两个对象a和对象b是全局的,且两个对象里面都有一个com方法，没有变量，(我们知道js里面的对象可以拥有属性和方法)，可以看得到我们已经实现js的命令空间了。</p>
-<p>例如：登录界面有一个login.js文件，他的命名空间为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var  BP=&#123;</div><div class="line">           login:&#123;</div><div class="line">                   ....</div><div class="line">              &#125;                                </div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>这个表示全局对象BP里面有一个login对象，然后关于对登录界面的操作都在的属性和方法都要放在login对象里面，就是关于这个页面的操作在命名空间BP.login里面。BP便是项目名字，login表示本js的功能</p>
-</blockquote>
-<p>还有一种方法，通过注册window方法，<code>nameSpace.Register(&quot;BP.login&quot;)</code>，只需要在Resister这个函数里面动态的创建出BP对象和BP的子对象login</p>
-<p>我们知道定义一个对象可以这样，<code>window[&#39;BP&#39;]={};  window.BP[&#39;login&#39;]={};</code>表示window对象有一个子对象BP，BP有一个子对象login。</p>
-<p>下面就是采用这种方法来动态的拆分字符串，然后用上面这种方法动态创建对象的</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">var nameSpace = nameSpace || &#123;&#125;;</div><div class="line">(<span class="function"><span class="title">function</span></span> () &#123;</div><div class="line">  var global = window;</div><div class="line">  /**</div><div class="line">   * </div><div class="line">   * @param &#123;&#125; nsStr</div><div class="line">   * @<span class="built_in">return</span> &#123;&#125;</div><div class="line">   */</div><div class="line">  nameSpace.ns = <span class="keyword">function</span> (nsStr) &#123;</div><div class="line">    var parts = nsStr.split(<span class="string">"."</span>),</div><div class="line">    root = global,</div><div class="line">    max,</div><div class="line">    i;</div><div class="line">    <span class="keyword">for</span> (i = 0, max = parts.length ; i &lt; max ; i++) &#123;</div><div class="line">      //如果不存在，就创建一个属性</div><div class="line">      <span class="keyword">if</span> (typeof root[parts[i]] === <span class="string">"undefined"</span>) &#123;</div><div class="line">        root[parts[i]] = &#123;&#125;;</div><div class="line">      &#125;</div><div class="line">      root = root[parts[i]];</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">return</span> root;</div><div class="line">  &#125;;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
-<h5 id="a-表示nameSpace定义成一个对象"><a href="#a-表示nameSpace定义成一个对象" class="headerlink" title="a.表示nameSpace定义成一个对象"></a>a.表示nameSpace定义成一个对象</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var nameSpace = nameSpace || &#123;&#125;;</div></pre></td></tr></table></figure>
-<h5 id="b-匿名函数"><a href="#b-匿名函数" class="headerlink" title="b.//匿名函数"></a>b.//匿名函数</h5><p><font style="color:#f00">(</font>function(){</p>
-<p>//code,运行的代码</p>
-<p>}<font style="color:#f00">)</font><font style="color:rgb(0, 176, 80)">()</font>;</p>
-<blockquote>
-<p>注意：()在JavaScript中有两种含义：一是运算符；二是分隔符。</p>
-</blockquote>
-<p>上面匿名函数需要说明两点：</p>
-<blockquote>
-<p>红色括号里是一个匿名函数，红色括号代表分割，表示里面的函数是一个部分；</p>
-<p>绿色括号表示一个运算符，表示红色括号里面的函数要运行；相当于定义完一个匿名函数后就让它直接运行。</p>
-</blockquote>
-<h3 id="3-使用命名空间"><a href="#3-使用命名空间" class="headerlink" title="3.使用命名空间"></a>3.使用命名空间</h3><p>在我们登录的界面的login.js文件中，我们一般希望我们的每一个js文件里面的代码都放在自己的命名空间里面，这样多个js文件之间就不会有命名冲突了</p>
-<p>login.js文件内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">nameSpace.ns(<span class="string">"BP.login"</span>); //注册命令空间</div><div class="line">BP.login=&#123;</div><div class="line">    min_height:660,//页面最小高度</div><div class="line">    min_widht:1024,//页面最小宽度</div><div class="line">    isIE:<span class="literal">false</span>,</div><div class="line">    init:<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">       this.isIE=$.browser.msie;</div><div class="line">       this.regEvent();</div><div class="line">       this.initPage();</div><div class="line">       BP.page.i18nInit();//国际化加载</div><div class="line">     &#125;</div><div class="line">     ........</div><div class="line">     .......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用命名空间里面的函数：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta name=<span class="string">"others"</span> content=<span class="string">"login_page"</span>&gt;</div><div class="line">    &lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    $(document).ready(<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">        BP.login.init();</div><div class="line">    &#125;);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">     &lt;body&gt;  </div><div class="line">     &lt;/body&gt;  </div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>utils.js文件内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">nameSpace.ns(<span class="string">"BP.utils"</span>);</div><div class="line">BP.utils = &#123;</div><div class="line">    time:3000,</div><div class="line">    timeOut:null,</div><div class="line">    interValForFake:null,</div><div class="line">    isProgressBarShow:<span class="literal">false</span>,</div><div class="line">    timeOutReturn:<span class="string">''</span>,</div><div class="line">    alert:<span class="keyword">function</span>(content)&#123;</div><div class="line">        ....</div><div class="line">    &#125;,</div><div class="line">    .............................</div><div class="line">｝</div></pre></td></tr></table></figure>
-<p>反正每一个js文件都有一个自己的命令空间，然后调用的时候带命名空间名字就可以了！</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1762,7 +1693,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1776,6 +1707,13 @@
             </div>
           
 
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
           
 
         </nav>
