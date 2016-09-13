@@ -285,6 +285,147 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/13/node-express路由/" itemprop="url">
+                  node-express·��
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-13T15:57:08+08:00" content="2016-09-13">
+              2016-09-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/13/node-express路由/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/13/node-express路由/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="·��"><a href="#·��" class="headerlink" title="·��"></a>·��</h2><blockquote>
+<p>·����ָ���ζ���Ӧ�õĶ˵㣨URIs���Լ�������Ӧ�ͻ��˵�������</p>
+</blockquote>
+<p>����һ�� URI��HTTP ������GET��POST�ȣ������ɸ��������ɣ����Ľṹ���£� app.METHOD(path, [callback…], callback)�� app �� express ������һ��ʵ���� METHOD ��һ�� HTTP ���󷽷��� path �Ƿ������ϵ�·���� callback �ǵ�·��ƥ��ʱҪִ�еĺ�����</p>
+<p>ʵ����</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line"></div><div class="line">var server=express();</div><div class="line"></div><div class="line">server.listen(8081);</div><div class="line"></div><div class="line">var userRouter=express.Router(); //user��router</div><div class="line"></div><div class="line">userRouter.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û���ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/login&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û���¼ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/reg&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û�ע��ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/email&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;ҳ���ʼ�ҳ��&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>ͨ��localhost:8081/,localhost:8081/login…���ɿ�Ч��</p>
+<p>Ҳ���԰�·��д��ģ��:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">var userRouter=express.Router(); //user��router</div><div class="line">module.exports=userRouter;</div><div class="line"></div><div class="line"></div><div class="line">userRouter.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û���ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/login&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û���¼ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/reg&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û�ע��ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/email&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;ҳ���ʼ�ҳ��&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>ʹ��·��</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line"></div><div class="line">var server=express();</div><div class="line"></div><div class="line">server.listen(8081);</div><div class="line"></div><div class="line">//ʹ��</div><div class="line">server.use(&apos;/news&apos;,require(&apos;./router/news&apos;));</div><div class="line">server.use(&apos;/user&apos;,require(&apos;./router/user&apos;));</div></pre></td></tr></table></figure>
+<h3 id="����ʵ��"><a href="#����ʵ��" class="headerlink" title="����ʵ��"></a>����ʵ��</h3><h4 id="server-js��"><a href="#server-js��" class="headerlink" title="server.js��"></a>server.js��</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const bodyParser=require(&apos;body-parser&apos;);</div><div class="line">const multerLib=require(&apos;multer&apos;);</div><div class="line">const cookieParser=require(&apos;cookie-parser&apos;);</div><div class="line">const cookieSession=require(&apos;cookie-session&apos;);</div><div class="line">const consolidate=require(&apos;consolidate&apos;);</div><div class="line"></div><div class="line">//�����ļ��ϴ�·��</div><div class="line">var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);</div><div class="line"></div><div class="line">//server</div><div class="line">var app=express();</div><div class="line">app.listen(8081);</div><div class="line"></div><div class="line">//ʹ���м���</div><div class="line">app.use(bodyParser.urlencoded(&#123;extended:false&#125;));</div><div class="line">app.use(multer.any());</div><div class="line">app.use(cookieParser());</div><div class="line">app.use(cookieSession(&#123;</div><div class="line">  name:&apos;aaaa&apos;,//session����</div><div class="line">  keys:[&apos;aaa&apos;,&apos;bbb&apos;,&apos;ccc&apos;],//ѭ��ǩ��session</div><div class="line">  maxAge:20*60*1000 //����ʱ��</div><div class="line">&#125;))</div><div class="line"></div><div class="line">//����ģ��</div><div class="line">app.set(&apos;views&apos;,&apos;views&apos;);//����ģ��Ŀ¼</div><div class="line">app.set(&apos;view engine&apos;,&apos;html&apos;);//����ģ������</div><div class="line">app.engine(&apos;html&apos;,consolidate.ejs);//��Ӧģ������</div><div class="line"></div><div class="line"></div><div class="line">//ʹ��·��</div><div class="line">app.use(&apos;/&apos;,require(&apos;./routes/index&apos;));</div><div class="line">app.use(&apos;/users&apos;,require(&apos;./routes/users&apos;));</div><div class="line"></div><div class="line"></div><div class="line">//��̬��Դ</div><div class="line">app.use(express.static(&apos;static&apos;));//��Դ��̬��</div><div class="line"></div><div class="line">//404</div><div class="line">app.use(function (req, res) &#123;</div><div class="line">  res.render(&apos;error&apos;,&#123;&#125;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="g��L¼"><a href="#g��L¼" class="headerlink" title="ģ��Ŀ¼"></a>ģ��Ŀ¼</h4><blockquote>
+<p>views/index.html,users.html,user1.html,user2.html</p>
+</blockquote>
+<h4 id="·���l�"><a href="#·���l�" class="headerlink" title="·���ļ�"></a>·���ļ�</h4><blockquote>
+<p>roures/index.js,users.js</p>
+</blockquote>
+<h5 id="index-js"><a href="#index-js" class="headerlink" title="index.js:"></a>index.js:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line"></div><div class="line">var route=express.Router();</div><div class="line"></div><div class="line">route.get(&apos;/\/|\/index/&apos;, function (req, res) &#123;</div><div class="line">    res.render(&apos;index&apos;,&#123;title:&quot;��ҳ&quot;&#125;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">module.exports=route;</div></pre></td></tr></table></figure>
+<h5 id="users-js"><a href="#users-js" class="headerlink" title="users.js:"></a>users.js:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line"></div><div class="line">var route=express.Router();</div><div class="line"></div><div class="line">route.get(&apos;/&apos;, function (req, res) &#123;</div><div class="line">    res.render(&apos;users&apos;,&#123;title:&quot;�û�&quot;&#125;);</div><div class="line">&#125;)</div><div class="line"></div><div class="line">route.get(&apos;/users1&apos;, function (req, res) &#123;</div><div class="line">    res.render(&apos;users1&apos;,&#123;title:&quot;�û�2&quot;&#125;);</div><div class="line">&#125;)</div><div class="line"></div><div class="line">route.get(&apos;/users2&apos;, function (req, res) &#123;</div><div class="line">    res.render(&apos;users2&apos;,&#123;title:&quot;�û�3&quot;&#125;);</div><div class="line">&#125;)</div><div class="line">module.exports=route;</div></pre></td></tr></table></figure>
+<h5 id="��server-jsһ��Ҫ�����l���"><a href="#��server-jsһ��Ҫ�����l���" class="headerlink" title="��server.jsһ��Ҫ�����ſ���"></a>��server.jsһ��Ҫ�����ſ���</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//ʹ��·��</div><div class="line">app.use(&apos;/&apos;,require(&apos;./routes/index&apos;));</div><div class="line">app.use(&apos;/users&apos;,require(&apos;./routes/users&apos;));</div></pre></td></tr></table></figure>
+<p>ģ���ļ��п�ͨ��&lt;%=title%&gt;��ȡrender�����Ĳ�������</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/12/express-渲染模版页面/" itemprop="url">
                   express-渲染模版页面
                 </a>
@@ -1593,165 +1734,6 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/19/Nodejs——Stream流/" itemprop="url">
-                  Nodejs——Stream流
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T13:36:45+08:00" content="2016-08-19">
-              2016-08-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/19/Nodejs——Stream流/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/Nodejs——Stream流/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>所谓流：就是一组连续的数据（文件流、网络流…)</p>
-</blockquote>
-<h4 id="之前的文件操作通过通过fs-readFile进行读取有以下弊端"><a href="#之前的文件操作通过通过fs-readFile进行读取有以下弊端" class="headerlink" title="之前的文件操作通过通过fs.readFile进行读取有以下弊端"></a>之前的文件操作通过通过fs.readFile进行读取有以下弊端</h4><p>1,把文件读取到内存中</p>
-<p>2,内存不足、卡顿</p>
-<p>3,造成 IO峰值</p>
-<p>4,数据混乱</p>
-<p>5,耗时</p>
-<p>6,操作文件会有各种限制（文件大小限制…）</p>
-<h4 id="通过流进行文件操作"><a href="#通过流进行文件操作" class="headerlink" title="通过流进行文件操作"></a>通过流进行文件操作</h4><p>流可分为：</p>
-<p>1,读取流——req</p>
-<p>2,写入流——res</p>
-<p>3,读写流——文件压缩</p>
-<p>之前创建http服务时有这样的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>读取流，就相当于<code>req</code>,写入流就相当于<code>res</code></p>
-<p>读写流常用在文件压缩等功能</p>
-<h5 id="写入流"><a href="#写入流" class="headerlink" title="写入流"></a>写入流</h5><p>抛开之前的<code>fs.writeFile()</code>方法,将内容写入ccc.txt文件，若没有ccc.txt文件，则创建一个ccc.txt文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var ws=fs.createWriteStream(&apos;ccc.txt&apos;);  //创建了一个写入流</div><div class="line"></div><div class="line">ws.write(&apos;abcd&apos;);</div><div class="line"></div><div class="line">ws.end();</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;写入完毕&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="读取流"><a href="#读取流" class="headerlink" title="读取流"></a>读取流</h5><p>项目目录有一个aaa.txt文件，文件内容为aaa</p>
-<p>执行读取:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line"></div><div class="line">var arr=[];</div><div class="line"></div><div class="line">rs.on(&apos;data&apos;,function(b)&#123;</div><div class="line">    arr.push(b);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">rs.on(&apos;end&apos;,function()&#123;</div><div class="line">    var buffer=Buffer.concat(arr);</div><div class="line">    console.log(buffer.toString());</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>另外针对stream的err捕获，无法通过try()catch(e){}捕获到，try捕获是程序异常，而流操作，走的是系统；</p>
-<p>rs同requst一样有着监听事件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rs.on(&apos;error&apos;,function(err)&#123;</div><div class="line">    console.log(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h5><p>和unix一样，node stream主要的操作也是.pipe()</p>
-<pre><code>源头.pipe(目标)
-
-读取.pipe(写入)
-</code></pre><p>将bbb.txt文件内容写入到ddd.txt文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;bbb.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;ddd.txt&apos;);</div><div class="line"></div><div class="line">//读取.pipe(写入)</div><div class="line">rs.pipe(ws);</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;读写完毕&apos;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="读写流——实现文件压缩"><a href="#读写流——实现文件压缩" class="headerlink" title="读写流——实现文件压缩"></a>读写流——实现文件压缩</h5><blockquote>
-<p>需要引入第三方模块<code>zlib</code></p>
-</blockquote>
-<pre><code>npm install zlib
-</code></pre><p>程序代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const zLib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">var gz=zlib.createGzip();//选择压缩模式-gzip</div><div class="line"></div><div class="line">//准备2个流</div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;aaa.txt.gz&apos;);</div><div class="line"></div><div class="line">//执行压缩</div><div class="line">rs.pipe(gz).pipe(ws);</div></pre></td></tr></table></figure></p>
-<p>执行后，项目目录会生成名字为‘aaa.txt.gz’的压缩文件</p>
-<blockquote>
-<p>gz压缩格式特点——修改.gz文件名称，压缩文件会跟着压缩包名字改变</p>
-</blockquote>
-<p>执行代码，先对文件进行gzip压缩，再输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
-<p>此时打开浏览器localhost:8081会直接下载222.txt文件，而不是输出文件内容</p>
-<p>设置header</p>
-<pre><code>res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)
-</code></pre><p>完整代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)</div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1797,7 +1779,7 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

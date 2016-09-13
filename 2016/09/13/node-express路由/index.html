@@ -88,28 +88,25 @@
 
 
 
-<meta name="description" content="模块consolidate（需下载）需要在应用中进行如下设置才能让 Express 渲染模板文件：
-views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)
-view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)
-使用:
-const consolidate=require(&amp;apos;consolidate&amp;ap">
+<meta name="description" content="·��
+·����ָ���ζ���Ӧ�õĶ˵㣨URIs���Լ�������Ӧ�ͻ��˵�������
+
+����һ�� URI��HTTP ������GET��POST�ȣ������ɸ��������ɣ����Ľṹ���£� app.METHOD(path, [callback…], callback)�� app �� express ������һ��ʵ���� METHOD ��һ��">
 <meta property="og:type" content="article">
-<meta property="og:title" content="express-渲染模版页面">
-<meta property="og:url" content="http://yoursite.com/2016/09/12/express-渲染模版页面/index.html">
+<meta property="og:title" content="node-express·��">
+<meta property="og:url" content="http://yoursite.com/2016/09/13/node-express路由/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="模块consolidate（需下载）需要在应用中进行如下设置才能让 Express 渲染模板文件：
-views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)
-view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)
-使用:
-const consolidate=require(&amp;apos;consolidate&amp;ap">
-<meta property="og:updated_time" content="2016-09-12T06:55:49.547Z">
+<meta property="og:description" content="·��
+·����ָ���ζ���Ӧ�õĶ˵㣨URIs���Լ�������Ӧ�ͻ��˵�������
+
+����һ�� URI��HTTP ������GET��POST�ȣ������ɸ��������ɣ����Ľṹ���£� app.METHOD(path, [callback…], callback)�� app �� express ������һ��ʵ���� METHOD ��һ��">
+<meta property="og:updated_time" content="2016-09-13T07:58:26.989Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="express-渲染模版页面">
-<meta name="twitter:description" content="模块consolidate（需下载）需要在应用中进行如下设置才能让 Express 渲染模板文件：
-views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)
-view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)
-使用:
-const consolidate=require(&amp;apos;consolidate&amp;ap">
+<meta name="twitter:title" content="node-express·��">
+<meta name="twitter:description" content="·��
+·����ָ���ζ���Ӧ�õĶ˵㣨URIs���Լ�������Ӧ�ͻ��˵�������
+
+����һ�� URI��HTTP ������GET��POST�ȣ������ɸ��������ɣ����Ľṹ���£� app.METHOD(path, [callback…], callback)�� app �� express ������һ��ʵ���� METHOD ��һ��">
 
 
 
@@ -130,9 +127,9 @@ const consolidate=require(&amp;apos;consolidate&amp;ap">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/12/express-渲染模版页面/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/13/node-express路由/"/>
 
-  <title> express-渲染模版页面 | Mr.Shen </title>
+  <title> node-express·�� | Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -295,7 +292,7 @@ const consolidate=require(&amp;apos;consolidate&amp;ap">
             
             
               
-                express-渲染模版页面
+                node-express·��
               
             
           </h1>
@@ -307,8 +304,8 @@ const consolidate=require(&amp;apos;consolidate&amp;ap">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-12T14:55:23+08:00" content="2016-09-12">
-              2016-09-12
+            <time itemprop="dateCreated" datetime="2016-09-13T15:57:08+08:00" content="2016-09-13">
+              2016-09-13
             </time>
           </span>
 
@@ -337,8 +334,8 @@ const consolidate=require(&amp;apos;consolidate&amp;ap">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/12/express-渲染模版页面/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/express-渲染模版页面/" itemprop="commentsCount"></span>
+                <a href="/2016/09/13/node-express路由/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/13/node-express路由/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -361,24 +358,29 @@ const consolidate=require(&amp;apos;consolidate&amp;ap">
       
 
       
-        <h2 id="模块consolidate（需下载）"><a href="#模块consolidate（需下载）" class="headerlink" title="模块consolidate（需下载）"></a>模块consolidate（需下载）</h2><p>需要在应用中进行如下设置才能让 Express 渲染模板文件：</p>
-<p>views, 放模板文件的目录，比如： app.set(‘views’, ‘./views’)</p>
-<p>view engine, 模板引擎，比如： app.set(‘view engine’, ‘ejs’)</p>
-<p>使用:</p>
-<pre><code>const consolidate=require(&apos;consolidate&apos;);
-</code></pre><p>配置:</p>
-<pre><code>server.set(&apos;views&apos;,&apos;template&apos;); //设置模板目录
-server.set(&apos;view engine&apos;,&apos;html&apos;); //设置模板名称也可设置为ejs,jade...
-server.engine(&apos;html&apos;,consolidate.ejs); //对应模板引擎
-</code></pre><p>渲染：</p>
-<pre><code>res.render(模板地址,数据);
-</code></pre><p>完整代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const ejs=require(&apos;ejs&apos;);</div><div class="line">const consolidate=require(&apos;consolidate&apos;);</div><div class="line"></div><div class="line">var server=express();</div><div class="line"></div><div class="line">server.listen(8081);</div><div class="line"></div><div class="line">server.set(&apos;views&apos;,&apos;template&apos;); //设置模板目录</div><div class="line">server.set(&apos;view engine&apos;,&apos;html&apos;); //设置模板名称</div><div class="line"></div><div class="line">server.engine(&apos;html&apos;,consolidate.ejs); //对应上模板引擎</div><div class="line"></div><div class="line">server.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.render(&apos;index&apos;,&#123;msg:&apos;welcome welcome&apos;&#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.get(&apos;/news&apos;,function(req,res)&#123;</div><div class="line">    res.render(&apos;news&apos;,&#123;msg:&apos;news&apos;&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>template目录下模版文件</p>
-<p>index.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h3&gt;</div><div class="line">        &lt;%=msg%&gt;</div><div class="line">        &lt;!--welcome welcome--&gt;</div><div class="line">    &lt;/h3&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
-<p>news.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h3&gt;</div><div class="line">        &lt;%=msg%&gt;</div><div class="line">        &lt;!--news--&gt;</div><div class="line">    &lt;/h3&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+        <h2 id="·��"><a href="#·��" class="headerlink" title="·��"></a>·��</h2><blockquote>
+<p>·����ָ���ζ���Ӧ�õĶ˵㣨URIs���Լ�������Ӧ�ͻ��˵�������</p>
+</blockquote>
+<p>����һ�� URI��HTTP ������GET��POST�ȣ������ɸ��������ɣ����Ľṹ���£� app.METHOD(path, [callback…], callback)�� app �� express ������һ��ʵ���� METHOD ��һ�� HTTP ���󷽷��� path �Ƿ������ϵ�·���� callback �ǵ�·��ƥ��ʱҪִ�еĺ�����</p>
+<p>ʵ����</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line"></div><div class="line">var server=express();</div><div class="line"></div><div class="line">server.listen(8081);</div><div class="line"></div><div class="line">var userRouter=express.Router(); //user��router</div><div class="line"></div><div class="line">userRouter.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û���ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/login&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û���¼ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/reg&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û�ע��ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/email&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;ҳ���ʼ�ҳ��&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>ͨ��localhost:8081/,localhost:8081/login…���ɿ�Ч��</p>
+<p>Ҳ���԰�·��д��ģ��:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">var userRouter=express.Router(); //user��router</div><div class="line">module.exports=userRouter;</div><div class="line"></div><div class="line"></div><div class="line">userRouter.get(&apos;/&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û���ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/login&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û���¼ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/reg&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;�û�ע��ҳ��&apos;);</div><div class="line">&#125;);</div><div class="line">userRouter.get(&apos;/email&apos;,function(req,res)&#123;</div><div class="line">    res.send(&apos;ҳ���ʼ�ҳ��&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>ʹ��·��</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line"></div><div class="line">var server=express();</div><div class="line"></div><div class="line">server.listen(8081);</div><div class="line"></div><div class="line">//ʹ��</div><div class="line">server.use(&apos;/news&apos;,require(&apos;./router/news&apos;));</div><div class="line">server.use(&apos;/user&apos;,require(&apos;./router/user&apos;));</div></pre></td></tr></table></figure>
+<h3 id="����ʵ��"><a href="#����ʵ��" class="headerlink" title="����ʵ��"></a>����ʵ��</h3><h4 id="server-js��"><a href="#server-js��" class="headerlink" title="server.js��"></a>server.js��</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line">const bodyParser=require(&apos;body-parser&apos;);</div><div class="line">const multerLib=require(&apos;multer&apos;);</div><div class="line">const cookieParser=require(&apos;cookie-parser&apos;);</div><div class="line">const cookieSession=require(&apos;cookie-session&apos;);</div><div class="line">const consolidate=require(&apos;consolidate&apos;);</div><div class="line"></div><div class="line">//�����ļ��ϴ�·��</div><div class="line">var multer=multerLib(&#123;dest:&apos;upload&apos;&#125;);</div><div class="line"></div><div class="line">//server</div><div class="line">var app=express();</div><div class="line">app.listen(8081);</div><div class="line"></div><div class="line">//ʹ���м���</div><div class="line">app.use(bodyParser.urlencoded(&#123;extended:false&#125;));</div><div class="line">app.use(multer.any());</div><div class="line">app.use(cookieParser());</div><div class="line">app.use(cookieSession(&#123;</div><div class="line">  name:&apos;aaaa&apos;,//session����</div><div class="line">  keys:[&apos;aaa&apos;,&apos;bbb&apos;,&apos;ccc&apos;],//ѭ��ǩ��session</div><div class="line">  maxAge:20*60*1000 //����ʱ��</div><div class="line">&#125;))</div><div class="line"></div><div class="line">//����ģ��</div><div class="line">app.set(&apos;views&apos;,&apos;views&apos;);//����ģ��Ŀ¼</div><div class="line">app.set(&apos;view engine&apos;,&apos;html&apos;);//����ģ������</div><div class="line">app.engine(&apos;html&apos;,consolidate.ejs);//��Ӧģ������</div><div class="line"></div><div class="line"></div><div class="line">//ʹ��·��</div><div class="line">app.use(&apos;/&apos;,require(&apos;./routes/index&apos;));</div><div class="line">app.use(&apos;/users&apos;,require(&apos;./routes/users&apos;));</div><div class="line"></div><div class="line"></div><div class="line">//��̬��Դ</div><div class="line">app.use(express.static(&apos;static&apos;));//��Դ��̬��</div><div class="line"></div><div class="line">//404</div><div class="line">app.use(function (req, res) &#123;</div><div class="line">  res.render(&apos;error&apos;,&#123;&#125;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="g��L¼"><a href="#g��L¼" class="headerlink" title="ģ��Ŀ¼"></a>ģ��Ŀ¼</h4><blockquote>
+<p>views/index.html,users.html,user1.html,user2.html</p>
+</blockquote>
+<h4 id="·���l�"><a href="#·���l�" class="headerlink" title="·���ļ�"></a>·���ļ�</h4><blockquote>
+<p>roures/index.js,users.js</p>
+</blockquote>
+<h5 id="index-js"><a href="#index-js" class="headerlink" title="index.js:"></a>index.js:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line"></div><div class="line">var route=express.Router();</div><div class="line"></div><div class="line">route.get(&apos;/\/|\/index/&apos;, function (req, res) &#123;</div><div class="line">    res.render(&apos;index&apos;,&#123;title:&quot;��ҳ&quot;&#125;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">module.exports=route;</div></pre></td></tr></table></figure>
+<h5 id="users-js"><a href="#users-js" class="headerlink" title="users.js:"></a>users.js:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">const express=require(&apos;express&apos;);</div><div class="line"></div><div class="line">var route=express.Router();</div><div class="line"></div><div class="line">route.get(&apos;/&apos;, function (req, res) &#123;</div><div class="line">    res.render(&apos;users&apos;,&#123;title:&quot;�û�&quot;&#125;);</div><div class="line">&#125;)</div><div class="line"></div><div class="line">route.get(&apos;/users1&apos;, function (req, res) &#123;</div><div class="line">    res.render(&apos;users1&apos;,&#123;title:&quot;�û�2&quot;&#125;);</div><div class="line">&#125;)</div><div class="line"></div><div class="line">route.get(&apos;/users2&apos;, function (req, res) &#123;</div><div class="line">    res.render(&apos;users2&apos;,&#123;title:&quot;�û�3&quot;&#125;);</div><div class="line">&#125;)</div><div class="line">module.exports=route;</div></pre></td></tr></table></figure>
+<h5 id="��server-jsһ��Ҫ�����l���"><a href="#��server-jsһ��Ҫ�����l���" class="headerlink" title="��server.jsһ��Ҫ�����ſ���"></a>��server.jsһ��Ҫ�����ſ���</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//ʹ��·��</div><div class="line">app.use(&apos;/&apos;,require(&apos;./routes/index&apos;));</div><div class="line">app.use(&apos;/users&apos;,require(&apos;./routes/users&apos;));</div></pre></td></tr></table></figure>
+<p>ģ���ļ��п�ͨ��&lt;%=title%&gt;��ȡrender�����Ĳ�������</p>
+
       
     </div>
 
@@ -409,17 +411,13 @@ server.engine(&apos;html&apos;,consolidate.ejs); //对应模板引擎
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/12/node-express的cookie，session，fs文件操作/" rel="next" title="node-express的cookie，session，fs文件操作">
-                <i class="fa fa-chevron-left"></i> node-express的cookie，session，fs文件操作
+              <a href="/2016/09/12/express-渲染模版页面/" rel="next" title="express-渲染模版页面">
+                <i class="fa fa-chevron-left"></i> express-渲染模版页面
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/13/node-express路由/" rel="prev" title="node-express·��">
-                node-express·�� <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -445,8 +443,8 @@ server.engine(&apos;html&apos;,consolidate.ejs); //对应模板引擎
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/12/express-渲染模版页面/"
-           data-title="express-渲染模版页面" data-url="http://yoursite.com/2016/09/12/express-渲染模版页面/">
+      <div class="ds-thread" data-thread-key="2016/09/13/node-express路由/"
+           data-title="node-express·��" data-url="http://yoursite.com/2016/09/13/node-express路由/">
       </div>
     
   </div>
@@ -548,7 +546,7 @@ server.engine(&apos;html&apos;,consolidate.ejs); //对应模板引擎
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块consolidate（需下载）"><span class="nav-number">1.</span> <span class="nav-text">模块consolidate（需下载）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#·��"><span class="nav-number">1.</span> <span class="nav-text">·��</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#����ʵ��"><span class="nav-number">1.1.</span> <span class="nav-text">����ʵ��</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#server-js��"><span class="nav-number">1.1.1.</span> <span class="nav-text">server.js��</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#g��L¼"><span class="nav-number">1.1.2.</span> <span class="nav-text">ģ��Ŀ¼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#·���l�"><span class="nav-number">1.1.3.</span> <span class="nav-text">·���ļ�</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#index-js"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">index.js:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#users-js"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">users.js:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#��server-jsһ��Ҫ�����l���"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">��server.jsһ��Ҫ�����ſ���</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>

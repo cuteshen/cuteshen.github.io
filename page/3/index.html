@@ -285,6 +285,140 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/25/ES6的Class/" itemprop="url">
+                  'ES6的Class'
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T17:14:01+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/25/ES6的Class/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的Class/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>JavaScript语言的传统方法是通过构造函数，定义并生成新对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function Point(x, y)&#123;</div><div class="line">    this.x=x;</div><div class="line">    this.y=y;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Point.prototype.toString=function()&#123;</div><div class="line">    return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p = new Point(1, 2);</div></pre></td></tr></table></figure></p>
+<p>上面的代码用ES6的“类”改写，就是下面这样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Point&#123;</div><div class="line">    contructor(x, y)&#123;</div><div class="line">        this.x = x;</div><div class="line">        this.y = y;</div><div class="line">    &#125;</div><div class="line">    toString()&#123;</div><div class="line">        return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面代码定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。</p>
+<p><code>Point</code>类除了构造方法，还定义了一个<code>toString</code>方法。注意，定义“类”的方法的时候，前面不需要加上<code>function</code>这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。</p>
+<p>ES6的类，完全可以看作构造函数的另一种写法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  // ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">typeof Point // &quot;function&quot;</div><div class="line">Point === Point.prototype.constructor // true</div></pre></td></tr></table></figure>
+<p>上面代码表明，类的数据类型就是函数，类本身就指向构造函数。<br>使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class bar&#123;</div><div class="line">    doStuff()&#123;</div><div class="line">        console.log(&apos;stuff&apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var b=new bar();</div><div class="line">b.doStuff()//stuff</div></pre></td></tr></table></figure></p>
+<p>构造函数的prototype属性，在ES6的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  constructor()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toString()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toValue()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 等同于</div><div class="line"></div><div class="line">Point.prototype = &#123;</div><div class="line">  toString()&#123;&#125;,</div><div class="line">  toValue()&#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>在类的实例上面调用方法，其实就是调用原型上的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class B &#123;&#125;</div><div class="line">let b = new B();</div><div class="line"></div><div class="line">b.constructor === B.prototype.constructor // true</div></pre></td></tr></table></figure></p>
+<p>上面代码中，b是B类的实例，它的<code>constructor</code>方法就是B类原型的<code>constructor</code>方法。</p>
+<h4 id="constructor方法"><a href="#constructor方法" class="headerlink" title="constructor方法"></a>constructor方法</h4><p><code>constructor</code>方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有<code>constructor</code>方法，如果没有显式定义，一个空的<code>constructor</code>方法会被默认添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">constructor() &#123;&#125;</div></pre></td></tr></table></figure></p>
+<p><code>constructor</code>方法默认返回实例对象（即<code>this</code>），完全可以指定返回另外一个对象。</p>
+<p>类的构造函数，不使用new是没法调用的，会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class Foo &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    return Object.create(null);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo()</div><div class="line">// TypeError: Class constructor Foo cannot be invoked without &apos;new&apos;</div></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>推荐用Class，取代需要prototype的操作。因为Class的写法更简洁，更易于理解。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">function Queue(contents = []) &#123;</div><div class="line">  this._queue = [...contents];</div><div class="line">&#125;</div><div class="line">Queue.prototype.pop = function() &#123;</div><div class="line">  const value = this._queue[0];</div><div class="line">  this._queue.splice(0, 1);</div><div class="line">  return value;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// good</div><div class="line">class Queue &#123;</div><div class="line">  constructor(contents = []) &#123;</div><div class="line">    this._queue = [...contents];</div><div class="line">  &#125;</div><div class="line">  pop() &#123;</div><div class="line">    const value = this._queue[0];</div><div class="line">    this._queue.splice(0, 1);</div><div class="line">    return value;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/25/ES6的let和const/" itemprop="url">
                   'ES6的let和const'
                 </a>
@@ -1055,7 +1189,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

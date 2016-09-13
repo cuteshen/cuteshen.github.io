@@ -285,6 +285,165 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/19/Nodejs——Stream流/" itemprop="url">
+                  Nodejs——Stream流
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-19T13:36:45+08:00" content="2016-08-19">
+              2016-08-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/19/Nodejs——Stream流/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/Nodejs——Stream流/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>所谓流：就是一组连续的数据（文件流、网络流…)</p>
+</blockquote>
+<h4 id="之前的文件操作通过通过fs-readFile进行读取有以下弊端"><a href="#之前的文件操作通过通过fs-readFile进行读取有以下弊端" class="headerlink" title="之前的文件操作通过通过fs.readFile进行读取有以下弊端"></a>之前的文件操作通过通过fs.readFile进行读取有以下弊端</h4><p>1,把文件读取到内存中</p>
+<p>2,内存不足、卡顿</p>
+<p>3,造成 IO峰值</p>
+<p>4,数据混乱</p>
+<p>5,耗时</p>
+<p>6,操作文件会有各种限制（文件大小限制…）</p>
+<h4 id="通过流进行文件操作"><a href="#通过流进行文件操作" class="headerlink" title="通过流进行文件操作"></a>通过流进行文件操作</h4><p>流可分为：</p>
+<p>1,读取流——req</p>
+<p>2,写入流——res</p>
+<p>3,读写流——文件压缩</p>
+<p>之前创建http服务时有这样的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>读取流，就相当于<code>req</code>,写入流就相当于<code>res</code></p>
+<p>读写流常用在文件压缩等功能</p>
+<h5 id="写入流"><a href="#写入流" class="headerlink" title="写入流"></a>写入流</h5><p>抛开之前的<code>fs.writeFile()</code>方法,将内容写入ccc.txt文件，若没有ccc.txt文件，则创建一个ccc.txt文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var ws=fs.createWriteStream(&apos;ccc.txt&apos;);  //创建了一个写入流</div><div class="line"></div><div class="line">ws.write(&apos;abcd&apos;);</div><div class="line"></div><div class="line">ws.end();</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;写入完毕&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h5 id="读取流"><a href="#读取流" class="headerlink" title="读取流"></a>读取流</h5><p>项目目录有一个aaa.txt文件，文件内容为aaa</p>
+<p>执行读取:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line"></div><div class="line">var arr=[];</div><div class="line"></div><div class="line">rs.on(&apos;data&apos;,function(b)&#123;</div><div class="line">    arr.push(b);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">rs.on(&apos;end&apos;,function()&#123;</div><div class="line">    var buffer=Buffer.concat(arr);</div><div class="line">    console.log(buffer.toString());</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>另外针对stream的err捕获，无法通过try()catch(e){}捕获到，try捕获是程序异常，而流操作，走的是系统；</p>
+<p>rs同requst一样有着监听事件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rs.on(&apos;error&apos;,function(err)&#123;</div><div class="line">    console.log(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h5 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h5><p>和unix一样，node stream主要的操作也是.pipe()</p>
+<pre><code>源头.pipe(目标)
+
+读取.pipe(写入)
+</code></pre><p>将bbb.txt文件内容写入到ddd.txt文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;bbb.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;ddd.txt&apos;);</div><div class="line"></div><div class="line">//读取.pipe(写入)</div><div class="line">rs.pipe(ws);</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;读写完毕&apos;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h5 id="读写流——实现文件压缩"><a href="#读写流——实现文件压缩" class="headerlink" title="读写流——实现文件压缩"></a>读写流——实现文件压缩</h5><blockquote>
+<p>需要引入第三方模块<code>zlib</code></p>
+</blockquote>
+<pre><code>npm install zlib
+</code></pre><p>程序代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const zLib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">var gz=zlib.createGzip();//选择压缩模式-gzip</div><div class="line"></div><div class="line">//准备2个流</div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;aaa.txt.gz&apos;);</div><div class="line"></div><div class="line">//执行压缩</div><div class="line">rs.pipe(gz).pipe(ws);</div></pre></td></tr></table></figure></p>
+<p>执行后，项目目录会生成名字为‘aaa.txt.gz’的压缩文件</p>
+<blockquote>
+<p>gz压缩格式特点——修改.gz文件名称，压缩文件会跟着压缩包名字改变</p>
+</blockquote>
+<p>执行代码，先对文件进行gzip压缩，再输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
+<p>此时打开浏览器localhost:8081会直接下载222.txt文件，而不是输出文件内容</p>
+<p>设置header</p>
+<pre><code>res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)
+</code></pre><p>完整代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)</div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/19/split()函数在buffer中的实现/" itemprop="url">
                   split()函数在buffer中的实现
                 </a>
@@ -1514,140 +1673,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/25/ES6的Class/" itemprop="url">
-                  'ES6的Class'
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T17:14:01+08:00" content="2016-07-25">
-              2016-07-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/25/ES6的Class/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的Class/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>JavaScript语言的传统方法是通过构造函数，定义并生成新对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function Point(x, y)&#123;</div><div class="line">    this.x=x;</div><div class="line">    this.y=y;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Point.prototype.toString=function()&#123;</div><div class="line">    return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p = new Point(1, 2);</div></pre></td></tr></table></figure></p>
-<p>上面的代码用ES6的“类”改写，就是下面这样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Point&#123;</div><div class="line">    contructor(x, y)&#123;</div><div class="line">        this.x = x;</div><div class="line">        this.y = y;</div><div class="line">    &#125;</div><div class="line">    toString()&#123;</div><div class="line">        return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面代码定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。</p>
-<p><code>Point</code>类除了构造方法，还定义了一个<code>toString</code>方法。注意，定义“类”的方法的时候，前面不需要加上<code>function</code>这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。</p>
-<p>ES6的类，完全可以看作构造函数的另一种写法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  // ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">typeof Point // &quot;function&quot;</div><div class="line">Point === Point.prototype.constructor // true</div></pre></td></tr></table></figure>
-<p>上面代码表明，类的数据类型就是函数，类本身就指向构造函数。<br>使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class bar&#123;</div><div class="line">    doStuff()&#123;</div><div class="line">        console.log(&apos;stuff&apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var b=new bar();</div><div class="line">b.doStuff()//stuff</div></pre></td></tr></table></figure></p>
-<p>构造函数的prototype属性，在ES6的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  constructor()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toString()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toValue()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 等同于</div><div class="line"></div><div class="line">Point.prototype = &#123;</div><div class="line">  toString()&#123;&#125;,</div><div class="line">  toValue()&#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>在类的实例上面调用方法，其实就是调用原型上的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class B &#123;&#125;</div><div class="line">let b = new B();</div><div class="line"></div><div class="line">b.constructor === B.prototype.constructor // true</div></pre></td></tr></table></figure></p>
-<p>上面代码中，b是B类的实例，它的<code>constructor</code>方法就是B类原型的<code>constructor</code>方法。</p>
-<h4 id="constructor方法"><a href="#constructor方法" class="headerlink" title="constructor方法"></a>constructor方法</h4><p><code>constructor</code>方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有<code>constructor</code>方法，如果没有显式定义，一个空的<code>constructor</code>方法会被默认添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">constructor() &#123;&#125;</div></pre></td></tr></table></figure></p>
-<p><code>constructor</code>方法默认返回实例对象（即<code>this</code>），完全可以指定返回另外一个对象。</p>
-<p>类的构造函数，不使用new是没法调用的，会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class Foo &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    return Object.create(null);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo()</div><div class="line">// TypeError: Class constructor Foo cannot be invoked without &apos;new&apos;</div></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>推荐用Class，取代需要prototype的操作。因为Class的写法更简洁，更易于理解。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">function Queue(contents = []) &#123;</div><div class="line">  this._queue = [...contents];</div><div class="line">&#125;</div><div class="line">Queue.prototype.pop = function() &#123;</div><div class="line">  const value = this._queue[0];</div><div class="line">  this._queue.splice(0, 1);</div><div class="line">  return value;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// good</div><div class="line">class Queue &#123;</div><div class="line">  constructor(contents = []) &#123;</div><div class="line">    this._queue = [...contents];</div><div class="line">  &#125;</div><div class="line">  pop() &#123;</div><div class="line">    const value = this._queue[0];</div><div class="line">    this._queue.splice(0, 1);</div><div class="line">    return value;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1693,7 +1718,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
