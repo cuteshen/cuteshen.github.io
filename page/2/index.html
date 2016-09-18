@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion">
+<html class="theme-next mist use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -103,7 +103,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Pisces',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
@@ -263,6 +263,281 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/01/NodeJs——文件下载/" itemprop="url">
+                  NodeJs——文件下载
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T17:16:59+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/01/NodeJs——文件下载/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/NodeJs——文件下载/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在node中，实现文件下载，只需设置header即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&apos;content-disposition&apos;,&apos;attachment&apos;);  //所有文件都下载</div></pre></td></tr></table></figure>
+<p>另外attachment后还有个filename参数，用来定义下载文件名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&apos;content-disposition&apos;,&apos;attachment;filename=&quot;xxx.xxx&quot;&apos;);</div></pre></td></tr></table></figure>
+<p>用一个小例子体现一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    //获取url</div><div class="line">    var rs=fs.createReadStream(req.url.substring(1));</div><div class="line">    //定义可下载文件组</div><div class="line">    var downloadType=[&apos;.rar&apos;,&apos;.exe&apos;,&apos;.png&apos;,&apos;.jpg&apos;];</div><div class="line">    //获取文件后缀名</div><div class="line">    var extname=path.extname(req.url);</div><div class="line"></div><div class="line">    if(downloadType.indexOf(extname) != -1)&#123;</div><div class="line">        //时间戳</div><div class="line">        var filename=Date.now();</div><div class="line">        //写入头-content-disposition,attachment;filename&apos;&apos;;</div><div class="line">        res.setHeader(`content-disposition`,`attachment;filename=&quot;$&#123;filename&#125;$&#123;extname&#125;&quot;`);</div><div class="line">        //写入res</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;else&#123;</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;</div><div class="line">    rs.on(&apos;error&apos;, function () &#123;</div><div class="line">        res.writeHeader(404);</div><div class="line">        res.write(&apos;404&apos;);</div><div class="line">        res.end();</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">&#125;).listen(8080)</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/19/前端自动化构建工具-gulp/" itemprop="url">
+                  前端自动化构建工具-gulp
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-19T14:56:41+08:00" content="2016-08-19">
+              2016-08-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/19/前端自动化构建工具-gulp/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/前端自动化构建工具-gulp/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>利用 Node.js 流实现前端资源文件的IO操作，其中包括第三方模块，需单独下载</p>
+<p>先贴出官网的入门实例：</p>
+<h3 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h3><pre><code>npm install --global gulp
+</code></pre><h3 id="作为项目的开发依赖（devDependencies）安装："><a href="#作为项目的开发依赖（devDependencies）安装：" class="headerlink" title="作为项目的开发依赖（devDependencies）安装："></a>作为项目的开发依赖（devDependencies）安装：</h3><pre><code>npm install --save-dev gulp
+</code></pre><h3 id="在项目根目录下创建一个名为-gulpfile-js-的文件"><a href="#在项目根目录下创建一个名为-gulpfile-js-的文件" class="headerlink" title="在项目根目录下创建一个名为 gulpfile.js 的文件"></a>在项目根目录下创建一个名为 gulpfile.js 的文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&apos;gulp&apos;);</div><div class="line"></div><div class="line">gulp.task(&apos;default&apos;, function() &#123;</div><div class="line">    // 将你的默认的任务代码放在这</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>接下来开始我们的代码:</p>
+<blockquote>
+<p>gulp-minify-css,gulp-less等第三方模块需通过npm去安装，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 引入 gulp及组件</div><div class="line">var gulp = require(&apos;gulp&apos;),</div><div class="line">    minifycss = require(&apos;gulp-minify-css&apos;),</div><div class="line">    less = require(&apos;gulp-less&apos;),</div><div class="line">    concat = require(&apos;gulp-concat&apos;),</div><div class="line">    uglify = require(&apos;gulp-uglify&apos;),</div><div class="line">    rename = require(&apos;gulp-rename&apos;),</div><div class="line">    jshint = require(&apos;gulp-jshint&apos;),</div><div class="line">    spritesmith = require(&apos;gulp.spritesmith&apos;);</div><div class="line"></div><div class="line">//定义项目目录</div><div class="line">option = &#123;</div><div class="line">    buildPath: &quot;&quot;,//构建目录</div><div class="line">    jsItem: []</div><div class="line">    //我这里只是为了操作指定的几个js文件，具体看资源目录</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="定义编译less文件的任务"><a href="#定义编译less文件的任务" class="headerlink" title="定义编译less文件的任务"></a>定义编译less文件的任务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;lessback&apos;, function () &#123;</div><div class="line">    return gulp.src(option.buildPath + &apos;/less/*.less&apos;)//指定操作目录</div><div class="line">        .pipe(less())           //执行编译</div><div class="line">        .pipe(minifycss())      //执行压缩</div><div class="line">        .pipe(concat(&apos;mainLess.css&apos;)) //合并</div><div class="line">        .pipe(gulp.dest(option.buildPath + &apos;/cssmin/&apos;));//输出文件夹</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="压缩普通css"><a href="#压缩普通css" class="headerlink" title="压缩普通css"></a>压缩普通css</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;minifycss&apos;, function () &#123;</div><div class="line">    return gulp.src(option.buildPath + &apos;/css/*.css&apos;) //需要操作的文件</div><div class="line">        .pipe(rename(&#123;suffix: &apos;.min&apos;&#125;)) //rename压缩后的文件名</div><div class="line">        .pipe(minifycss())              //执行压缩</div><div class="line">        .pipe(concat(&apos;main.css&apos;))           //合并</div><div class="line">        .pipe(gulp.dest(option.buildPath + &apos;/cssmin/&apos;)); //输出文件夹</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="js语法检查"><a href="#js语法检查" class="headerlink" title="js语法检查"></a>js语法检查</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;jshint&apos;, function () &#123;</div><div class="line">    return gulp.src(option.buildPath + &apos;/js/*.js&apos;)</div><div class="line">        .pipe(jshint())</div><div class="line">        .pipe(jshint.reporter(&apos;default&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="压缩-合并-js"><a href="#压缩-合并-js" class="headerlink" title="压缩,合并 js"></a>压缩,合并 js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;minifyjs&apos;, function () &#123;</div><div class="line">    return gulp.src(option.jsItem)    //需要操作的文件</div><div class="line">        .pipe(concat(&apos;all.js&apos;))       //合并所有js到all.js</div><div class="line">        .pipe(gulp.dest(option.buildPath + &apos;/jsmin/&apos;)) //输出到文件夹</div><div class="line">        .pipe(rename(&#123;suffix: &apos;.min&apos;&#125;))     //rename压缩后的文件名</div><div class="line">        .pipe(uglify())    //压缩</div><div class="line">        .pipe(gulp.dest(option.buildPath + &apos;/jsmin/&apos;));  //输出</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在cmd中输入gulp后,执行的就是这个任务(压缩js需要在检查js之后操作)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;default&apos;, function () &#123;</div><div class="line">    option.buildPath = &quot;project/src&quot;;</div><div class="line">    //也可以直接操作整个js目录，通过 *.js去匹配</div><div class="line">    option.jsItem = [option.buildPath + &quot;/js/script.js&quot;, option.buildPath + &quot;/js/script2.js&quot;];</div><div class="line">    gulp.start(&apos;lessback&apos;, &apos;jshint&apos;, &apos;minifycss&apos;, &apos;minifyjs&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>cmd输如gulp后，默认执行default，通过gulp.start执行上面所定义的方法即可执行;</p>
+<h3 id="gulp将多张图片自动合成雪碧图"><a href="#gulp将多张图片自动合成雪碧图" class="headerlink" title="gulp将多张图片自动合成雪碧图"></a>gulp将多张图片自动合成雪碧图</h3><blockquote>
+<p>再也不用拿ps去一张一张去拼图了</p>
+</blockquote>
+<p><img src="/img/16081902.png" alt="img"></p>
+<p>首先安装模块并引入</p>
+<pre><code>npm install gulp.spritesmith
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var spritesmith=require(‘gulp.spritesmith‘);</div><div class="line"></div><div class="line">gulp.task(&apos;sprite&apos;, function () &#123;</div><div class="line">    console.log(option.buildPath +&apos;/images/&apos;);</div><div class="line">    return gulp.src(option.buildPath +&apos;/images/*.png&apos;)//需要合并的图片地址</div><div class="line">        .pipe(spritesmith(&#123;</div><div class="line">            imgName: &apos;sprite/images/sprite.png&apos;,//保存合并后图片的地址</div><div class="line">            cssName: &apos;sprite/css/sprite.css&apos;,//保存合并后对于css样式的地址</div><div class="line">            padding: 5,//合并时两个图片的间距</div><div class="line">            algorithm: &apos;binary-tree&apos;,//注释1</div><div class="line">            cssTemplate:option.buildPath+&quot;/images/sprite/model/handlebarsStr.css&quot;//注释2</div><div class="line">        &#125;))</div><div class="line">        .pipe(gulp.dest(option.buildPath+&apos;/images/&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>注释一：</p>
+<p>Algorithm 有四个可选值分别为top-down、left-right、diagonal、alt-diagonal、binary-tree</p>
+<p><img src="/img/16081901.png" alt="img"></p>
+<p>注释二：</p>
+<p>cssTemplate 是生成css的模板文件可以是字符串也可以是函数。是字符串是对于相对于的模板地址 对于模板文件样式格式是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#sprites&#125;&#125;</div><div class="line">.icon-&#123;&#123;name&#125;&#125;&#123;</div><div class="line">    background-image: url(&quot;&#123;&#123;escaped_image&#125;&#125;&quot;);</div><div class="line">    background-position: &#123;&#123;px.offset_x&#125;&#125; &#123;&#123;px.offset_y&#125;&#125;;</div><div class="line">    width: &#123;&#123;px.width&#125;&#125;;</div><div class="line">    height: &#123;&#123;px.height&#125;&#125;;</div><div class="line">&#125;</div><div class="line">&#123;&#123;/sprites&#125;&#125;</div></pre></td></tr></table></figure>
+<p>——模版文件需要提前再项目目录下创建，并通过cssTemplate指定位置</p>
+<p>如果是函数的话，这可以这样写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;sprite&apos;, function () &#123;</div><div class="line">    console.log(option.buildPath +&apos;/images/&apos;);</div><div class="line">    return gulp.src(option.buildPath +&apos;/images/*.png&apos;)//需要合并的图片地址</div><div class="line">        .pipe(spritesmith(&#123;</div><div class="line">            imgName: &apos;sprite/images/sprite.png&apos;,//保存合并后图片的地址</div><div class="line">            cssName: &apos;sprite/css/sprite.css&apos;,//保存合并后对于css样式的地址</div><div class="line">            padding: 5,//合并时两个图片的间距</div><div class="line">            algorithm: &apos;binary-tree&apos;,//注释1</div><div class="line">            cssTemplate: function (data) &#123;</div><div class="line">                var arr=[];</div><div class="line">                data.sprites.forEach(function (sprite) &#123;</div><div class="line">                    arr.push(&quot;.icon-&quot;+sprite.name+</div><div class="line">                    &quot;&#123;&quot; +</div><div class="line">                    &quot;background-image: url(‘&quot;+sprite.escaped_image+&quot;‘);&quot;+</div><div class="line">                    &quot;background-position: &quot;+sprite.px.offset_x+&quot;px &quot;+sprite.px.offset_y+&quot;px;&quot;+</div><div class="line">                    &quot;width:&quot;+sprite.px.width+&quot;;&quot;+</div><div class="line">                    &quot;height:&quot;+sprite.px.height+&quot;;&quot;+</div><div class="line">                    &quot;&#125;\n&quot;);</div><div class="line">                &#125;);</div><div class="line">                return arr.join(&quot;&quot;);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;))</div><div class="line">        .pipe(gulp.dest(option.buildPath+&apos;/images/&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>最终再default中gulp.start(‘sprite’)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;default&apos;, function () &#123;</div><div class="line">    option.buildPath = &quot;project/src&quot;;</div><div class="line">    option.jsItem = [option.buildPath + &quot;/js/script.js&quot;, option.buildPath + &quot;/js/script2.js&quot;];</div><div class="line">    gulp.start(&apos;sprite&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h6 id="到此gulp构建工具就初步完成了，只是初步，待完善。"><a href="#到此gulp构建工具就初步完成了，只是初步，待完善。" class="headerlink" title="到此gulp构建工具就初步完成了，只是初步，待完善。"></a>到此gulp构建工具就初步完成了，只是初步，待完善。</h6>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1392,287 +1667,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/04/开发nodejs模块并发布到npm的简单示例/" itemprop="url">
-                  '开发nodejs模块并发布到npm的简单示例'
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-04T14:44:40+08:00" content="2016-08-04">
-              2016-08-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/04/开发nodejs模块并发布到npm的简单示例/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/04/开发nodejs模块并发布到npm的简单示例/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="建立一个工作目录！"><a href="#建立一个工作目录！" class="headerlink" title="建立一个工作目录！"></a>建立一个工作目录！</h3><p>我建立在mrshen/目录下。</p>
-<h4 id="新建一个js文件"><a href="#新建一个js文件" class="headerlink" title="新建一个js文件"></a>新建一个js文件</h4><p>新建index.js ,输入如下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function hello(name)&#123;</div><div class="line">  console.log(&quot;hello&quot;+ name);</div><div class="line">&#125;</div><div class="line">exports.hello=hello;</div></pre></td></tr></table></figure>
-<p>注意： </p>
-<p><code>exports.hello=hello</code> 这句是关键！使用<code>exports</code>将你的<code>hello</code>函数暴漏出去！不懂的可以百度CommonJs规范！</p>
-<p>接下来我们在目录里简历一个test.js的文件！ 代码如下</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var h=require(&apos;./index&apos;);</div><div class="line">h.hello(&apos;Jarrick&apos;);</div></pre></td></tr></table></figure>
-<p>可以看到b.js的文件只有两行！</p>
-<p>第一行首先使用<code>require(&#39;./a&#39;)</code>导入刚才的a模块，然后我们调用模块中的hello方法！</p>
-<p>一切完毕！虽然两个文件加起来只有5行代码，但是足够我们演示我们所要的了！。</p>
-<p>让我们用node执行一下，同样很简单，执行代码也只有两句！输出的结果为<code>helloJarrick</code>。</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/mz121star/QQ%E6%88%AA%E5%9B%BE20121115164614.jpg" alt="image"></p>
-<h4 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h4><p> 接下来要将我们开发的模块传到npm上了（npm是一个nodejs模块大菜市！）</p>
-<p> 我们在cmd中首先进入我们js的工作目录</p>
-<h6 id="执行：npm-init"><a href="#执行：npm-init" class="headerlink" title="执行：npm init"></a>执行：<code>npm init</code></h6><p>会提示你输入name,version,descripttion,等信息，其中name就是你的插件名字，与文件名无关。</p>
-<p>该命令可以帮助我们建立一个发布到npm所必须的 <code>package.json</code><br>文件，该文件包含了你所建立模块的相关信息，你可以按照它的提示一步步输入即可，最后会在你的目录中发先一个 package.json的文件，我所建立完成之后的内容大概如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;mrshen&quot;,</div><div class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</div><div class="line">  &quot;description&quot;: &quot;test&quot;,</div><div class="line">  &quot;main&quot;: &quot;index.js&quot;,</div><div class="line">  &quot;scripts&quot;: &#123;</div><div class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;repository&quot;: &quot;&quot;,</div><div class="line">  &quot;keywords&quot;: [</div><div class="line">    &quot;mcore&quot;</div><div class="line">  ],</div><div class="line">  &quot;author&quot;: &quot;Mrshen&quot;,</div><div class="line">  &quot;license&quot;: &quot;ISC&quot;</div><div class="line">  ｝</div></pre></td></tr></table></figure>
-<p>如果后续修改要同步，那么版本号version一定要修改,否则不会执行提交。</p>
-<h4 id="登录npm账户"><a href="#登录npm账户" class="headerlink" title="登录npm账户"></a>登录npm账户</h4><p>发布前首先使用npm adduser命令增加账户即可！</p>
-<p>在文件所在目录打开cmd，输入<code>npm adduser</code>会让你输入你的npm用户名，密码及邮箱</p>
-<p>待一切创建成功！</p>
-<p>执行<code>npm publish</code></p>
-<p>你就可以到npm你的主页去寻找到你的模块了</p>
-<h4 id="install-所发布的包"><a href="#install-所发布的包" class="headerlink" title="install 所发布的包"></a>install 所发布的包</h4><p>使用时，只要在你的命令行中输入 </p>
-<p>npm install mrshen</p>
-<p>即可安装该模块了！</p>
-<p>安装后我们尝试使用一下，在命令行中输入node ，然后用<code>require(&quot;mrshen&quot;)</code>即可导入该模块！会在屏幕立即显示出<code>helloJarrick</code>的消息！</p>
-<h4 id="在npm上删除包"><a href="#在npm上删除包" class="headerlink" title="在npm上删除包"></a>在npm上删除包</h4><p>如果想删除所发布的包，输入npm unpublish 即可， </p>
-<blockquote>
-<p>npm unpublish <package>@<version>可以撤销发布自己发布过的某个版本代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm unpublish //提示拒绝删除</div><div class="line">npm unpublish --force    //强制删除</div><div class="line">npm unpublish 包名 --force  //彻底删除包</div></pre></td></tr></table></figure></version></package></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/25/ES6的箭头函数/" itemprop="url">
-                  'ES6的箭头函数'
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T17:14:49+08:00" content="2016-07-25">
-              2016-07-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/25/ES6的箭头函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的箭头函数/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><p>ES6允许使用“箭头”（=&gt;）定义函数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var f = v =&gt; v;</div></pre></td></tr></table></figure>
-<p>等同于<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var f = function(v) &#123;</div><div class="line">  return v;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">function show()&#123;</div><div class="line">	return 1;</div><div class="line">&#125;</div><div class="line">show();</div><div class="line"></div><div class="line">function show(a)&#123;</div><div class="line">	return a;</div><div class="line">&#125;</div><div class="line">show(1);</div><div class="line"></div><div class="line">//等同于</div><div class="line"></div><div class="line">var show=a=&gt;a;  -&gt; function show(a)&#123;return a&#125;;</div><div class="line">var show=(a)=&gt;a;  -&gt; function show(a)&#123;return a&#125;;</div><div class="line">var show=()=&gt;1;   -&gt; function show()&#123;return 1&#125;;</div><div class="line"></div><div class="line">var f=() =&gt; 5;</div><div class="line">//等同于</div><div class="line">var f=function()&#123;return 5&#125;;</div><div class="line"></div><div class="line">var sum(num1, num2) =&gt; num1 + num2;</div><div class="line">//等同于</div><div class="line">var sum=function(num1, num2)&#123;</div><div class="line">    return num1 + num2</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回,由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var getTempItem = id =&gt; (&#123; id: id, name: &quot;Temp&quot; &#125;);</div></pre></td></tr></table></figure></p>
-<h4 id="使用注意点"><a href="#使用注意点" class="headerlink" title="使用注意点"></a>使用注意点</h4><p>箭头函数有几个使用注意点。</p>
-<p>（1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</p>
-<p>（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</p>
-<p>（3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。</p>
-<p>（4）不可以使用yield命令，因此箭头函数不能用作Generator函数。</p>
-<p>上面四点中，第一点尤其值得注意。this对象的指向是可变的，但是在箭头函数中，它是固定的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function foo() &#123;</div><div class="line">  setTimeout(() =&gt; &#123;</div><div class="line">    console.log(&apos;id:&apos;, this.id);</div><div class="line">  &#125;, 100);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var id = 21;</div><div class="line"></div><div class="line">foo.call(&#123; id: 42 &#125;);</div><div class="line">// id: 42</div></pre></td></tr></table></figure></p>
-<p>上面代码中，setTimeout的参数是一个箭头函数，这个箭头函数的定义生效是在foo函数生成时，而它的真正执行要等到100毫秒后。如果是普通函数，执行时this应该指向全局对象window，这时应该输出21。但是，箭头函数导致this总是指向函数定义生效时所在的对象（本例是{id: 42}），所以输出的是42。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1718,7 +1712,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1726,7 +1720,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1735,7 +1729,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -1797,7 +1791,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
+    NexT.Mist
   </a>
 </div>
 
@@ -1862,13 +1856,6 @@
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
-
-
 
   
 

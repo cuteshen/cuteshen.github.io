@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Mrshen, nodejs" />
+  <meta name="keywords" content="vue," />
 
 
 
@@ -88,16 +88,22 @@
 
 
 
-<meta name="description" content="概述JavaScript语言的传统方法是通过构造函数，定义并生成新对象。12345678910function Point(x, y)&amp;#123;    this.x=x;    this.y=y;&amp;#125;Point.prototype.toString=function()&amp;#123;    return &amp;apos;(&amp;apos;+ this.x + &amp;apos;,&amp;apos; + thi">
+<meta name="description" content="引入资源&amp;lt;script src=&amp;quot;./js/vue.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;./js/vue-resource.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+html内容12345678910111213141516&amp;lt;body&amp;gt;&amp;lt;style&amp;gt;    .gray &amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="'ES6的Class'">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/ES6的Class/index.html">
+<meta property="og:title" content="vue实现百度搜索下拉菜单">
+<meta property="og:url" content="http://yoursite.com/2016/09/18/vue实现百度搜索下拉菜单/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="概述JavaScript语言的传统方法是通过构造函数，定义并生成新对象。12345678910function Point(x, y)&amp;#123;    this.x=x;    this.y=y;&amp;#125;Point.prototype.toString=function()&amp;#123;    return &amp;apos;(&amp;apos;+ this.x + &amp;apos;,&amp;apos; + thi">
-<meta property="og:updated_time" content="2016-07-25T09:14:20.869Z">
+<meta property="og:description" content="引入资源&amp;lt;script src=&amp;quot;./js/vue.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;./js/vue-resource.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+html内容12345678910111213141516&amp;lt;body&amp;gt;&amp;lt;style&amp;gt;    .gray &amp;#123;">
+<meta property="og:updated_time" content="2016-09-18T09:16:53.713Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="'ES6的Class'">
-<meta name="twitter:description" content="概述JavaScript语言的传统方法是通过构造函数，定义并生成新对象。12345678910function Point(x, y)&amp;#123;    this.x=x;    this.y=y;&amp;#125;Point.prototype.toString=function()&amp;#123;    return &amp;apos;(&amp;apos;+ this.x + &amp;apos;,&amp;apos; + thi">
+<meta name="twitter:title" content="vue实现百度搜索下拉菜单">
+<meta name="twitter:description" content="引入资源&amp;lt;script src=&amp;quot;./js/vue.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;./js/vue-resource.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+html内容12345678910111213141516&amp;lt;body&amp;gt;&amp;lt;style&amp;gt;    .gray &amp;#123;">
 
 
 
@@ -118,9 +124,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/ES6的Class/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/18/vue实现百度搜索下拉菜单/"/>
 
-  <title> 'ES6的Class' | Mr.Shen </title>
+  <title> vue实现百度搜索下拉菜单 | Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +289,7 @@
             
             
               
-                'ES6的Class'
+                vue实现百度搜索下拉菜单
               
             
           </h1>
@@ -295,8 +301,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T17:14:01+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-09-18T17:15:58+08:00" content="2016-09-18">
+              2016-09-18
             </time>
           </span>
 
@@ -309,8 +315,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -325,8 +331,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/25/ES6的Class/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的Class/" itemprop="commentsCount"></span>
+                <a href="/2016/09/18/vue实现百度搜索下拉菜单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/vue实现百度搜索下拉菜单/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -349,22 +355,11 @@
       
 
       
-        <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>JavaScript语言的传统方法是通过构造函数，定义并生成新对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function Point(x, y)&#123;</div><div class="line">    this.x=x;</div><div class="line">    this.y=y;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Point.prototype.toString=function()&#123;</div><div class="line">    return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p = new Point(1, 2);</div></pre></td></tr></table></figure></p>
-<p>上面的代码用ES6的“类”改写，就是下面这样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Point&#123;</div><div class="line">    contructor(x, y)&#123;</div><div class="line">        this.x = x;</div><div class="line">        this.y = y;</div><div class="line">    &#125;</div><div class="line">    toString()&#123;</div><div class="line">        return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面代码定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。</p>
-<p><code>Point</code>类除了构造方法，还定义了一个<code>toString</code>方法。注意，定义“类”的方法的时候，前面不需要加上<code>function</code>这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。</p>
-<p>ES6的类，完全可以看作构造函数的另一种写法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  // ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">typeof Point // &quot;function&quot;</div><div class="line">Point === Point.prototype.constructor // true</div></pre></td></tr></table></figure>
-<p>上面代码表明，类的数据类型就是函数，类本身就指向构造函数。<br>使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class bar&#123;</div><div class="line">    doStuff()&#123;</div><div class="line">        console.log(&apos;stuff&apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var b=new bar();</div><div class="line">b.doStuff()//stuff</div></pre></td></tr></table></figure></p>
-<p>构造函数的prototype属性，在ES6的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  constructor()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toString()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toValue()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 等同于</div><div class="line"></div><div class="line">Point.prototype = &#123;</div><div class="line">  toString()&#123;&#125;,</div><div class="line">  toValue()&#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>在类的实例上面调用方法，其实就是调用原型上的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class B &#123;&#125;</div><div class="line">let b = new B();</div><div class="line"></div><div class="line">b.constructor === B.prototype.constructor // true</div></pre></td></tr></table></figure></p>
-<p>上面代码中，b是B类的实例，它的<code>constructor</code>方法就是B类原型的<code>constructor</code>方法。</p>
-<h4 id="constructor方法"><a href="#constructor方法" class="headerlink" title="constructor方法"></a>constructor方法</h4><p><code>constructor</code>方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有<code>constructor</code>方法，如果没有显式定义，一个空的<code>constructor</code>方法会被默认添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">constructor() &#123;&#125;</div></pre></td></tr></table></figure></p>
-<p><code>constructor</code>方法默认返回实例对象（即<code>this</code>），完全可以指定返回另外一个对象。</p>
-<p>类的构造函数，不使用new是没法调用的，会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class Foo &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    return Object.create(null);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo()</div><div class="line">// TypeError: Class constructor Foo cannot be invoked without &apos;new&apos;</div></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>推荐用Class，取代需要prototype的操作。因为Class的写法更简洁，更易于理解。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">function Queue(contents = []) &#123;</div><div class="line">  this._queue = [...contents];</div><div class="line">&#125;</div><div class="line">Queue.prototype.pop = function() &#123;</div><div class="line">  const value = this._queue[0];</div><div class="line">  this._queue.splice(0, 1);</div><div class="line">  return value;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// good</div><div class="line">class Queue &#123;</div><div class="line">  constructor(contents = []) &#123;</div><div class="line">    this._queue = [...contents];</div><div class="line">  &#125;</div><div class="line">  pop() &#123;</div><div class="line">    const value = this._queue[0];</div><div class="line">    this._queue.splice(0, 1);</div><div class="line">    return value;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
+        <h4 id="引入资源"><a href="#引入资源" class="headerlink" title="引入资源"></a>引入资源</h4><pre><code>&lt;script src=&quot;./js/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./js/vue-resource.js&quot;&gt;&lt;/script&gt;
+</code></pre><h4 id="html内容"><a href="#html内容" class="headerlink" title="html内容"></a>html内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">&lt;style&gt;</div><div class="line">    .gray &#123;</div><div class="line">        background: #ccc;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;div id=&quot;box&quot;&gt;</div><div class="line">    &lt;input type=&quot;text&quot; v-model=&quot;t1&quot; @keyup=&quot;get($event)&quot; @keydown.down=&quot;changeDown()&quot; @keydown.up.prevent=&quot;changeUp()&quot;&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">        &lt;ul v-show=&quot;mydata.length !=0&quot;&gt;</div><div class="line">            &lt;li v-for=&quot;item in mydata&quot; :class=&quot;&#123;gray:$index==now&#125;&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/li&gt;</div><div class="line">        &lt;/ul&gt;</div><div class="line">        &lt;p v-show=&quot;mydata.length ==0 &quot;&gt;暂无数据...&lt;/p&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<p>@keydown.up.prevent通过prevent组织浏览器默认行为，避免光标移动至最前</p>
+<h4 id="js"><a href="#js" class="headerlink" title="js"></a>js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">window.onload=function()&#123;</div><div class="line">    new Vue(&#123;</div><div class="line">        el:&apos;body&apos;,</div><div class="line">        data:&#123;</div><div class="line">            mydata:[],//查询后返回内容，存入数组</div><div class="line">            t1:&apos;&apos;,    //双向绑定</div><div class="line">            now:-1    //当前选中结果项</div><div class="line">        &#125;,</div><div class="line">        methods:&#123;</div><div class="line">            get: function (ev) &#123;</div><div class="line">                if(ev.keyCode==38 || ev.keyCode==40)return;//禁止光标移动</div><div class="line">                if(ev.keyCode==13)&#123;//按回车，执行以下语句</div><div class="line">                    window.open(&apos;https://www.baidu.com/s?wd=&apos;+this.t1);</div><div class="line">                    this.t1=&apos;&apos;;</div><div class="line">                &#125;</div><div class="line">                //跨域请求baidu搜索接口</div><div class="line">                this.$http.jsonp(&apos;https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su&apos;,&#123;</div><div class="line">                    wd:this.t1</div><div class="line">                &#125;,&#123;</div><div class="line">                    jsonp:&apos;cb&apos;</div><div class="line">                &#125;).then(function(res)&#123;</div><div class="line">                    this.mydata=res.data.s;//请求结果存入mydata</div><div class="line">                &#125;,function()&#123;</div><div class="line"></div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            changeDown: function () &#123;</div><div class="line">                this.now++; //通过键盘上下键，选中当前列表项</div><div class="line">                if(this.now==this.mydata.length)&#123;</div><div class="line">                    this.now=-1;</div><div class="line">                &#125;</div><div class="line">                this.t1=this.mydata[this.now]//当前列表选中项带入input</div><div class="line">            &#125;,</div><div class="line">            changeUp: function () &#123;</div><div class="line">                this.now--;//通过键盘上下键，选中当前列表项</div><div class="line">                if(this.now==-2)&#123;</div><div class="line">                    this.now=this.mydata.length-1;</div><div class="line">                &#125;</div><div class="line">                this.t1=this.mydata[this.now]</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -384,22 +379,24 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag">#vue</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/25/ES6的let和const/" rel="next" title="'ES6的let和const'">
-                <i class="fa fa-chevron-left"></i> 'ES6的let和const'
+              <a href="/2016/09/18/Angular-router多视图/" rel="next" title="Angular-router多视图">
+                <i class="fa fa-chevron-left"></i> Angular-router多视图
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/ES6的箭头函数/" rel="prev" title="'ES6的箭头函数'">
-                'ES6的箭头函数' <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -425,8 +422,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/25/ES6的Class/"
-           data-title="'ES6的Class'" data-url="http://yoursite.com/2016/07/25/ES6的Class/">
+      <div class="ds-thread" data-thread-key="2016/09/18/vue实现百度搜索下拉菜单/"
+           data-title="vue实现百度搜索下拉菜单" data-url="http://yoursite.com/2016/09/18/vue实现百度搜索下拉菜单/">
       </div>
     
   </div>
@@ -528,7 +525,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#constructor方法"><span class="nav-number">2.</span> <span class="nav-text">constructor方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入资源"><span class="nav-number">1.</span> <span class="nav-text">引入资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#html内容"><span class="nav-number">2.</span> <span class="nav-text">html内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js"><span class="nav-number">3.</span> <span class="nav-text">js</span></a></li></ol></div>
             
           </div>
         </section>

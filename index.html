@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion">
+<html class="theme-next mist use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -103,7 +103,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Pisces',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
@@ -263,6 +263,277 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/18/vue实现百度搜索下拉菜单/" itemprop="url">
+                  vue实现百度搜索下拉菜单
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-18T17:15:58+08:00" content="2016-09-18">
+              2016-09-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/18/vue实现百度搜索下拉菜单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/vue实现百度搜索下拉菜单/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="引入资源"><a href="#引入资源" class="headerlink" title="引入资源"></a>引入资源</h4><pre><code>&lt;script src=&quot;./js/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./js/vue-resource.js&quot;&gt;&lt;/script&gt;
+</code></pre><h4 id="html内容"><a href="#html内容" class="headerlink" title="html内容"></a>html内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">&lt;style&gt;</div><div class="line">    .gray &#123;</div><div class="line">        background: #ccc;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;div id=&quot;box&quot;&gt;</div><div class="line">    &lt;input type=&quot;text&quot; v-model=&quot;t1&quot; @keyup=&quot;get($event)&quot; @keydown.down=&quot;changeDown()&quot; @keydown.up.prevent=&quot;changeUp()&quot;&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">        &lt;ul v-show=&quot;mydata.length !=0&quot;&gt;</div><div class="line">            &lt;li v-for=&quot;item in mydata&quot; :class=&quot;&#123;gray:$index==now&#125;&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/li&gt;</div><div class="line">        &lt;/ul&gt;</div><div class="line">        &lt;p v-show=&quot;mydata.length ==0 &quot;&gt;暂无数据...&lt;/p&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<p>@keydown.up.prevent通过prevent组织浏览器默认行为，避免光标移动至最前</p>
+<h4 id="js"><a href="#js" class="headerlink" title="js"></a>js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">window.onload=function()&#123;</div><div class="line">    new Vue(&#123;</div><div class="line">        el:&apos;body&apos;,</div><div class="line">        data:&#123;</div><div class="line">            mydata:[],//查询后返回内容，存入数组</div><div class="line">            t1:&apos;&apos;,    //双向绑定</div><div class="line">            now:-1    //当前选中结果项</div><div class="line">        &#125;,</div><div class="line">        methods:&#123;</div><div class="line">            get: function (ev) &#123;</div><div class="line">                if(ev.keyCode==38 || ev.keyCode==40)return;//禁止光标移动</div><div class="line">                if(ev.keyCode==13)&#123;//按回车，执行以下语句</div><div class="line">                    window.open(&apos;https://www.baidu.com/s?wd=&apos;+this.t1);</div><div class="line">                    this.t1=&apos;&apos;;</div><div class="line">                &#125;</div><div class="line">                //跨域请求baidu搜索接口</div><div class="line">                this.$http.jsonp(&apos;https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su&apos;,&#123;</div><div class="line">                    wd:this.t1</div><div class="line">                &#125;,&#123;</div><div class="line">                    jsonp:&apos;cb&apos;</div><div class="line">                &#125;).then(function(res)&#123;</div><div class="line">                    this.mydata=res.data.s;//请求结果存入mydata</div><div class="line">                &#125;,function()&#123;</div><div class="line"></div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            changeDown: function () &#123;</div><div class="line">                this.now++; //通过键盘上下键，选中当前列表项</div><div class="line">                if(this.now==this.mydata.length)&#123;</div><div class="line">                    this.now=-1;</div><div class="line">                &#125;</div><div class="line">                this.t1=this.mydata[this.now]//当前列表选中项带入input</div><div class="line">            &#125;,</div><div class="line">            changeUp: function () &#123;</div><div class="line">                this.now--;//通过键盘上下键，选中当前列表项</div><div class="line">                if(this.now==-2)&#123;</div><div class="line">                    this.now=this.mydata.length-1;</div><div class="line">                &#125;</div><div class="line">                this.t1=this.mydata[this.now]</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/18/Angular-router多视图/" itemprop="url">
+                  Angular-router多视图
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-18T17:15:06+08:00" content="2016-09-18">
+              2016-09-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/18/Angular-router多视图/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/Angular-router多视图/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="页面首页："><a href="#页面首页：" class="headerlink" title="页面首页："></a>页面首页：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">	&lt;a href=&quot;#/user&quot;&gt;用户中心&lt;/a&gt;</div><div class="line">	&lt;a href=&quot;#/article&quot;&gt;文章列表&lt;/a&gt;</div><div class="line">	&lt;a href=&quot;#/setting&quot;&gt;配置信息&lt;/a&gt;</div><div class="line">	&lt;ng-view&gt;&lt;/ng-view&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<h3 id="需引入文件："><a href="#需引入文件：" class="headerlink" title="需引入文件："></a>需引入文件：</h3><pre><code>&lt;script src=&quot;../angular.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../angular-route.min.js&quot;&gt;&lt;/script&gt;
+</code></pre><h3 id="配置module-添加依赖ngRoute"><a href="#配置module-添加依赖ngRoute" class="headerlink" title="配置module:添加依赖ngRoute"></a>配置module:添加依赖ngRoute</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var app = angular.module(&apos;app&apos;, [&quot;ngRoute&quot;]);</div></pre></td></tr></table></figure>
+<h3 id="配置route"><a href="#配置route" class="headerlink" title="配置route"></a>配置route</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.config(function ($routeProvider)&#123;</div><div class="line">    $routeProvider</div><div class="line">    .when(</div><div class="line">    	&apos;/user&apos;,</div><div class="line">    	&#123;</div><div class="line">    		templateUrl: &apos;./views/user.html&apos;,//模版地址</div><div class="line">    		controller: &apos;userController&apos;//控制器名称</div><div class="line">    	&#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>templateUrl也可写成<code>template:&quot;&lt;h2&gt;标题1&lt;/h2&gt;&quot;</code>以html形式</p>
+<h3 id="controller——user-js"><a href="#controller——user-js" class="headerlink" title="controller——user.js"></a>controller——user.js</h3><p>需要在首页引入user.js</p>
+<p>控制器名称也需要添加至首页angular.module[]中</p>
+<blockquote>
+<p>var app=angular.module(‘app’, [“ngRoute”, “userMod”]);</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">angular.module(&apos;usermod&apos;,[])</div><div class="line"></div><div class="line">.controller(&apos;usercontroller&apos;, function ($scope) &#123;</div><div class="line">    $scope.name=&apos;xxx&apos;;</div><div class="line">    $scope.regtime=1474182259399;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="template模版文件——views-user-html"><a href="#template模版文件——views-user-html" class="headerlink" title="template模版文件——views/user.html"></a>template模版文件——views/user.html</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;</div><div class="line">	&lt;h2&gt;user&lt;/h2&gt;</div><div class="line">	&lt;ul&gt;</div><div class="line">		&lt;li&gt;用户名：&#123;&#123;name&#125;&#125;&lt;/li&gt;</div><div class="line">		&lt;li&gt;注册时间：&#123;&#123;regtime|date:&quot;yyyy-MM-dd HH:mm:ss&quot;&#125;&#125;&lt;/li&gt;</div><div class="line">	&lt;/li&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h3 id="延迟加载resolve"><a href="#延迟加载resolve" class="headerlink" title="延迟加载resolve"></a>延迟加载resolve</h3><p>如果需要某个页面延迟加载，可以通过resolve：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$routeProvider.when(</div><div class="line">    &apos;/article&apos;,</div><div class="line">    &#123;</div><div class="line">        templateUrl:&quot;./views/article.html&quot;,</div><div class="line">        controller:&apos;articleController&apos;,</div><div class="line">        resolve:&#123;</div><div class="line">            dalay: function ($q) &#123;</div><div class="line">                var delay=$q.defer();</div><div class="line"></div><div class="line">                setTimeout(function () &#123;</div><div class="line">                    delay.resolve()</div><div class="line">                &#125;,3000)</div><div class="line">                return delay.promise;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<h3 id="同一路由下的不同页面"><a href="#同一路由下的不同页面" class="headerlink" title="同一路由下的不同页面"></a>同一路由下的不同页面</h3><p>列如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">&lt;a href=&quot;#/user&quot;&gt;用户中心&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=sport&quot;&gt;体育赛事&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=game&quot;&gt;游戏周边&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=news&quot;&gt;新闻&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/setting&quot;&gt;配置信息&lt;/a&gt;</div><div class="line">&lt;ng-view&gt;&lt;/ng-view&gt;</div><div class="line">&lt;script type=&quot;text/ng-template&quot; id=&quot;setting.html&quot;&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">            &lt;li&gt;213&lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>想通过article?type=sport/game/news访问不同内容</p>
+<blockquote>
+<p>$routeParams</p>
+</blockquote>
+<h4 id="首页添加article路由"><a href="#首页添加article路由" class="headerlink" title="首页添加article路由"></a>首页添加article路由</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">&lt;head lang=&quot;en&quot;&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">    &lt;style&gt;</div><div class="line">    &lt;/style&gt;</div><div class="line">    &lt;script src=&quot;../angular.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;../angular-route.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;./controllers/user.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;./controllers/article.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">        var app = angular.module(&apos;app&apos;, [&quot;ngRoute&quot;,&quot;usermod&quot;,&apos;articleMod&apos;]);</div><div class="line"></div><div class="line">        app.config(function ($routeProvider) &#123;</div><div class="line">            $routeProvider</div><div class="line">            .when(</div><div class="line">            &apos;/user&apos;,</div><div class="line">            &#123;</div><div class="line">                templateUrl:&apos;./views/user.html&apos;,//显示内容</div><div class="line">                controller:&apos;usercontroller&apos;</div><div class="line">            &#125;</div><div class="line">            )</div><div class="line">            .when(</div><div class="line">            &apos;/article&apos;,</div><div class="line">            &#123;</div><div class="line">                templateUrl:&quot;./views/article.html&quot;,</div><div class="line">                controller:&apos;articleController&apos;,</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            )</div><div class="line">            .when(</div><div class="line">            &apos;/setting&apos;,</div><div class="line">            &#123;</div><div class="line">                templateUrl:&quot;setting.html&quot;</div><div class="line">            &#125;</div><div class="line">            )</div><div class="line"></div><div class="line">        &#125;);</div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;a href=&quot;#/user&quot;&gt;用户中心&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=sport&quot;&gt;体育赛事&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=game&quot;&gt;游戏周边&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=news&quot;&gt;新闻&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/setting&quot;&gt;配置信息&lt;/a&gt;</div><div class="line">&lt;ng-view&gt;&lt;/ng-view&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<h4 id="article-js"><a href="#article-js" class="headerlink" title="article.js"></a>article.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">angular.module(&apos;articleMod&apos;,[])</div><div class="line">.controller(&apos;articleController&apos;, function ($scope,$routeParams) &#123;</div><div class="line">    switch($routeParams.type)&#123;</div><div class="line">            case &apos;sport&apos;:</div><div class="line">                $scope.arr=[&apos;sport&apos;,&apos;sport2&apos;,&apos;sport3&apos;];</div><div class="line">            break;</div><div class="line">            case &apos;game&apos;:</div><div class="line">                $scope.arr=[&apos;game&apos;,&apos;game2&apos;,&apos;game3&apos;];</div><div class="line">                break;</div><div class="line">            case &apos;news&apos;:</div><div class="line">                $scope.arr=[&apos;news&apos;,&apos;news2&apos;,&apos;news3&apos;];</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>可通过<code>$routeParams.type</code>获取<code>href=&quot;#/article?type=sport&quot;</code>中的sport…</p>
+<h3 id="views-article-html模版文件"><a href="#views-article-html模版文件" class="headerlink" title="./views/article.html模版文件"></a>./views/article.html模版文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">        &lt;li ng-repeat=&quot;data in arr&quot;&gt;&#123;&#123;data&#125;&#125;&lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>这样就可以通过type参数访问不同内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;#/article?type=sport&quot;&gt;体育赛事&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=game&quot;&gt;游戏周边&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=news&quot;&gt;新闻&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="router事件"><a href="#router事件" class="headerlink" title="router事件"></a>router事件</h3><p>$routeChangeStar</p>
+<p>$routeChangeSuccess</p>
+<p>$routeChangeError</p>
+<h4 id="页面切换loadding效果"><a href="#页面切换loadding效果" class="headerlink" title="页面切换loadding效果"></a>页面切换loadding效果</h4><h5 id="首页html"><a href="#首页html" class="headerlink" title="首页html"></a>首页html</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-controller=&quot;main&quot;&gt;</div><div class="line">&lt;div ng-show=&quot;loading&quot;&gt;正在加载&lt;/div&gt;</div><div class="line">&lt;a href=&quot;#/user&quot;&gt;用户中心&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=sport&quot;&gt;体育赛事&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=game&quot;&gt;游戏周边&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/article?type=news&quot;&gt;新闻&lt;/a&gt;</div><div class="line">&lt;a href=&quot;#/setting&quot;&gt;配置信息&lt;/a&gt;</div><div class="line">&lt;ng-view&gt;&lt;/ng-view&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<h5 id="添加控制器main"><a href="#添加控制器main" class="headerlink" title="添加控制器main"></a>添加控制器main</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">app.controller(&apos;main&apos;, function ($scope) &#123;</div><div class="line">            $scope.loading = false;</div><div class="line">            $scope.$on(&apos;$routeChangeStart&apos;, function () &#123;</div><div class="line">                $scope.loading = true;</div><div class="line">                alert(&apos;换页开始&apos;);</div><div class="line">            &#125;)</div><div class="line">            $scope.$on(&apos;$routeChangeSuccess&apos;, function () &#123;</div><div class="line">                alert(&apos;换页结束&apos;);</div><div class="line">                $scope.loading = false;</div><div class="line">            &#125;)</div><div class="line">            $scope.$on(&apos;$routeChangeError&apos;, function () &#123;</div><div class="line">                alert(&apos;换页失败&apos;);</div><div class="line">                $scope.loading = false;</div><div class="line">            &#125;)</div><div class="line">        &#125;)</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1459,281 +1730,6 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/01/NodeJs——文件下载/" itemprop="url">
-                  NodeJs——文件下载
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-01T17:16:59+08:00" content="2016-09-01">
-              2016-09-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/01/NodeJs——文件下载/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/NodeJs——文件下载/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在node中，实现文件下载，只需设置header即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&apos;content-disposition&apos;,&apos;attachment&apos;);  //所有文件都下载</div></pre></td></tr></table></figure>
-<p>另外attachment后还有个filename参数，用来定义下载文件名称</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&apos;content-disposition&apos;,&apos;attachment;filename=&quot;xxx.xxx&quot;&apos;);</div></pre></td></tr></table></figure>
-<p>用一个小例子体现一下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const path=require(&apos;path&apos;);</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">    //获取url</div><div class="line">    var rs=fs.createReadStream(req.url.substring(1));</div><div class="line">    //定义可下载文件组</div><div class="line">    var downloadType=[&apos;.rar&apos;,&apos;.exe&apos;,&apos;.png&apos;,&apos;.jpg&apos;];</div><div class="line">    //获取文件后缀名</div><div class="line">    var extname=path.extname(req.url);</div><div class="line"></div><div class="line">    if(downloadType.indexOf(extname) != -1)&#123;</div><div class="line">        //时间戳</div><div class="line">        var filename=Date.now();</div><div class="line">        //写入头-content-disposition,attachment;filename&apos;&apos;;</div><div class="line">        res.setHeader(`content-disposition`,`attachment;filename=&quot;$&#123;filename&#125;$&#123;extname&#125;&quot;`);</div><div class="line">        //写入res</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;else&#123;</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;</div><div class="line">    rs.on(&apos;error&apos;, function () &#123;</div><div class="line">        res.writeHeader(404);</div><div class="line">        res.write(&apos;404&apos;);</div><div class="line">        res.end();</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">&#125;).listen(8080)</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/19/前端自动化构建工具-gulp/" itemprop="url">
-                  前端自动化构建工具-gulp
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T14:56:41+08:00" content="2016-08-19">
-              2016-08-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/19/前端自动化构建工具-gulp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/前端自动化构建工具-gulp/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>利用 Node.js 流实现前端资源文件的IO操作，其中包括第三方模块，需单独下载</p>
-<p>先贴出官网的入门实例：</p>
-<h3 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h3><pre><code>npm install --global gulp
-</code></pre><h3 id="作为项目的开发依赖（devDependencies）安装："><a href="#作为项目的开发依赖（devDependencies）安装：" class="headerlink" title="作为项目的开发依赖（devDependencies）安装："></a>作为项目的开发依赖（devDependencies）安装：</h3><pre><code>npm install --save-dev gulp
-</code></pre><h3 id="在项目根目录下创建一个名为-gulpfile-js-的文件"><a href="#在项目根目录下创建一个名为-gulpfile-js-的文件" class="headerlink" title="在项目根目录下创建一个名为 gulpfile.js 的文件"></a>在项目根目录下创建一个名为 gulpfile.js 的文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&apos;gulp&apos;);</div><div class="line"></div><div class="line">gulp.task(&apos;default&apos;, function() &#123;</div><div class="line">    // 将你的默认的任务代码放在这</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>接下来开始我们的代码:</p>
-<blockquote>
-<p>gulp-minify-css,gulp-less等第三方模块需通过npm去安装，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 引入 gulp及组件</div><div class="line">var gulp = require(&apos;gulp&apos;),</div><div class="line">    minifycss = require(&apos;gulp-minify-css&apos;),</div><div class="line">    less = require(&apos;gulp-less&apos;),</div><div class="line">    concat = require(&apos;gulp-concat&apos;),</div><div class="line">    uglify = require(&apos;gulp-uglify&apos;),</div><div class="line">    rename = require(&apos;gulp-rename&apos;),</div><div class="line">    jshint = require(&apos;gulp-jshint&apos;),</div><div class="line">    spritesmith = require(&apos;gulp.spritesmith&apos;);</div><div class="line"></div><div class="line">//定义项目目录</div><div class="line">option = &#123;</div><div class="line">    buildPath: &quot;&quot;,//构建目录</div><div class="line">    jsItem: []</div><div class="line">    //我这里只是为了操作指定的几个js文件，具体看资源目录</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h4 id="定义编译less文件的任务"><a href="#定义编译less文件的任务" class="headerlink" title="定义编译less文件的任务"></a>定义编译less文件的任务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;lessback&apos;, function () &#123;</div><div class="line">    return gulp.src(option.buildPath + &apos;/less/*.less&apos;)//指定操作目录</div><div class="line">        .pipe(less())           //执行编译</div><div class="line">        .pipe(minifycss())      //执行压缩</div><div class="line">        .pipe(concat(&apos;mainLess.css&apos;)) //合并</div><div class="line">        .pipe(gulp.dest(option.buildPath + &apos;/cssmin/&apos;));//输出文件夹</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h4 id="压缩普通css"><a href="#压缩普通css" class="headerlink" title="压缩普通css"></a>压缩普通css</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;minifycss&apos;, function () &#123;</div><div class="line">    return gulp.src(option.buildPath + &apos;/css/*.css&apos;) //需要操作的文件</div><div class="line">        .pipe(rename(&#123;suffix: &apos;.min&apos;&#125;)) //rename压缩后的文件名</div><div class="line">        .pipe(minifycss())              //执行压缩</div><div class="line">        .pipe(concat(&apos;main.css&apos;))           //合并</div><div class="line">        .pipe(gulp.dest(option.buildPath + &apos;/cssmin/&apos;)); //输出文件夹</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h4 id="js语法检查"><a href="#js语法检查" class="headerlink" title="js语法检查"></a>js语法检查</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;jshint&apos;, function () &#123;</div><div class="line">    return gulp.src(option.buildPath + &apos;/js/*.js&apos;)</div><div class="line">        .pipe(jshint())</div><div class="line">        .pipe(jshint.reporter(&apos;default&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h4 id="压缩-合并-js"><a href="#压缩-合并-js" class="headerlink" title="压缩,合并 js"></a>压缩,合并 js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;minifyjs&apos;, function () &#123;</div><div class="line">    return gulp.src(option.jsItem)    //需要操作的文件</div><div class="line">        .pipe(concat(&apos;all.js&apos;))       //合并所有js到all.js</div><div class="line">        .pipe(gulp.dest(option.buildPath + &apos;/jsmin/&apos;)) //输出到文件夹</div><div class="line">        .pipe(rename(&#123;suffix: &apos;.min&apos;&#125;))     //rename压缩后的文件名</div><div class="line">        .pipe(uglify())    //压缩</div><div class="line">        .pipe(gulp.dest(option.buildPath + &apos;/jsmin/&apos;));  //输出</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>在cmd中输入gulp后,执行的就是这个任务(压缩js需要在检查js之后操作)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;default&apos;, function () &#123;</div><div class="line">    option.buildPath = &quot;project/src&quot;;</div><div class="line">    //也可以直接操作整个js目录，通过 *.js去匹配</div><div class="line">    option.jsItem = [option.buildPath + &quot;/js/script.js&quot;, option.buildPath + &quot;/js/script2.js&quot;];</div><div class="line">    gulp.start(&apos;lessback&apos;, &apos;jshint&apos;, &apos;minifycss&apos;, &apos;minifyjs&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>cmd输如gulp后，默认执行default，通过gulp.start执行上面所定义的方法即可执行;</p>
-<h3 id="gulp将多张图片自动合成雪碧图"><a href="#gulp将多张图片自动合成雪碧图" class="headerlink" title="gulp将多张图片自动合成雪碧图"></a>gulp将多张图片自动合成雪碧图</h3><blockquote>
-<p>再也不用拿ps去一张一张去拼图了</p>
-</blockquote>
-<p><img src="/img/16081902.png" alt="img"></p>
-<p>首先安装模块并引入</p>
-<pre><code>npm install gulp.spritesmith
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var spritesmith=require(‘gulp.spritesmith‘);</div><div class="line"></div><div class="line">gulp.task(&apos;sprite&apos;, function () &#123;</div><div class="line">    console.log(option.buildPath +&apos;/images/&apos;);</div><div class="line">    return gulp.src(option.buildPath +&apos;/images/*.png&apos;)//需要合并的图片地址</div><div class="line">        .pipe(spritesmith(&#123;</div><div class="line">            imgName: &apos;sprite/images/sprite.png&apos;,//保存合并后图片的地址</div><div class="line">            cssName: &apos;sprite/css/sprite.css&apos;,//保存合并后对于css样式的地址</div><div class="line">            padding: 5,//合并时两个图片的间距</div><div class="line">            algorithm: &apos;binary-tree&apos;,//注释1</div><div class="line">            cssTemplate:option.buildPath+&quot;/images/sprite/model/handlebarsStr.css&quot;//注释2</div><div class="line">        &#125;))</div><div class="line">        .pipe(gulp.dest(option.buildPath+&apos;/images/&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>注释一：</p>
-<p>Algorithm 有四个可选值分别为top-down、left-right、diagonal、alt-diagonal、binary-tree</p>
-<p><img src="/img/16081901.png" alt="img"></p>
-<p>注释二：</p>
-<p>cssTemplate 是生成css的模板文件可以是字符串也可以是函数。是字符串是对于相对于的模板地址 对于模板文件样式格式是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#sprites&#125;&#125;</div><div class="line">.icon-&#123;&#123;name&#125;&#125;&#123;</div><div class="line">    background-image: url(&quot;&#123;&#123;escaped_image&#125;&#125;&quot;);</div><div class="line">    background-position: &#123;&#123;px.offset_x&#125;&#125; &#123;&#123;px.offset_y&#125;&#125;;</div><div class="line">    width: &#123;&#123;px.width&#125;&#125;;</div><div class="line">    height: &#123;&#123;px.height&#125;&#125;;</div><div class="line">&#125;</div><div class="line">&#123;&#123;/sprites&#125;&#125;</div></pre></td></tr></table></figure>
-<p>——模版文件需要提前再项目目录下创建，并通过cssTemplate指定位置</p>
-<p>如果是函数的话，这可以这样写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;sprite&apos;, function () &#123;</div><div class="line">    console.log(option.buildPath +&apos;/images/&apos;);</div><div class="line">    return gulp.src(option.buildPath +&apos;/images/*.png&apos;)//需要合并的图片地址</div><div class="line">        .pipe(spritesmith(&#123;</div><div class="line">            imgName: &apos;sprite/images/sprite.png&apos;,//保存合并后图片的地址</div><div class="line">            cssName: &apos;sprite/css/sprite.css&apos;,//保存合并后对于css样式的地址</div><div class="line">            padding: 5,//合并时两个图片的间距</div><div class="line">            algorithm: &apos;binary-tree&apos;,//注释1</div><div class="line">            cssTemplate: function (data) &#123;</div><div class="line">                var arr=[];</div><div class="line">                data.sprites.forEach(function (sprite) &#123;</div><div class="line">                    arr.push(&quot;.icon-&quot;+sprite.name+</div><div class="line">                    &quot;&#123;&quot; +</div><div class="line">                    &quot;background-image: url(‘&quot;+sprite.escaped_image+&quot;‘);&quot;+</div><div class="line">                    &quot;background-position: &quot;+sprite.px.offset_x+&quot;px &quot;+sprite.px.offset_y+&quot;px;&quot;+</div><div class="line">                    &quot;width:&quot;+sprite.px.width+&quot;;&quot;+</div><div class="line">                    &quot;height:&quot;+sprite.px.height+&quot;;&quot;+</div><div class="line">                    &quot;&#125;\n&quot;);</div><div class="line">                &#125;);</div><div class="line">                return arr.join(&quot;&quot;);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;))</div><div class="line">        .pipe(gulp.dest(option.buildPath+&apos;/images/&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>最终再default中gulp.start(‘sprite’)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;default&apos;, function () &#123;</div><div class="line">    option.buildPath = &quot;project/src&quot;;</div><div class="line">    option.jsItem = [option.buildPath + &quot;/js/script.js&quot;, option.buildPath + &quot;/js/script2.js&quot;];</div><div class="line">    gulp.start(&apos;sprite&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h6 id="到此gulp构建工具就初步完成了，只是初步，待完善。"><a href="#到此gulp构建工具就初步完成了，只是初步，待完善。" class="headerlink" title="到此gulp构建工具就初步完成了，只是初步，待完善。"></a>到此gulp构建工具就初步完成了，只是初步，待完善。</h6>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1779,7 +1775,7 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1787,7 +1783,7 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1796,7 +1792,7 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -1858,7 +1854,7 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
+    NexT.Mist
   </a>
 </div>
 
@@ -1923,13 +1919,6 @@ cluster.on(&apos;exit&apos;,function(worker,code,signal){
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
-
-
 
   
 

@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion">
+<html class="theme-next mist use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -103,7 +103,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Pisces',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
@@ -263,6 +263,287 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/04/开发nodejs模块并发布到npm的简单示例/" itemprop="url">
+                  '开发nodejs模块并发布到npm的简单示例'
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-04T14:44:40+08:00" content="2016-08-04">
+              2016-08-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/04/开发nodejs模块并发布到npm的简单示例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/04/开发nodejs模块并发布到npm的简单示例/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="建立一个工作目录！"><a href="#建立一个工作目录！" class="headerlink" title="建立一个工作目录！"></a>建立一个工作目录！</h3><p>我建立在mrshen/目录下。</p>
+<h4 id="新建一个js文件"><a href="#新建一个js文件" class="headerlink" title="新建一个js文件"></a>新建一个js文件</h4><p>新建index.js ,输入如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function hello(name)&#123;</div><div class="line">  console.log(&quot;hello&quot;+ name);</div><div class="line">&#125;</div><div class="line">exports.hello=hello;</div></pre></td></tr></table></figure>
+<p>注意： </p>
+<p><code>exports.hello=hello</code> 这句是关键！使用<code>exports</code>将你的<code>hello</code>函数暴漏出去！不懂的可以百度CommonJs规范！</p>
+<p>接下来我们在目录里简历一个test.js的文件！ 代码如下</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var h=require(&apos;./index&apos;);</div><div class="line">h.hello(&apos;Jarrick&apos;);</div></pre></td></tr></table></figure>
+<p>可以看到b.js的文件只有两行！</p>
+<p>第一行首先使用<code>require(&#39;./a&#39;)</code>导入刚才的a模块，然后我们调用模块中的hello方法！</p>
+<p>一切完毕！虽然两个文件加起来只有5行代码，但是足够我们演示我们所要的了！。</p>
+<p>让我们用node执行一下，同样很简单，执行代码也只有两句！输出的结果为<code>helloJarrick</code>。</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/mz121star/QQ%E6%88%AA%E5%9B%BE20121115164614.jpg" alt="image"></p>
+<h4 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h4><p> 接下来要将我们开发的模块传到npm上了（npm是一个nodejs模块大菜市！）</p>
+<p> 我们在cmd中首先进入我们js的工作目录</p>
+<h6 id="执行：npm-init"><a href="#执行：npm-init" class="headerlink" title="执行：npm init"></a>执行：<code>npm init</code></h6><p>会提示你输入name,version,descripttion,等信息，其中name就是你的插件名字，与文件名无关。</p>
+<p>该命令可以帮助我们建立一个发布到npm所必须的 <code>package.json</code><br>文件，该文件包含了你所建立模块的相关信息，你可以按照它的提示一步步输入即可，最后会在你的目录中发先一个 package.json的文件，我所建立完成之后的内容大概如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;mrshen&quot;,</div><div class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</div><div class="line">  &quot;description&quot;: &quot;test&quot;,</div><div class="line">  &quot;main&quot;: &quot;index.js&quot;,</div><div class="line">  &quot;scripts&quot;: &#123;</div><div class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;repository&quot;: &quot;&quot;,</div><div class="line">  &quot;keywords&quot;: [</div><div class="line">    &quot;mcore&quot;</div><div class="line">  ],</div><div class="line">  &quot;author&quot;: &quot;Mrshen&quot;,</div><div class="line">  &quot;license&quot;: &quot;ISC&quot;</div><div class="line">  ｝</div></pre></td></tr></table></figure>
+<p>如果后续修改要同步，那么版本号version一定要修改,否则不会执行提交。</p>
+<h4 id="登录npm账户"><a href="#登录npm账户" class="headerlink" title="登录npm账户"></a>登录npm账户</h4><p>发布前首先使用npm adduser命令增加账户即可！</p>
+<p>在文件所在目录打开cmd，输入<code>npm adduser</code>会让你输入你的npm用户名，密码及邮箱</p>
+<p>待一切创建成功！</p>
+<p>执行<code>npm publish</code></p>
+<p>你就可以到npm你的主页去寻找到你的模块了</p>
+<h4 id="install-所发布的包"><a href="#install-所发布的包" class="headerlink" title="install 所发布的包"></a>install 所发布的包</h4><p>使用时，只要在你的命令行中输入 </p>
+<p>npm install mrshen</p>
+<p>即可安装该模块了！</p>
+<p>安装后我们尝试使用一下，在命令行中输入node ，然后用<code>require(&quot;mrshen&quot;)</code>即可导入该模块！会在屏幕立即显示出<code>helloJarrick</code>的消息！</p>
+<h4 id="在npm上删除包"><a href="#在npm上删除包" class="headerlink" title="在npm上删除包"></a>在npm上删除包</h4><p>如果想删除所发布的包，输入npm unpublish 即可， </p>
+<blockquote>
+<p>npm unpublish <package>@<version>可以撤销发布自己发布过的某个版本代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm unpublish //提示拒绝删除</div><div class="line">npm unpublish --force    //强制删除</div><div class="line">npm unpublish 包名 --force  //彻底删除包</div></pre></td></tr></table></figure></version></package></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/25/ES6的箭头函数/" itemprop="url">
+                  'ES6的箭头函数'
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T17:14:49+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/25/ES6的箭头函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的箭头函数/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><p>ES6允许使用“箭头”（=&gt;）定义函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var f = v =&gt; v;</div></pre></td></tr></table></figure>
+<p>等同于<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var f = function(v) &#123;</div><div class="line">  return v;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">function show()&#123;</div><div class="line">	return 1;</div><div class="line">&#125;</div><div class="line">show();</div><div class="line"></div><div class="line">function show(a)&#123;</div><div class="line">	return a;</div><div class="line">&#125;</div><div class="line">show(1);</div><div class="line"></div><div class="line">//等同于</div><div class="line"></div><div class="line">var show=a=&gt;a;  -&gt; function show(a)&#123;return a&#125;;</div><div class="line">var show=(a)=&gt;a;  -&gt; function show(a)&#123;return a&#125;;</div><div class="line">var show=()=&gt;1;   -&gt; function show()&#123;return 1&#125;;</div><div class="line"></div><div class="line">var f=() =&gt; 5;</div><div class="line">//等同于</div><div class="line">var f=function()&#123;return 5&#125;;</div><div class="line"></div><div class="line">var sum(num1, num2) =&gt; num1 + num2;</div><div class="line">//等同于</div><div class="line">var sum=function(num1, num2)&#123;</div><div class="line">    return num1 + num2</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回,由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var getTempItem = id =&gt; (&#123; id: id, name: &quot;Temp&quot; &#125;);</div></pre></td></tr></table></figure></p>
+<h4 id="使用注意点"><a href="#使用注意点" class="headerlink" title="使用注意点"></a>使用注意点</h4><p>箭头函数有几个使用注意点。</p>
+<p>（1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</p>
+<p>（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</p>
+<p>（3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。</p>
+<p>（4）不可以使用yield命令，因此箭头函数不能用作Generator函数。</p>
+<p>上面四点中，第一点尤其值得注意。this对象的指向是可变的，但是在箭头函数中，它是固定的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function foo() &#123;</div><div class="line">  setTimeout(() =&gt; &#123;</div><div class="line">    console.log(&apos;id:&apos;, this.id);</div><div class="line">  &#125;, 100);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var id = 21;</div><div class="line"></div><div class="line">foo.call(&#123; id: 42 &#125;);</div><div class="line">// id: 42</div></pre></td></tr></table></figure></p>
+<p>上面代码中，setTimeout的参数是一个箭头函数，这个箭头函数的定义生效是在foo函数生成时，而它的真正执行要等到100毫秒后。如果是普通函数，执行时this应该指向全局对象window，这时应该输出21。但是，箭头函数导致this总是指向函数定义生效时所在的对象（本例是{id: 42}），所以输出的是42。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1189,7 +1470,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1197,7 +1478,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1206,7 +1487,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -1268,7 +1549,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
+    NexT.Mist
   </a>
 </div>
 
@@ -1333,13 +1614,6 @@
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
-
-
 
   
 
