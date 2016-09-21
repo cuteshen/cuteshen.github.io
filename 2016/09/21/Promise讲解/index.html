@@ -102,8 +102,8 @@ js中异步编程主要指的是setTimout/setInterval、DOM事件机制、ajax�
 直接打印出来看看吧，console.dir(Promise)。
 
 Promise是一个构造函数，自己身上有all、reject、resolve这几个">
-<meta property="og:image" content="http://yoursite.com/img/filehelper_1474440994208_89">
-<meta property="og:updated_time" content="2016-09-21T07:55:59.870Z">
+<meta property="og:image" content="http://yoursite.com/img/filehelper_1474440994208_89.png">
+<meta property="og:updated_time" content="2016-09-21T07:56:51.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Promise讲解">
 <meta name="twitter:description" content="概念ES6 原生提供了 Promise 对象。
@@ -111,7 +111,7 @@ js中异步编程主要指的是setTimout/setInterval、DOM事件机制、ajax�
 直接打印出来看看吧，console.dir(Promise)。
 
 Promise是一个构造函数，自己身上有all、reject、resolve这几个">
-<meta name="twitter:image" content="http://yoursite.com/img/filehelper_1474440994208_89">
+<meta name="twitter:image" content="http://yoursite.com/img/filehelper_1474440994208_89.png">
 
 
 
@@ -366,7 +366,7 @@ Promise是一个构造函数，自己身上有all、reject、resolve这几个">
         <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>ES6 原生提供了 Promise 对象。</p>
 <p>js中异步编程主要指的是setTimout/setInterval、DOM事件机制、ajax，通过传入回调函数实现控制反转。主要解决问题如：callback嵌套太深代码可读性太差，并行逻辑必须串行执行。</p>
 <p>直接打印出来看看吧，console.dir(Promise)。</p>
-<p><img src="/img/filehelper_1474440994208_89" alt="image"></p>
+<p><img src="/img/filehelper_1474440994208_89.png" alt="image"></p>
 <p>Promise是一个构造函数，自己身上有all、reject、resolve这几个眼熟的方法，原型上有then、catch等同样很眼熟的方法。这么说用Promise new出来的对象肯定就有then、catch方法</p>
 <h3 id="new一个promise"><a href="#new一个promise" class="headerlink" title="new一个promise"></a>new一个promise</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var p = new Promise(function(resolve, reject)&#123;</div><div class="line">    //做一些异步操作</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(&apos;执行完成&apos;);</div><div class="line">        resolve(&apos;随便什么数据&apos;);</div><div class="line">    &#125;, 2000);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>Promise的构造函数接收一个参数，是函数，并且传入两个参数：resolve，reject，分别表示异步操作执行成功后的回调函数和异步操作执行失败后的回调函数。按照标准来讲，resolve是将Promise的状态置为fullfiled，reject是将Promise的状态置为rejected。</p>
