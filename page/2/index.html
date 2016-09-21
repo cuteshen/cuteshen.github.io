@@ -285,6 +285,154 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/01/NodeJs——多进程/" itemprop="url">
+                  NodeJs——多进程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T17:17:36+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/01/NodeJs——多进程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/NodeJs——多进程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>nodejs是一个单进程单线程的服务器引擎，不管有多么的强大硬件，只能利用到单个CPU进行计算。所以，有人开发了第三方的cluster，让node可以利用多核CPU实现并行。</p>
+<p>在V0.6.0版本，Nodejs内置了cluster的特性。</p>
+</blockquote>
+<h5 id="下面介绍cluster的用法："><a href="#下面介绍cluster的用法：" class="headerlink" title="下面介绍cluster的用法："></a>下面介绍cluster的用法：</h5><h2 id="cluster-——集群"><a href="#cluster-——集群" class="headerlink" title="cluster:——集群"></a>cluster:——集群</h2><p>”集群“——一堆物理机器，组合起来变成并行网络</p>
+<p>cluster——一个进程、分裂出很多子进程(对应的就是cpu核数)</p>
+<h3 id="主进程的工作"><a href="#主进程的工作" class="headerlink" title="主进程的工作:"></a>主进程的工作:</h3><p>a). 分裂工作进程</p>
+<p>b). 子进程崩溃，重启</p>
+<h3 id="子进程-工作进程"><a href="#子进程-工作进程" class="headerlink" title="子进程(工作进程):"></a>子进程(工作进程):</h3><p>主要工作，文件读取、服务器搭建…..</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><pre><code>const cluster=require(&apos;cluter&apos;);
+</code></pre><p>判断主进程还是工作进程</p>
+<pre><code>cluster.isMaster        是否是主进程
+cluster.isWorker            是否是工作进程
+</code></pre><p>进程进程id:  pid</p>
+<pre><code>process.pid
+</code></pre><p>子进程崩溃事件:</p>
+<pre><code>cluster.on(&apos;exit&apos;,function(){  //有人崩溃
+
+})
+</code></pre><p>实际应用</p>
+<pre><code>//有子进程崩溃了
+cluster.on(&apos;exit&apos;,function(worker,code,signal){
+     //打印崩溃子进程的id
+    console.log(worker.id);
+    //重启进程
+    cluster.fork();
+});
+</code></pre><p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const os=require(&apos;os&apos;);</div><div class="line">const cluster=require(&apos;cluster&apos;);</div><div class="line"></div><div class="line">//获取cpu核数</div><div class="line">var cpus=os.cpus().length;</div><div class="line"></div><div class="line">if(cluster.isMaster)&#123;</div><div class="line">    //主进程</div><div class="line">    //分裂</div><div class="line">    for(var i=0;i&lt;cpus; i++)&#123;</div><div class="line">        cluster.fork();</div><div class="line">    &#125;</div><div class="line">    //子崩溃了</div><div class="line">    cluster.on(&apos;exit&apos;, function (worker,code,signal) &#123;</div><div class="line">        //打印崩溃进程id</div><div class="line">        console.log(worker.id+&apos;崩溃了&apos;);</div><div class="line">        //分裂</div><div class="line">        cluster.fork();</div><div class="line">    &#125;)</div><div class="line">&#125;else&#123;</div><div class="line">    //工作进程</div><div class="line">    console.log(&apos;子进程ID：&apos;+cluster.worker.id);</div><div class="line">    http.createServer(function (req, res) &#123;</div><div class="line">        if(Marh.random() &lt; 0.5)&#123;</div><div class="line">            res.writei(&apos;well&apos;);//此处我故意写错</div><div class="line">            res.end();</div><div class="line">        &#125;else&#123;</div><div class="line">            res.write(&apos;well&apos;);</div><div class="line">            res.end();</div><div class="line">        &#125;</div><div class="line">    &#125;).listen(8080);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>打印结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">子进程ID：1</div><div class="line">子进程ID：3</div><div class="line">子进程ID：2</div><div class="line">子进程ID：4</div><div class="line">d:\myjob\sql_cluster_md5\cluster.js:26</div><div class="line">        if(Marh.random() &lt; 0.5)&#123;</div><div class="line">           ^</div><div class="line"></div><div class="line">ReferenceError: Marh is not defined</div><div class="line">    at Server.&lt;anonymous&gt; (d:\myjob\sql_cluster_md5\cluster.js:26:12)</div><div class="line">    at emitTwo (events.js:87:13)</div><div class="line">    at Server.emit (events.js:172:7)</div><div class="line">    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:527:12)</div><div class="line">    at HTTPParser.parserOnHeadersComplete (_http_common.js:88:23)</div><div class="line">d:\myjob\sql_cluster_md5\cluster.js:26</div><div class="line">        if(Marh.random() &lt; 0.5)&#123;</div><div class="line">           ^</div><div class="line"></div><div class="line">ReferenceError: Marh is not defined</div><div class="line">    at Server.&lt;anonymous&gt; (d:\myjob\sql_cluster_md5\cluster.js:26:12)</div><div class="line">    at emitTwo (events.js:87:13)</div><div class="line">    at Server.emit (events.js:172:7)</div><div class="line">    at HTTPParser.parserOnIncoming [as onIncoming] (_http_server.js:527:12)</div><div class="line">    at HTTPParser.parserOnHeadersComplete (_http_common.js:88:23)</div><div class="line">4崩溃了</div><div class="line">2崩溃了</div><div class="line">子进程ID：5</div><div class="line">子进程ID：6</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/01/NodeJs——文件下载/" itemprop="url">
                   NodeJs——文件下载
                 </a>
@@ -1529,144 +1677,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/05/NodeJs学习笔记——基础02/" itemprop="url">
-                  NodeJs学习笔记——基础02
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-05T11:18:35+08:00" content="2016-08-05">
-              2016-08-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/05/NodeJs学习笔记——基础02/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/NodeJs学习笔记——基础02/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="数据解析服务器"><a href="#数据解析服务器" class="headerlink" title="数据解析服务器"></a>数据解析服务器</h2><h3 id="获取GET请求"><a href="#获取GET请求" class="headerlink" title="获取GET请求"></a>获取GET请求</h3><p>由于GET请求直接被嵌入在路径中，URL是完整的请求路径，包括了?后面的部分，因此你可以手动解析后面的内容作为GET请求的参数。<br>node.js中url模块中的parse函数提供了这个功能。</p>
-<p><code>url.parse(req.url)</code>将URL字符串转换成对象并返回</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url.parse(urlStr, [parseQueryString], [slashesDenoteHost])</div></pre></td></tr></table></figure>
-<p>接收参数：</p>
-<p>urlStr ——url字符串</p>
-<p>parseQueryString    ——为true时将使用查询模块分析查询字符串，默认为false</p>
-<p>slashesDenoteHost               </p>
-<p>默认为false，//foo/bar ——形式的字符串将被解释成 { pathname: ‘//foo/bar’ }</p>
-<p>如果设置成true，//foo/bar ——形式的字符串将被解释成  { host: ‘foo’, pathname: ‘/bar’ }</p>
-<p>例子如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var url = require(&apos;url&apos;);</div><div class="line"> var a = url.parse(&apos;http://example.com:8080/one?a=index&amp;t=article&amp;m=default&apos;);</div><div class="line"> console.log(a);</div><div class="line">  </div><div class="line"> //输出结果：</div><div class="line">&#123; </div><div class="line">     protocol : &apos;http&apos; ,</div><div class="line">     auth : null ,</div><div class="line">     host : &apos;example.com:8080&apos; ,</div><div class="line">     port : &apos;8080&apos; ,</div><div class="line">     hostname : &apos;example.com&apos; ,</div><div class="line">     hash : null ,</div><div class="line">     search : &apos;?a=index&amp;t=article&amp;m=default&apos;,</div><div class="line">     query : &apos;a=index&amp;t=article&amp;m=default&apos;,</div><div class="line">     pathname : &apos;/one&apos;,</div><div class="line">     path : &apos;/one?a=index&amp;t=article&amp;m=default&apos;,</div><div class="line">     href : &apos;http://example.com:8080/one?a=index&amp;t=article&amp;m=default&apos;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<p>获取页面提交的username</p>
-<p>假设url为localhost:8081/user?username=admin&amp;password=admin;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const urlLib=require(&apos;url&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">   </div><div class="line">    var url=urlLib.parse(req.url,true).pathname;</div><div class="line">    req.get=urlLib.parse(req.url,true).query;</div><div class="line"></div><div class="line">    //req.get.username;</div><div class="line"></div><div class="line">    console.log(&apos;您的用户名是&apos;+req.get.username);//admin</div><div class="line">    console.log(&apos;您请求的地址是&apos;+url);//  /user</div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure>
-<h3 id="获取POST请求"><a href="#获取POST请求" class="headerlink" title="获取POST请求"></a>获取POST请求</h3><p>POST请求的内容全部的都在请求体中，http.ServerRequest并没有一个属性内容为请求体，原因是等待请求体传输可能是一件耗时的工作。<br>比如上传文件，而很多时候我们可能并不需要理会请求体的内容，恶意的POST请求会大大消耗服务器的资源，所有node.js默认是不会解析请求体的， 当你需要的时候，需要手动来做。</p>
-<blockquote>
-<p>假设请求post请求url为 /user ,data{“username”:”admin”,”password”:”admin”}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var http = require(&apos;http&apos;);</div><div class="line">var querystring = require(&apos;querystring&apos;);</div><div class="line">var util = require(&apos;util&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req, res)&#123;</div><div class="line">    var post = &apos;&apos;;     //定义了一个post变量，用于暂存请求体的信息</div><div class="line"></div><div class="line">    req.on(&apos;data&apos;, function(chunk)&#123;    //通过req的data事件监听函数，每当接受到请求体的数据，就累加到post变量中</div><div class="line">        post += chunk;  </div><div class="line">        //post=username=admin&amp;password=admin</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    req.on(&apos;end&apos;, function()&#123;    //在end事件触发后，通过querystring.parse将post解析为真正的POST请求格式，然后向客户端返回。</div><div class="line">        post = querystring.parse(post);</div><div class="line">        //post=&#123; username: &apos;admin&apos;, password: &apos;admin&apos; &#125;</div><div class="line">        res.end(util.inspect(post));</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(3000);</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="设置Cookie"><a href="#设置Cookie" class="headerlink" title="设置Cookie"></a>设置Cookie</h3><p>直接看代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const querystring=require(&apos;querystring&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">    res.writeHeader(200,&#123;&apos;Set-Cookie&apos;:&apos;user=def&apos;&#125;);</div><div class="line">    res.end();</div><div class="line">    </div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
-<p>一个set-cookie头只能设置一个cookie，要设多个cookie需要设置多set-cookie头。<br>可以通过这种形式来设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">res.setHeader(&quot;Set-Cookie&quot;, [&apos;a=000&apos;, &apos;t=1111&apos;, &apos;w=2222&apos;]);</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1712,7 +1722,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1729,7 +1739,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
