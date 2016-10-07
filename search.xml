@@ -17,7 +17,7 @@
 </code></pre><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>1,下载好sonarqube后，解压打开bin目录，启动相应OS目录下的StartSonar，如果是win64系统，则打开使用的是win的64位系统，则打开</p>
 <pre><code>D:\myjob\sonar\sonarqube-5.6.3\sonarqube-5.6.3\bin\windows-x86-64\StartSonar.bat
 </code></pre><p>2,启动浏览器，访问<a href="http://localhost:9000，如出现下图则表示安装成功。" target="_blank" rel="external">http://localhost:9000，如出现下图则表示安装成功。</a></p>
-<p><img src="/source/img/sonar1.png" alt="img"></p>
+<p><img src="/img/sonar1.png" alt="img"></p>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>1,打开mysql，新建一个数据库sonar</p>
 <p>2,打开sonarqube安装目录下的</p>
 <pre><code>D:\myjob\sonar\sonarqube-5.6.3\sonarqube-5.6.3\conf\sonar.properties
@@ -32,7 +32,7 @@ sonar.password=admin
 <p>4,重启sonarqube服务，再次访问<a href="http://localhost:9000，会稍微有点慢，因为要初始化数据库信息" target="_blank" rel="external">http://localhost:9000，会稍微有点慢，因为要初始化数据库信息</a></p>
 <p>5,数据库初始化成功后，登录</p>
 <p>6,按照下图的点击顺序，进入插件安装页面</p>
-<p><img src="/source/img/sonar2.png" alt="img"></p>
+<p><img src="/img/sonar2.png" alt="img"></p>
 <p>7,搜索chinese Pack，安装中文语言包</p>
 <p>8,安装成功后，重启sonarqube服务，再次访问<a href="http://localhost:9000/，即可看到中文界面" target="_blank" rel="external">http://localhost:9000/，即可看到中文界面</a></p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>1,打开刚刚下载的sonar-scanner文件夹找到</p>
@@ -72,11 +72,11 @@ sonar.sources=D:/product
 </blockquote>
 <p>6,设置成功后，启动sonarqube服务，并启动cmd</p>
 <p>7,在cmd进入项目所在的根目录，输入命令：sonar-runner，分析成功后会出现下图</p>
-<p><img src="/source/img/sonar3.png" alt="img"></p>
+<p><img src="/img/sonar3.png" alt="img"></p>
 <p>8,打开<a href="http://localhost:9000/，我们会看到主页出现了分析项目的概要图" target="_blank" rel="external">http://localhost:9000/，我们会看到主页出现了分析项目的概要图</a></p>
-<p><img src="/source/img/sonar4.png" alt="img"></p>
+<p><img src="/img/sonar4.png" alt="img"></p>
 <p>9,点击项目，选择问题链接，会看到分析代码的bug，哇，好多</p>
-<p><img src="/source/img/sonar5.png" alt="img"></p>
+<p><img src="/img/sonar5.png" alt="img"></p>
 <p>预知更多应用，请登录官网自行学习</p>
 <p><a href="http://www.sonarqube.org/" target="_blank" rel="external">http://www.sonarqube.org/</a></p>
 <p><a href="http://docs.sonarqube.org/display/SONAR/Analyzing+with+SonarQube+Scanner" target="_blank" rel="external">http://docs.sonarqube.org/display/SONAR/Analyzing+with+SonarQube+Scanner</a></p>
