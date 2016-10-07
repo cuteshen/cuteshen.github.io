@@ -88,16 +88,37 @@
 
 
 
-<meta name="description" content="概述JavaScript语言的传统方法是通过构造函数，定义并生成新对象。12345678910function Point(x, y)&amp;#123;    this.x=x;    this.y=y;&amp;#125;Point.prototype.toString=function()&amp;#123;    return &amp;apos;(&amp;apos;+ this.x + &amp;apos;,&amp;apos; + thi">
+<meta name="description" content="SonarQube是管理代码质量一个开放平台，可以快速的定位代码中潜在的或者明显的错误，下面将会介绍一下这个工具的安装、配置以及使用。
+准备工作1、jdk(java)
+
+2、sonarqube：http://www.sonarqube.org/downloads/
+
+3、sonar-scanner:https://sonarsource.bintray.com/Distribution/sonar">
 <meta property="og:type" content="article">
-<meta property="og:title" content="'ES6的Class'">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/ES6的Class/index.html">
+<meta property="og:title" content="SonarQube的安装、配置与使用">
+<meta property="og:url" content="http://yoursite.com/2016/10/07/SonarQube的安装、配置与使用/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="概述JavaScript语言的传统方法是通过构造函数，定义并生成新对象。12345678910function Point(x, y)&amp;#123;    this.x=x;    this.y=y;&amp;#125;Point.prototype.toString=function()&amp;#123;    return &amp;apos;(&amp;apos;+ this.x + &amp;apos;,&amp;apos; + thi">
-<meta property="og:updated_time" content="2016-07-25T09:14:20.869Z">
+<meta property="og:description" content="SonarQube是管理代码质量一个开放平台，可以快速的定位代码中潜在的或者明显的错误，下面将会介绍一下这个工具的安装、配置以及使用。
+准备工作1、jdk(java)
+
+2、sonarqube：http://www.sonarqube.org/downloads/
+
+3、sonar-scanner:https://sonarsource.bintray.com/Distribution/sonar">
+<meta property="og:image" content="http://yoursite.com/source/img/sonar1.png">
+<meta property="og:image" content="http://yoursite.com/source/img/sonar2.png">
+<meta property="og:image" content="http://yoursite.com/source/img/sonar3.png">
+<meta property="og:image" content="http://yoursite.com/source/img/sonar4.png">
+<meta property="og:image" content="http://yoursite.com/source/img/sonar5.png">
+<meta property="og:updated_time" content="2016-10-07T06:26:40.719Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="'ES6的Class'">
-<meta name="twitter:description" content="概述JavaScript语言的传统方法是通过构造函数，定义并生成新对象。12345678910function Point(x, y)&amp;#123;    this.x=x;    this.y=y;&amp;#125;Point.prototype.toString=function()&amp;#123;    return &amp;apos;(&amp;apos;+ this.x + &amp;apos;,&amp;apos; + thi">
+<meta name="twitter:title" content="SonarQube的安装、配置与使用">
+<meta name="twitter:description" content="SonarQube是管理代码质量一个开放平台，可以快速的定位代码中潜在的或者明显的错误，下面将会介绍一下这个工具的安装、配置以及使用。
+准备工作1、jdk(java)
+
+2、sonarqube：http://www.sonarqube.org/downloads/
+
+3、sonar-scanner:https://sonarsource.bintray.com/Distribution/sonar">
+<meta name="twitter:image" content="http://yoursite.com/source/img/sonar1.png">
 
 
 
@@ -118,9 +139,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/ES6的Class/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/07/SonarQube的安装、配置与使用/"/>
 
-  <title> 'ES6的Class' | Mr.Shen </title>
+  <title> SonarQube的安装、配置与使用 | Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +304,7 @@
             
             
               
-                'ES6的Class'
+                SonarQube的安装、配置与使用
               
             
           </h1>
@@ -295,8 +316,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T17:14:01+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-10-07T14:25:05+08:00" content="2016-10-07">
+              2016-10-07
             </time>
           </span>
 
@@ -309,8 +330,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
                   </a>
                 </span>
 
@@ -325,8 +346,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/25/ES6的Class/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/ES6的Class/" itemprop="commentsCount"></span>
+                <a href="/2016/10/07/SonarQube的安装、配置与使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/07/SonarQube的安装、配置与使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -349,21 +370,80 @@
       
 
       
-        <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>JavaScript语言的传统方法是通过构造函数，定义并生成新对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function Point(x, y)&#123;</div><div class="line">    this.x=x;</div><div class="line">    this.y=y;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Point.prototype.toString=function()&#123;</div><div class="line">    return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p = new Point(1, 2);</div></pre></td></tr></table></figure></p>
-<p>上面的代码用ES6的“类”改写，就是下面这样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Point&#123;</div><div class="line">    contructor(x, y)&#123;</div><div class="line">        this.x = x;</div><div class="line">        this.y = y;</div><div class="line">    &#125;</div><div class="line">    toString()&#123;</div><div class="line">        return &apos;(&apos;+ this.x + &apos;,&apos; + this.y + &apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面代码定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。</p>
-<p><code>Point</code>类除了构造方法，还定义了一个<code>toString</code>方法。注意，定义“类”的方法的时候，前面不需要加上<code>function</code>这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。</p>
-<p>ES6的类，完全可以看作构造函数的另一种写法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  // ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">typeof Point // &quot;function&quot;</div><div class="line">Point === Point.prototype.constructor // true</div></pre></td></tr></table></figure>
-<p>上面代码表明，类的数据类型就是函数，类本身就指向构造函数。<br>使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class bar&#123;</div><div class="line">    doStuff()&#123;</div><div class="line">        console.log(&apos;stuff&apos;)&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var b=new bar();</div><div class="line">b.doStuff()//stuff</div></pre></td></tr></table></figure></p>
-<p>构造函数的prototype属性，在ES6的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class Point &#123;</div><div class="line">  constructor()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toString()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toValue()&#123;</div><div class="line">    // ...</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 等同于</div><div class="line"></div><div class="line">Point.prototype = &#123;</div><div class="line">  toString()&#123;&#125;,</div><div class="line">  toValue()&#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>在类的实例上面调用方法，其实就是调用原型上的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class B &#123;&#125;</div><div class="line">let b = new B();</div><div class="line"></div><div class="line">b.constructor === B.prototype.constructor // true</div></pre></td></tr></table></figure></p>
-<p>上面代码中，b是B类的实例，它的<code>constructor</code>方法就是B类原型的<code>constructor</code>方法。</p>
-<h4 id="constructor方法"><a href="#constructor方法" class="headerlink" title="constructor方法"></a>constructor方法</h4><p><code>constructor</code>方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有<code>constructor</code>方法，如果没有显式定义，一个空的<code>constructor</code>方法会被默认添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">constructor() &#123;&#125;</div></pre></td></tr></table></figure></p>
-<p><code>constructor</code>方法默认返回实例对象（即<code>this</code>），完全可以指定返回另外一个对象。</p>
-<p>类的构造函数，不使用new是没法调用的，会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class Foo &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    return Object.create(null);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo()</div><div class="line">// TypeError: Class constructor Foo cannot be invoked without &apos;new&apos;</div></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>推荐用Class，取代需要prototype的操作。因为Class的写法更简洁，更易于理解。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">function Queue(contents = []) &#123;</div><div class="line">  this._queue = [...contents];</div><div class="line">&#125;</div><div class="line">Queue.prototype.pop = function() &#123;</div><div class="line">  const value = this._queue[0];</div><div class="line">  this._queue.splice(0, 1);</div><div class="line">  return value;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// good</div><div class="line">class Queue &#123;</div><div class="line">  constructor(contents = []) &#123;</div><div class="line">    this._queue = [...contents];</div><div class="line">  &#125;</div><div class="line">  pop() &#123;</div><div class="line">    const value = this._queue[0];</div><div class="line">    this._queue.splice(0, 1);</div><div class="line">    return value;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>SonarQube是管理代码质量一个开放平台，可以快速的定位代码中潜在的或者明显的错误，下面将会介绍一下这个工具的安装、配置以及使用。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><pre><code>1、jdk(java)
+
+2、sonarqube：http://www.sonarqube.org/downloads/
+
+3、sonar-scanner:https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-2.5.zip
+
+4、mysql
+</code></pre><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>1,下载好sonarqube后，解压打开bin目录，启动相应OS目录下的StartSonar，如果是win64系统，则打开使用的是win的64位系统，则打开</p>
+<pre><code>D:\myjob\sonar\sonarqube-5.6.3\sonarqube-5.6.3\bin\windows-x86-64\StartSonar.bat
+</code></pre><p>2,启动浏览器，访问<a href="http://localhost:9000，如出现下图则表示安装成功。" target="_blank" rel="external">http://localhost:9000，如出现下图则表示安装成功。</a></p>
+<p><img src="/source/img/sonar1.png" alt="img"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>1,打开mysql，新建一个数据库sonar</p>
+<p>2,打开sonarqube安装目录下的</p>
+<pre><code>D:\myjob\sonar\sonarqube-5.6.3\sonarqube-5.6.3\conf\sonar.properties
+</code></pre><p>3,在mysql5.X节点下输入以下信息</p>
+<pre><code>sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance
+sonar.jdbc.username=root
+sonar.jdbc.password=root
+sonar.sorceEncoding=UTF-8
+sonar.login=admin
+sonar.password=admin
+</code></pre><p>url是数据库连接地址，username是数据库用户名，jdbc.password是数据库密码，login是sonarqube的登录名，sonar.password是sonarqube的密码</p>
+<p>4,重启sonarqube服务，再次访问<a href="http://localhost:9000，会稍微有点慢，因为要初始化数据库信息" target="_blank" rel="external">http://localhost:9000，会稍微有点慢，因为要初始化数据库信息</a></p>
+<p>5,数据库初始化成功后，登录</p>
+<p>6,按照下图的点击顺序，进入插件安装页面</p>
+<p><img src="/source/img/sonar2.png" alt="img"></p>
+<p>7,搜索chinese Pack，安装中文语言包</p>
+<p>8,安装成功后，重启sonarqube服务，再次访问<a href="http://localhost:9000/，即可看到中文界面" target="_blank" rel="external">http://localhost:9000/，即可看到中文界面</a></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>1,打开刚刚下载的sonar-scanner文件夹找到</p>
+<pre><code>D:\myjob\sonar\sonar-scanner-2.5\sonar-scanner-2.5\conf\sonar-runner.properties
+</code></pre><p>2,mysql节点下输入以下信息</p>
+<pre><code>sonar.jdbc.url=jdbc:mysql://localhost:3306/qjfsonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance
+sonar.jdbc.username=root
+sonar.jdbc.password=root
+</code></pre><blockquote>
+<p>注意：如果测试项目与服务器不在同一台机子，则需要添加服务器的IP：</p>
+</blockquote>
+<pre><code>#----- Default SonarQube server
+sonar.host.url=http://XXX.XXX.XXX.XXX:9000
+</code></pre><p>3,配置环境变量</p>
+<pre><code>将sonar-scanner目录中的bin添加至环境变量
+
+D:\myjob\sonar\sonar-scanner-2.5\sonar-scanner-2.5\bin
+</code></pre><p>配置完成后打开cmd输入sonar-runner -version验证是否添加成功</p>
+<p>4,打开要进行代码分析的项目根目录，新建sonar-project.properties文件</p>
+<p>5，输入以下信息</p>
+<pre><code># must be unique in a given SonarQube instance
+sonar.projectKey=my:project
+# this is the name displayed in the SonarQube UI
+sonar.projectName=productName
+sonar.projectVersion=1.0
+
+# Path is relative to the sonar-project.properties file. Replace &quot;\&quot; by &quot;/&quot; on Windows.
+# Since SonarQube 4.2, this property is optional if sonar.modules is set.
+# If not set, SonarQube starts looking for source code from the directory containing
+# the sonar-project.properties file.
+sonar.sources=D:/product
+
+# Encoding of the source code. Default is default system encoding
+#sonar.sourceEncoding=UTF-8
+</code></pre><blockquote>
+<p>其中：projectName是项目名字，sources是源文件所在的目录,目录中的‘/’不要写成‘\’</p>
+</blockquote>
+<p>6,设置成功后，启动sonarqube服务，并启动cmd</p>
+<p>7,在cmd进入项目所在的根目录，输入命令：sonar-runner，分析成功后会出现下图</p>
+<p><img src="/source/img/sonar3.png" alt="img"></p>
+<p>8,打开<a href="http://localhost:9000/，我们会看到主页出现了分析项目的概要图" target="_blank" rel="external">http://localhost:9000/，我们会看到主页出现了分析项目的概要图</a></p>
+<p><img src="/source/img/sonar4.png" alt="img"></p>
+<p>9,点击项目，选择问题链接，会看到分析代码的bug，哇，好多</p>
+<p><img src="/source/img/sonar5.png" alt="img"></p>
+<p>预知更多应用，请登录官网自行学习</p>
+<p><a href="http://www.sonarqube.org/" target="_blank" rel="external">http://www.sonarqube.org/</a></p>
+<p><a href="http://docs.sonarqube.org/display/SONAR/Analyzing+with+SonarQube+Scanner" target="_blank" rel="external">http://docs.sonarqube.org/display/SONAR/Analyzing+with+SonarQube+Scanner</a></p>
 
       
     </div>
@@ -389,17 +469,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/25/ES6的let和const/" rel="next" title="'ES6的let和const'">
-                <i class="fa fa-chevron-left"></i> 'ES6的let和const'
+              <a href="/2016/09/21/Promise讲解/" rel="next" title="Promise讲解">
+                <i class="fa fa-chevron-left"></i> Promise讲解
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/ES6的箭头函数/" rel="prev" title="'ES6的箭头函数'">
-                'ES6的箭头函数' <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -425,8 +501,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/25/ES6的Class/"
-           data-title="'ES6的Class'" data-url="http://yoursite.com/2016/07/25/ES6的Class/">
+      <div class="ds-thread" data-thread-key="2016/10/07/SonarQube的安装、配置与使用/"
+           data-title="SonarQube的安装、配置与使用" data-url="http://yoursite.com/2016/10/07/SonarQube的安装、配置与使用/">
       </div>
     
   </div>
@@ -528,7 +604,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#constructor方法"><span class="nav-number">2.</span> <span class="nav-text">constructor方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li></ol></div>
             
           </div>
         </section>

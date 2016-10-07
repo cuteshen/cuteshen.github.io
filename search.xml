@@ -4,6 +4,86 @@
   
     
     <entry>
+      <title><![CDATA[SonarQube的安装、配置与使用]]></title>
+      <url>http://yoursite.com/2016/10/07/SonarQube%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<p>SonarQube是管理代码质量一个开放平台，可以快速的定位代码中潜在的或者明显的错误，下面将会介绍一下这个工具的安装、配置以及使用。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><pre><code>1、jdk(java)
+
+2、sonarqube：http://www.sonarqube.org/downloads/
+
+3、sonar-scanner:https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-2.5.zip
+
+4、mysql
+</code></pre><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>1,下载好sonarqube后，解压打开bin目录，启动相应OS目录下的StartSonar，如果是win64系统，则打开使用的是win的64位系统，则打开</p>
+<pre><code>D:\myjob\sonar\sonarqube-5.6.3\sonarqube-5.6.3\bin\windows-x86-64\StartSonar.bat
+</code></pre><p>2,启动浏览器，访问<a href="http://localhost:9000，如出现下图则表示安装成功。" target="_blank" rel="external">http://localhost:9000，如出现下图则表示安装成功。</a></p>
+<p><img src="/source/img/sonar1.png" alt="img"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>1,打开mysql，新建一个数据库sonar</p>
+<p>2,打开sonarqube安装目录下的</p>
+<pre><code>D:\myjob\sonar\sonarqube-5.6.3\sonarqube-5.6.3\conf\sonar.properties
+</code></pre><p>3,在mysql5.X节点下输入以下信息</p>
+<pre><code>sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance
+sonar.jdbc.username=root
+sonar.jdbc.password=root
+sonar.sorceEncoding=UTF-8
+sonar.login=admin
+sonar.password=admin
+</code></pre><p>url是数据库连接地址，username是数据库用户名，jdbc.password是数据库密码，login是sonarqube的登录名，sonar.password是sonarqube的密码</p>
+<p>4,重启sonarqube服务，再次访问<a href="http://localhost:9000，会稍微有点慢，因为要初始化数据库信息" target="_blank" rel="external">http://localhost:9000，会稍微有点慢，因为要初始化数据库信息</a></p>
+<p>5,数据库初始化成功后，登录</p>
+<p>6,按照下图的点击顺序，进入插件安装页面</p>
+<p><img src="/source/img/sonar2.png" alt="img"></p>
+<p>7,搜索chinese Pack，安装中文语言包</p>
+<p>8,安装成功后，重启sonarqube服务，再次访问<a href="http://localhost:9000/，即可看到中文界面" target="_blank" rel="external">http://localhost:9000/，即可看到中文界面</a></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>1,打开刚刚下载的sonar-scanner文件夹找到</p>
+<pre><code>D:\myjob\sonar\sonar-scanner-2.5\sonar-scanner-2.5\conf\sonar-runner.properties
+</code></pre><p>2,mysql节点下输入以下信息</p>
+<pre><code>sonar.jdbc.url=jdbc:mysql://localhost:3306/qjfsonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance
+sonar.jdbc.username=root
+sonar.jdbc.password=root
+</code></pre><blockquote>
+<p>注意：如果测试项目与服务器不在同一台机子，则需要添加服务器的IP：</p>
+</blockquote>
+<pre><code>#----- Default SonarQube server
+sonar.host.url=http://XXX.XXX.XXX.XXX:9000
+</code></pre><p>3,配置环境变量</p>
+<pre><code>将sonar-scanner目录中的bin添加至环境变量
+
+D:\myjob\sonar\sonar-scanner-2.5\sonar-scanner-2.5\bin
+</code></pre><p>配置完成后打开cmd输入sonar-runner -version验证是否添加成功</p>
+<p>4,打开要进行代码分析的项目根目录，新建sonar-project.properties文件</p>
+<p>5，输入以下信息</p>
+<pre><code># must be unique in a given SonarQube instance
+sonar.projectKey=my:project
+# this is the name displayed in the SonarQube UI
+sonar.projectName=productName
+sonar.projectVersion=1.0
+
+# Path is relative to the sonar-project.properties file. Replace &quot;\&quot; by &quot;/&quot; on Windows.
+# Since SonarQube 4.2, this property is optional if sonar.modules is set.
+# If not set, SonarQube starts looking for source code from the directory containing
+# the sonar-project.properties file.
+sonar.sources=D:/product
+
+# Encoding of the source code. Default is default system encoding
+#sonar.sourceEncoding=UTF-8
+</code></pre><blockquote>
+<p>其中：projectName是项目名字，sources是源文件所在的目录,目录中的‘/’不要写成‘\’</p>
+</blockquote>
+<p>6,设置成功后，启动sonarqube服务，并启动cmd</p>
+<p>7,在cmd进入项目所在的根目录，输入命令：sonar-runner，分析成功后会出现下图</p>
+<p><img src="/source/img/sonar3.png" alt="img"></p>
+<p>8,打开<a href="http://localhost:9000/，我们会看到主页出现了分析项目的概要图" target="_blank" rel="external">http://localhost:9000/，我们会看到主页出现了分析项目的概要图</a></p>
+<p><img src="/source/img/sonar4.png" alt="img"></p>
+<p>9,点击项目，选择问题链接，会看到分析代码的bug，哇，好多</p>
+<p><img src="/source/img/sonar5.png" alt="img"></p>
+<p>预知更多应用，请登录官网自行学习</p>
+<p><a href="http://www.sonarqube.org/" target="_blank" rel="external">http://www.sonarqube.org/</a></p>
+<p><a href="http://docs.sonarqube.org/display/SONAR/Analyzing+with+SonarQube+Scanner" target="_blank" rel="external">http://docs.sonarqube.org/display/SONAR/Analyzing+with+SonarQube+Scanner</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Promise讲解]]></title>
       <url>http://yoursite.com/2016/09/21/Promise%E8%AE%B2%E8%A7%A3/</url>
       <content type="html"><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>ES6 原生提供了 Promise 对象。</p>
