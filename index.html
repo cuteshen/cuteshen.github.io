@@ -285,6 +285,444 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/22/node-hapi接口插件hapi-swagger/" itemprop="url">
+                  node-hapi接口插件hapi-swagger
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-22T17:13:56+08:00" content="2016-10-22">
+              2016-10-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/22/node-hapi接口插件hapi-swagger/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/22/node-hapi接口插件hapi-swagger/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>swagger的作用主要是服务启动后，它将在项目中自行记录API接口，并生成html页面展示你的接口的文档</p>
+<p>因为最近一直在搞hapi，所以就尝试了一波，另外express，koa都有相关swagger插件</p>
+<pre><code>npm install hapi-swagger --save-dev
+</code></pre><p>如果要从API查看文档，您还需要安装支持模板和静态内容服务的inert和vision插件。</p>
+<pre><code>npm install inert --save-dev
+npm install vision --save-dev
+</code></pre><p>在server.js中添加配置</p>
+<pre><code>const Hapi = require(&apos;hapi&apos;);
+const Inert = require(&apos;inert&apos;);
+const Vision = require(&apos;vision&apos;);
+const HapiSwagger = require(&apos;hapi-swagger&apos;);
+const Pack = require(&apos;./package&apos;);
+
+const server = new Hapi.Server();
+server.connection({
+        host: &apos;localhost&apos;,
+        port: 3000
+});
+
+const options = {
+info: {
+        &apos;title&apos;: &apos;Test API Documentation&apos;,
+        &apos;version&apos;: Pack.version,
+    }
+};
+
+server.register([
+Inert,
+Vision,
+{
+    &apos;register&apos;: HapiSwagger,
+    &apos;options&apos;: options
+}], (err) =&gt; {
+    server.start( (err) =&gt; {
+       if (err) {
+            console.log(err);
+        } else {
+            console.log(&apos;Server running at:&apos;, server.info.uri);
+        }
+    });
+});
+</code></pre><p>服务配置之后，添加个路由</p>
+<pre><code>server.route({
+    method: &apos;GET&apos;,
+    path: &apos;/todo/{id}/&apos;,
+    config: {
+        handler: function (reqest, reply) {
+            reply(&apos;123&apos;)
+        },
+        description: &apos;Get todo&apos;,
+        notes: &apos;Returns a todo item by the id passed in the patha啊&apos;,
+        tags: [&apos;api&apos;], // ADD THIS TAG
+        validate: {
+            params: {
+                id : Joi.number()//npm install joi
+                    .required()
+                    .description(&apos;the id for the todo item&apos;),
+            }
+        }
+    },
+})
+</code></pre><p>启动服务</p>
+<p>浏览器访问<a href="http://localhost:8000/documentation" target="_blank" rel="external">http://localhost:8000/documentation</a></p>
+<p>就能看到你所有的接口列表了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/22/node-hapi以及日志插件good/" itemprop="url">
+                  node-hapi以及日志插件good
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-22T17:12:02+08:00" content="2016-10-22">
+              2016-10-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/22/node-hapi以及日志插件good/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/22/node-hapi以及日志插件good/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>HapiJS是一个开源的、基于Node.js的应用框架，它适用于构建应用程序和服务，其设计目标是让开发者把精力集中于开发可重用的应用程序的业务逻辑，向开发者提供构建应用程序业务逻辑所需的基础设施。</p>
+<hr>
+<h3 id="HapiJS安装和项目配置"><a href="#HapiJS安装和项目配置" class="headerlink" title="HapiJS安装和项目配置"></a>HapiJS安装和项目配置</h3><pre><code>npm install hapi -g
+</code></pre><h3 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h3><pre><code>npm init
+npm install --save hapi
+</code></pre><p>此时，项目开发所需的一切都已经准备完毕</p>
+<h3 id="创建服务器"><a href="#创建服务器" class="headerlink" title="创建服务器"></a>创建服务器</h3><pre><code>// server.js
+var Hapi = require(&apos;hapi&apos;);
+var server = new Hapi.Server();
+
+server.connection({
+    host: &apos;localhost&apos;,
+    port: 8000
+});
+
+server.start(function(){
+     console.log(&apos;Server running at: &apos;, server.info.uri);
+});
+</code></pre><p>首先，我们需要Hapi库。<br> 其次，我们创建一个新hapi服务器对象，并把要监听的端口号传递给服务器对象。<br> 最后，服务器对象启动，并输出日志信息。<br> 要说明一点，我们创建服务器对象时，可以提供主机名、IP地址，甚至是Unix的socket文件，或者是Windows系统绑定到服务器命名的管道。</p>
+<h3 id="路由逻辑"><a href="#路由逻辑" class="headerlink" title="路由逻辑"></a>路由逻辑</h3><pre><code>// server.js
+var Hapi = require(&apos;hapi&apos;);
+var server = new Hapi.Server(3000);
+
+server.route({
+    method: &apos;GET&apos;,
+    path: &apos;/&apos;,
+    handler: function (request, reply) {
+        reply(&apos;Hello, world!&apos;);
+    }
+});
+
+server.route({
+    method: &apos;GET&apos;,
+    path: &apos;/{name}&apos;,
+    handler: function (request, reply) {
+        reply(&apos;Hello, &apos; + encodeURIComponent(request.params.name) + &quot;!&quot;);
+    }
+});
+
+server.start(function () {
+    console.log(&apos;Server running at: &apos;, server.info.uri);
+});
+</code></pre><p>启动服务器</p>
+<p>访问<a href="http://127.0.0.1:3000/" target="_blank" rel="external">http://127.0.0.1:3000/</a> ，浏览器显示如下内容：</p>
+<pre><code>Hello, world!
+</code></pre><p>访问<a href="http://127.0.0.1:3000/张三" target="_blank" rel="external">http://127.0.0.1:3000/张三</a> ，浏览器显示如下内容：</p>
+<pre><code>Hello, %E5%BC%A0%E4%B8%89!
+</code></pre><h5 id="要注意："><a href="#要注意：" class="headerlink" title="要注意："></a>要注意：</h5><blockquote>
+<p>method的参数可以是任意有效的HTTP方法，也可以是星号*（表示任意HTTP方法）。</p>
+<p>path的参数定义了访问路径，路径可以包含参数、可选参数，甚至是通配符。</p>
+</blockquote>
+<h4 id="添加日志输出"><a href="#添加日志输出" class="headerlink" title="添加日志输出"></a>添加日志输出</h4><p>在创建Web应用时，通常我们都需要访问日志。要为应用程序添加基本的日志输出，我们可以在服务器上加载good插件。</p>
+<pre><code>npm install --save-dev good
+</code></pre><p>更新server.js的代码</p>
+<pre><code>//添加good配置
+const options = {
+ops: {
+    interval: 1000
+},
+reporters: {
+        myConsoleReporter: [
+            {
+                module: &apos;good-squeeze&apos;,
+                name: &apos;Squeeze&apos;,
+                args: [{log: &apos;*&apos;, response: &apos;*&apos;}]
+            },
+            {
+                module: &apos;good-console&apos;
+            }, &apos;stdout&apos;
+        ],
+        myFileReporter: [
+            {
+                module: &apos;good-squeeze&apos;,
+                name: &apos;Squeeze&apos;,
+                args: [{ops: &apos;*&apos;}]
+            },
+            {
+                module: &apos;good-squeeze&apos;,
+                name: &apos;SafeJson&apos;
+            },
+            {
+                module: &apos;good-file&apos;,
+                args: [&apos;./test/fixtures/awesome_log&apos;]
+            }
+        ],
+        myHTTPReporter: [
+            {
+                module: &apos;good-squeeze&apos;,
+                name: &apos;Squeeze&apos;,
+                args: [{error: &apos;*&apos;}]
+            },
+            {
+                module: &apos;good-http&apos;,
+                args: [&apos;http://prod.logs:3000&apos;, {
+                    wreck: {
+                        headers: {&apos;x-api-key&apos;: 12345}
+                    }
+                }]
+            }
+        ]
+    }
+};
+
+server.register({
+    register: require(&apos;good&apos;),
+    options,
+}, (err) =&gt; {
+
+    if (err) {
+        return console.error(err);
+    }
+    server.start(() =&gt; {
+        console.info(`Server started at ${ server.info.uri }`);
+    });
+
+});
+</code></pre><h4 id="reporters配置是干嘛的？"><a href="#reporters配置是干嘛的？" class="headerlink" title="reporters配置是干嘛的？"></a>reporters配置是干嘛的？</h4><p>This example does the following:</p>
+<p>1，Sets up the reporter named myConsoleReporter listening for ‘response’ and ‘log’ events and writes them to process.stdout.</p>
+<p>2，Sets up the reporter named myFileReporter to listen for ‘ops’ events and logs them to ./test/fixtures/awesome_log.</p>
+<p>3，Sets up the reporter named myHTTPReporter to listen for error events and POSTs them to <a href="http://prod.logs:3000" target="_blank" rel="external">http://prod.logs:3000</a> with additional settings to passed into Wreck</p>
+<blockquote>
+<p>都怪我我中文太好，求准确解释，不过有了这些配置，控制台可以输出日志，并会在：</p>
+</blockquote>
+<pre><code>{
+    module: &apos;good-file&apos;,
+    args: [&apos;./test/fixtures/awesome_log&apos;]
+}
+</code></pre><p>这段所配置的目录下生成日志文件</p>
+<hr>
+<p>重启服务，控制台输出：</p>
+<pre><code>141102/161007.644, info, Server running at: http://localhost:3000
+</code></pre><p>如果我们接着访问：<a href="http://localhost:3000/hello" target="_blank" rel="external">http://localhost:3000/hello</a></p>
+<p>和<a href="http://localhost:3000/" target="_blank" rel="external">http://localhost:3000/</a></p>
+<p>控制台会继续输出：</p>
+<pre><code>161022/084850.758, [response] http://localhost:8000: get /hello {} 200 (6ms)
+161022/084854.131, [response] http://localhost:8000: get / {} 404 (9ms)
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/07/SonarQube的安装、配置与使用/" itemprop="url">
                   SonarQube的安装、配置与使用
                 </a>
@@ -1561,273 +1999,11 @@ path        文件路径
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/10/构建工具——webpack/" itemprop="url">
-                  构建工具——webpack
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-10T18:58:08+08:00" content="2016-09-10">
-              2016-09-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/10/构建工具——webpack/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/10/构建工具——webpack/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="安装webpack"><a href="#安装webpack" class="headerlink" title="安装webpack"></a>安装webpack</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install webpack -g</div></pre></td></tr></table></figure>
-<p>当然如果常规项目还是把依赖写入 package.json 包去更人性化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm init</div><div class="line"></div><div class="line">npm install webpack --save-dev</div></pre></td></tr></table></figure>
-<h2 id="添加第三方模块"><a href="#添加第三方模块" class="headerlink" title="添加第三方模块"></a>添加第三方模块</h2><p>package.json:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&quot;devDependencies&quot;: &#123;</div><div class="line">  &quot;autoprefixer-loader&quot;: &quot;^3.2.0&quot;,</div><div class="line">  &quot;babel-core&quot;: &quot;^6.14.0&quot;,</div><div class="line">  &quot;babel-loader&quot;: &quot;^6.2.5&quot;,</div><div class="line">  &quot;babel-plugin-transform-runtime&quot;: &quot;^6.15.0&quot;,</div><div class="line">  &quot;babel-preset-es2015&quot;: &quot;^6.14.0&quot;,</div><div class="line">  &quot;babel-runtime&quot;: &quot;^6.11.6&quot;,</div><div class="line">  &quot;css-loader&quot;: &quot;^0.25.0&quot;,</div><div class="line">  &quot;file-loader&quot;: &quot;^0.9.0&quot;,</div><div class="line">  &quot;html-loader&quot;: &quot;^0.4.3&quot;,</div><div class="line">  &quot;node-sass&quot;: &quot;^3.9.3&quot;,</div><div class="line">  &quot;sass-loader&quot;: &quot;^4.0.2&quot;,</div><div class="line">  &quot;style-loader&quot;: &quot;^0.13.1&quot;,</div><div class="line">  &quot;url-loader&quot;: &quot;^0.5.7&quot;,</div><div class="line">  &quot;vue-hot-reload-api&quot;: &quot;^1.3.3&quot;,</div><div class="line">  &quot;vue-html-loader&quot;: &quot;^1.2.3&quot;,</div><div class="line">  &quot;vue-loader&quot;: &quot;^8.5.2&quot;,</div><div class="line">  &quot;vue-router&quot;: &quot;^0.7.13&quot;,</div><div class="line">  &quot;vue-style-loader&quot;: &quot;^1.0.0&quot;,</div><div class="line">  &quot;webpack&quot;: &quot;^1.13.2&quot;,</div><div class="line">  &quot;webpack-dev-server&quot;: &quot;^1.15.1&quot;</div><div class="line">&#125;,</div><div class="line">&quot;dependencies&quot;: &#123;</div><div class="line">  &quot;vue&quot;: &quot;^1.0.26&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p><img src="/img/webpack.png" alt="img"></p>
-<h2 id="编写webpack-config-js"><a href="#编写webpack-config-js" class="headerlink" title="编写webpack.config.js"></a>编写webpack.config.js</h2><p>每个项目下都必须配置有一个 webpack.config.js ，它的作用如同常规的 gulpfile.js/Gruntfile.js 一样</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">var Webpack = require(&quot;webpack&quot;);</div><div class="line">var path = require(&apos;path&apos;);</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    //入口文件配置也可以是数组</div><div class="line">    entry: &apos;./src/main.js&apos;,</div><div class="line">    //输出项配置</div><div class="line">    output: &#123;</div><div class="line">            path: path.join(__dirname, &apos;./dist&apos;),</div><div class="line">            // 文件地址，使用绝对路径形式</div><div class="line">            filename: &apos;[name].js&apos;,</div><div class="line">            //[name]这里是webpack提供的根据路口文件自动生成的名字</div><div class="line">            publicPath: &apos;/dist/&apos;</div><div class="line">            // 公共文件生成的地址</div><div class="line">        &#125;,</div><div class="line">    // 服务器配置相关，自动刷新!</div><div class="line">    devServer: &#123;</div><div class="line">        historyApiFallback: true,</div><div class="line">        hot: false,</div><div class="line">        inline: true,</div><div class="line">        grogress: true,</div><div class="line">    &#125;,</div><div class="line">    //加载器配置,告知 webpack 每一种文件都需要使用什么加载器来处理：</div><div class="line">    module: &#123;</div><div class="line">        loaders: [</div><div class="line">            // 解析.vue文件</div><div class="line">            &#123; test: /\.vue$/, loader: &apos;vue&apos; &#125;,</div><div class="line">            // 转化ES6的语法</div><div class="line">            &#123; test: /\.js$/, loader: &apos;babel&apos;, exclude: /node_modules/ &#125;,</div><div class="line">            // 编译css并自动添加css前缀</div><div class="line">            &#123; test: /\.css$/, loader: &apos;style!css!autoprefixer&apos;&#125;,</div><div class="line">            //.scss 文件想要编译，scss就需要这些东西！来编译处理</div><div class="line">            //install css-loader style-loader sass-loader node-sass --save-dev</div><div class="line">            &#123; test: /\.scss$/, loader: &apos;style!css!sass?sourceMap&apos;&#125;,</div><div class="line">            //limit小于16k的图片转换成base64格式</div><div class="line">            &#123; test: /\.(png|jpg|gif)$/, loader: &apos;url-loader?limit=16000&apos;&#125;,</div><div class="line">            //html模板编译？</div><div class="line">            &#123; test: /\.(html|tpl)$/, loader: &apos;html-loader&apos; &#125;,</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    // .vue的配置。需要单独出来配置，其实没什么必要--因为我删了也没保错，不过这里就留这把，因为官网文档里是可以有单独的配置的。</div><div class="line">    vue: &#123;</div><div class="line">        loaders: &#123;</div><div class="line">            css: &apos;style!css!autoprefixer&apos;,</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    resolve: &#123;</div><div class="line">        // require时省略的扩展名，如：require(&apos;module&apos;) 不需要module.js</div><div class="line">        extensions: [&apos;&apos;, &apos;.js&apos;, &apos;.vue&apos;],</div><div class="line">        // 别名，可以直接使用别名来代表设定的路径以及其他</div><div class="line">        alias: &#123;</div><div class="line">            filter: path.join(__dirname, &apos;./src/filters&apos;),</div><div class="line">            components: path.join(__dirname, &apos;./src/components&apos;)</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    //插件配置</div><div class="line">    plugins: [</div><div class="line">        new Webpack.BannerPlugin(&quot;这里是打包文件头部注释！&quot;)//注意这是一个数组..</div><div class="line">    ],</div><div class="line">    //采用source-map的形式直接显示你出错代码的位置</div><div class="line">    devtool: &apos;eval-source-map&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="新建html"><a href="#新建html" class="headerlink" title="新建html"></a>新建html</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head lang=&quot;en&quot;&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div id=&quot;app&quot;&gt;</div><div class="line">    &lt;router-view&gt;&lt;/router-view&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;!--引入webpack编译后的输出文件main.js--&gt;</div><div class="line">&lt;script src=&quot;dist/main.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
-<h2 id="package-json配置命令"><a href="#package-json配置命令" class="headerlink" title="package.json配置命令"></a>package.json配置命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;start&quot;: &quot;webpack-dev-server --inline&quot;</div><div class="line">  &#125;,</div></pre></td></tr></table></figure>
-<p>执行webpack执行构建</p>
-<p>webpack –config XXX.js   //通过文件名执行（比如webpack.config2.js）来打包</p>
-<p>webpack –watch   //监听变动并自动打包</p>
-<p>webpack -p    //压缩混淆脚本，这个非常非常重要！</p>
-<p>webpack -d    //生成map映射文件，告知哪些模块被最终打包到哪里了</p>
-<h4 id="也可以通过执行npm-run-start执行构建并监听"><a href="#也可以通过执行npm-run-start执行构建并监听" class="headerlink" title="也可以通过执行npm run start执行构建并监听"></a>也可以通过执行npm run start执行构建并监听</h4><p>另外webpack-dev-server监听需要访问localhost:8080/webpack-dev-server浏览器才会自动刷新</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/03/NodeJs——数据库操作，登录，注册/" itemprop="url">
-                  NodeJs——数据库操作，登录，注册
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-03T21:42:31+08:00" content="2016-09-03">
-              2016-09-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/03/NodeJs——数据库操作，登录，注册/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/NodeJs——数据库操作，登录，注册/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var db=mysql.createConnection(&#123;</div><div class="line">    host:       &apos;localhost&apos;,</div><div class="line">    user:       &apos;root&apos;,</div><div class="line">    password:   &apos;xxxx&apos;,</div><div class="line">    database:   &apos;数据库名称&apos;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">db.query(sql,function(err,data)&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h2 id="MD5加密模块"><a href="#MD5加密模块" class="headerlink" title="MD5加密模块"></a>MD5加密模块</h2><h3 id="为了方便使用，提前写成node模块"><a href="#为了方便使用，提前写成node模块" class="headerlink" title="为了方便使用，提前写成node模块:"></a>为了方便使用，提前写成node模块:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//引入node加密模块crypto</div><div class="line">const crypto=require(&apos;crypto&apos;);</div><div class="line">//定义加密方法</div><div class="line">function md5(str)&#123;</div><div class="line">    //设置为md5加密</div><div class="line">    var obj=crypto.createHash(&apos;md5&apos;);</div><div class="line">    //带入参数</div><div class="line">    obj.update(str);</div><div class="line">    //以16进制进行加密</div><div class="line">    return obj.digest(&apos;hex&apos;);</div><div class="line">&#125;</div><div class="line">//暴露出去</div><div class="line">exports.md5=md5;</div></pre></td></tr></table></figure>
-<h3 id="调用方式："><a href="#调用方式：" class="headerlink" title="调用方式："></a>调用方式：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const md5=require(&apos;./md5&apos;).md5;</div><div class="line"></div><div class="line">console.log(md5(&apos;1234567&apos;));</div></pre></td></tr></table></figure>
-<h2 id="前端代码-angular-http方法"><a href="#前端代码-angular-http方法" class="headerlink" title="前端代码-angular $http方法"></a>前端代码-angular $http方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head lang=&quot;en&quot;&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">    &lt;script src=&quot;js/angular.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">        var app=angular.module(&apos;app&apos;,[]);</div><div class="line">        app.controller(&apos;login-register&apos;, function ($scope, $http) &#123;</div><div class="line">            $scope.reg= function () &#123;</div><div class="line">                console.log(&apos;1&apos;)</div><div class="line">                $http.get(&apos;user&apos;,&#123;</div><div class="line">                    params:&#123;act:&apos;add&apos;,username:$scope.username,password:$scope.password&#125;</div><div class="line">                &#125;).success(function (res) &#123;</div><div class="line">                    console.log(2);</div><div class="line">                    alert(JSON.stringify(res));</div><div class="line">                &#125;).error(function(err)&#123;</div><div class="line">                    console.log(err);</div><div class="line">                &#125;)</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">            $scope.login= function () &#123;</div><div class="line">                $http.get(&apos;user&apos;,&#123;</div><div class="line">                    params:&#123;act:&apos;login&apos;,username:$scope.username,password:$scope.password&#125;</div><div class="line">                &#125;).success(function (res) &#123;</div><div class="line">                    alert(JSON.stringify(res.msg));</div><div class="line">                &#125;).error(function(err)&#123;</div><div class="line">                    console.log(err);</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body ng-app=&quot;app&quot;&gt;</div><div class="line">&lt;div ng-controller=&quot;login-register&quot;&gt;</div><div class="line">    user:</div><div class="line">    &lt;input type=&quot;text&quot; ng-model=&quot;username&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    pass:</div><div class="line">    &lt;input type=&quot;password&quot; ng-model=&quot;password&quot;&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;input type=&quot;button&quot; value=&quot;注册&quot; ng-click=&quot;reg()&quot;&gt;</div><div class="line">    &lt;input type=&quot;button&quot; value=&quot;登录&quot; ng-click=&quot;login()&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<h2 id="主要业务实现"><a href="#主要业务实现" class="headerlink" title="主要业务实现"></a>主要业务实现</h2><h3 id="定义接口"><a href="#定义接口" class="headerlink" title="定义接口"></a>定义接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">    //链接数据库</div><div class="line">    var db=mysql.createConnection(&#123;</div><div class="line">        host:       &apos;localhost&apos;,</div><div class="line">        user:       &apos;root&apos;,</div><div class="line">        password:   &apos;root&apos;,</div><div class="line">        database:   &apos;user&apos;</div><div class="line">    &#125;)</div><div class="line">    //处理具体业务</div><div class="line">    var act=req.get.act;</div><div class="line">    console.log(req.get.act);</div><div class="line">    switch (act)&#123;</div><div class="line">        case &apos;add&apos;:</div><div class="line">            //注册</div><div class="line">            E.emit(&apos;add-user&apos;,req,res,db);</div><div class="line">            break;</div><div class="line">        case &apos;login&apos;:</div><div class="line">            //登录</div><div class="line">            E.emit(&apos;login-user&apos;,req,res,db);</div><div class="line">            break;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="注册方法"><a href="#注册方法" class="headerlink" title="注册方法"></a>注册方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;add-user&apos;, function (req, res, db) &#123;</div><div class="line">    var username=req.get.username;</div><div class="line">    var password=req.get.password;</div><div class="line"></div><div class="line">    var sql=`SELECT username FROM users WHERE username=&quot;$&#123;username&#125;&quot;`;</div><div class="line">    db.query(sql, function (err, data) &#123;</div><div class="line">        if(err)&#123;</div><div class="line">            res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库出问题&quot;&#125;));</div><div class="line">        &#125;else&#123;</div><div class="line">            if(data.length)&#123;</div><div class="line">                res.end(JSON.stringify(&#123;err:1,msg:&quot;此用户名已存在&quot;&#125;));</div><div class="line">            &#125;else&#123;</div><div class="line">                var I_SQL=`INSERT INTO users VALUES(null,&quot;$&#123;username&#125;&quot;,&quot;$&#123;md5(md5(password))&#125;&quot;)`;</div><div class="line">                db.query(I_SQL, function (err, data) &#123;</div><div class="line">                    if(err)&#123;</div><div class="line">                        res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">                    &#125;else&#123;</div><div class="line">                        res.end(JSON.stringify(&#123;err:0,msg:&quot;注册成功&quot;&#125;));</div><div class="line">                    &#125;</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="登录方法"><a href="#登录方法" class="headerlink" title="登录方法"></a>登录方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">E.on(&apos;login-user&apos;, function (req, res, db) &#123;</div><div class="line">    var username=req.get.username;</div><div class="line">    var password=req.get.password;</div><div class="line"></div><div class="line">    var SQL=`SELECT * From users WHERE username=&quot;$&#123;username&#125;&quot;`;</div><div class="line">    db.query(SQL, function (err, data) &#123;</div><div class="line">        if(err)&#123;</div><div class="line">            res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">        &#125;else&#123;</div><div class="line">            if(data.length)&#123;</div><div class="line">                if(data[0].password == md5(md5(password)))&#123;</div><div class="line">                    res.end(JSON.stringify(&#123;err:0,msg:&quot;登录成功&quot;&#125;));</div><div class="line">                &#125;else&#123;</div><div class="line">                    res.end(JSON.stringify(&#123;err:1,msg:&quot;密码错误&quot;&#125;));</div><div class="line">                &#125;</div><div class="line">            &#125;else&#123;</div><div class="line">                res.end(JSON.stringify(&#123;err:1,msg:&quot;此用户不存在&quot;&#125;));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>完整项目地址：原来github还按项目收费，好吧。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line">const http = require(&apos;http&apos;);</div><div class="line">const fs = require(&apos;fs&apos;);</div><div class="line">const os = require(&apos;os&apos;);</div><div class="line">const cluster = require(&apos;cluster&apos;);</div><div class="line">const EventEmitter = require(&apos;events&apos;).EventEmitter;</div><div class="line">const mysql=require(&apos;mysql&apos;)</div><div class="line">const urlLib=require(&apos;url&apos;);</div><div class="line">var cpus=os.cpus().length;</div><div class="line"></div><div class="line">if(cluster.isMaster)&#123;</div><div class="line">    for(var i=1; i&lt;cpus; i++)&#123;</div><div class="line">        cluster.fork();</div><div class="line">    &#125;</div><div class="line">    cluster.on(&apos;exit&apos;, function (worker, code, signal) &#123;</div><div class="line">        cluster.fork();</div><div class="line">    &#125;)</div><div class="line">&#125;else&#123;</div><div class="line">    var E=new EventEmitter();</div><div class="line"></div><div class="line">    http.createServer(function (req, res) &#123;</div><div class="line">        E.emit(&apos;get-parse&apos;,req,res);</div><div class="line">    &#125;).listen(8080);</div><div class="line">    E.on(&apos;get-parse&apos;, function (req, res) &#123;</div><div class="line">        req.get=urlLib.parse(req.url,true).query;</div><div class="line">        req.url=urlLib.parse(req.url,true).pathname;</div><div class="line"></div><div class="line">        E.emit(&apos;buss-do&apos;,req,res);</div><div class="line">    &#125;)</div><div class="line">    E.on(&apos;buss-do&apos;, function (req, res) &#123;</div><div class="line">        var bool=E.emit(req.url,req,res);</div><div class="line">        if(bool == false)&#123;</div><div class="line">            E.emit(&apos;read-file&apos;,req,res);</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    E.on(&apos;read-file&apos;, function (req, res) &#123;</div><div class="line"></div><div class="line">        var rs=fs.createReadStream(&apos;www&apos;+req.url);</div><div class="line">        rs.pipe(res);</div><div class="line">        rs.on(&apos;error&apos;, function () &#123;</div><div class="line">            res.writeHeader(404);</div><div class="line">            res.write(&apos;404&apos;);</div><div class="line">            res.end();</div><div class="line">        &#125;)</div><div class="line">    &#125;)</div><div class="line">    //以下处理接口</div><div class="line">    E.on(&apos;/user&apos;, function (req, res) &#123;</div><div class="line">        //链接数据库</div><div class="line">        var db=mysql.createConnection(&#123;</div><div class="line">            host:       &apos;localhost&apos;,</div><div class="line">            user:       &apos;root&apos;,</div><div class="line">            password:   &apos;root&apos;,</div><div class="line">            database:   &apos;user&apos;</div><div class="line">        &#125;)</div><div class="line">        //处理具体业务</div><div class="line">        var act=req.get.act;</div><div class="line">        console.log(req.get.act);</div><div class="line">        switch (act)&#123;</div><div class="line">            case &apos;add&apos;:</div><div class="line">                E.emit(&apos;add-user&apos;,req,res,db);</div><div class="line">                break;</div><div class="line">            case &apos;login&apos;:</div><div class="line">                E.emit(&apos;login-user&apos;,req,res,db);</div><div class="line">                break;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    //注册</div><div class="line">    E.on(&apos;add-user&apos;, function (req, res, db) &#123;</div><div class="line">        var username=req.get.username;</div><div class="line">        var password=req.get.password;</div><div class="line"></div><div class="line">        var sql=`SELECT username FROM users WHERE username=&quot;$&#123;username&#125;&quot;`;</div><div class="line">        db.query(sql, function (err, data) &#123;</div><div class="line">            if(err)&#123;</div><div class="line">                res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">            &#125;else&#123;</div><div class="line">                if(data.length)&#123;</div><div class="line">                    res.end(JSON.stringify(&#123;err:1,msg:&quot;此用户名已存在&quot;&#125;));</div><div class="line">                &#125;else&#123;</div><div class="line">                    var I_SQL=`INSERT INTO users VALUES(null,&quot;$&#123;username&#125;&quot;,&quot;$&#123;md5(md5(password))&#125;&quot;)`;</div><div class="line">                    db.query(I_SQL, function (err, data) &#123;</div><div class="line">                        if(err)&#123;</div><div class="line">                            res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">                        &#125;else&#123;</div><div class="line">                            res.end(JSON.stringify(&#123;err:0,msg:&quot;注册成功&quot;&#125;));</div><div class="line">                        &#125;</div><div class="line">                    &#125;)</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    //登录</div><div class="line">    E.on(&apos;login-user&apos;, function (req, res, db) &#123;</div><div class="line">        var username=req.get.username;</div><div class="line">        var password=req.get.password;</div><div class="line"></div><div class="line">        var SQL=`SELECT * From users WHERE username=&quot;$&#123;username&#125;&quot;`;</div><div class="line">        db.query(SQL, function (err, data) &#123;</div><div class="line">            if(err)&#123;</div><div class="line">                res.end(JSON.stringify(&#123;err:1,msg:&quot;数据库方面的问题&quot;&#125;));</div><div class="line">            &#125;else&#123;</div><div class="line">                if(data.length)&#123;</div><div class="line">                    if(data[0].password == md5(md5(password)))&#123;</div><div class="line">                        res.end(JSON.stringify(&#123;err:0,msg:&quot;登录成功&quot;&#125;));</div><div class="line">                    &#125;else&#123;</div><div class="line">                        res.end(JSON.stringify(&#123;err:1,msg:&quot;密码错误&quot;&#125;));</div><div class="line">                    &#125;</div><div class="line">                &#125;else&#123;</div><div class="line">                    res.end(JSON.stringify(&#123;err:1,msg:&quot;此用户不存在&quot;&#125;));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1868,7 +2044,7 @@ path        文件路径
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1885,7 +2061,7 @@ path        文件路径
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

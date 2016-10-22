@@ -88,30 +88,15 @@
 
 
 
-<meta name="description" content="文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。
-1var fs = require(&quot;fs&quot;) ;
-我的文件目录
-读取文件1234fs.readFile(path, &quot;utf8&quot;, function (error, data) &amp;#123;    if (error) th">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Node学习笔记之FS文件模块">
-<meta property="og:url" content="http://yoursite.com/2016/07/18/NodeJS学习笔记之FS文件模块/index.html">
+<meta name="description" content="彩笔前端爬坑历程">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mr.Shen">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。
-1var fs = require(&quot;fs&quot;) ;
-我的文件目录
-读取文件1234fs.readFile(path, &quot;utf8&quot;, function (error, data) &amp;#123;    if (error) th">
-<meta property="og:image" content="http://yoursite.com/img/jietu.png">
-<meta property="og:image" content="http://yoursite.com/img/hello.png">
-<meta property="og:image" content="http://yoursite.com/img/1.png">
-<meta property="og:image" content="http://yoursite.com/img/2.png">
-<meta property="og:updated_time" content="2016-07-18T11:19:55.659Z">
+<meta property="og:description" content="彩笔前端爬坑历程">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Node学习笔记之FS文件模块">
-<meta name="twitter:description" content="文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。
-1var fs = require(&quot;fs&quot;) ;
-我的文件目录
-读取文件1234fs.readFile(path, &quot;utf8&quot;, function (error, data) &amp;#123;    if (error) th">
-<meta name="twitter:image" content="http://yoursite.com/img/jietu.png">
+<meta name="twitter:title" content="Mr.Shen">
+<meta name="twitter:description" content="彩笔前端爬坑历程">
 
 
 
@@ -132,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/18/NodeJS学习笔记之FS文件模块/"/>
+  <link rel="canonical" href="http://yoursite.com/page/4/"/>
 
-  <title> Node学习笔记之FS文件模块 | Mr.Shen </title>
+  <title> Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +150,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -275,9 +262,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -297,7 +284,10 @@
             
             
               
-                Node学习笔记之FS文件模块
+                
+                <a class="post-title-link" href="/2016/07/18/NodeJS学习笔记之FS文件模块/" itemprop="url">
+                  Node学习笔记之FS文件模块
+                </a>
               
             
           </h1>
@@ -363,7 +353,9 @@
       
 
       
-        <p>文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。</p>
+        
+          
+            <p>文件系统模块是一个简单包装的标准 POSIX 文件 I/O 操作方法集。可以通过调用 require(“fs”) 来获取该模块。文件系统模块中的所有方法均有异步和同步版本。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var fs = require(<span class="string">"fs"</span>) ;</div></pre></td></tr></table></figure>
 <h3 id="我的文件目录"><a href="#我的文件目录" class="headerlink" title="我的文件目录"></a>我的文件目录</h3><p><img src="/img/jietu.png" alt="img"></p>
 <h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fs.readFile(path, <span class="string">"utf8"</span>, <span class="keyword">function</span> (error, data) &#123;</div><div class="line">    <span class="keyword">if</span> (error) throw error;</div><div class="line">    console.log(data);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
@@ -394,20 +386,16 @@
 <p>本人菜鸟正在学习，还望大神指点</p>
 <h3 id="总结一下-1"><a href="#总结一下-1" class="headerlink" title="总结一下"></a>总结一下</h3><p> （1），理解 “Fs与Stream之间的联系” 。<br> （2），熟练使用 “FS” 相关的api。<br> （3），注意细节的把控，比如： 文件操作api同步方式与异步方式之间的处理细节。<br> （4），最后强调：理解文件上传例子中的代码组织方式，不断重构，不断总结。</p>
 
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
@@ -415,36 +403,124 @@
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/07/10/hello-world/" rel="next" title="hello world">
-                <i class="fa fa-chevron-left"></i> hello world
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/19/js命名空间/" rel="prev" title="js命名空间">
-                js命名空间 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
       
+      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+      
 
-    <div class="post-spread">
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/10/hello-world/" itemprop="url">
+                  hello world
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-10T17:14:49+08:00" content="2016-07-10">
+              2016-07-10
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/10/hello-world/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/10/hello-world/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>高潮时享受成就，低潮时享受人生，有心思时干有意义的活，没心情时做有意思的事。</p>
+
+          
+        
       
     </div>
-  </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
 
 
           </div>
@@ -452,14 +528,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/07/18/NodeJS学习笔记之FS文件模块/"
-           data-title="Node学习笔记之FS文件模块" data-url="http://yoursite.com/2016/07/18/NodeJS学习笔记之FS文件模块/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -479,17 +547,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/my.jpg"
@@ -550,17 +609,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#我的文件目录"><span class="nav-number">1.</span> <span class="nav-text">我的文件目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取文件"><span class="nav-number">2.</span> <span class="nav-text">读取文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-写入文件"><span class="nav-number">3.</span> <span class="nav-text">创建,写入文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件名称"><span class="nav-number">4.</span> <span class="nav-text">修改文件名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件状态"><span class="nav-number">5.</span> <span class="nav-text">查看文件状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断文件是否存在"><span class="nav-number">6.</span> <span class="nav-text">判断文件是否存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件"><span class="nav-number">7.</span> <span class="nav-text">删除文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fs与Stream之间的联系"><span class="nav-number"></span> <span class="nav-text">Fs与Stream之间的联系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立“fs-html”"><span class="nav-number">1.</span> <span class="nav-text">建立“fs.html”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改之前的程序如下"><span class="nav-number">2.</span> <span class="nav-text">修改之前的程序如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码如下像这样"><span class="nav-number">3.</span> <span class="nav-text">代码如下像这样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下"><span class="nav-number">4.</span> <span class="nav-text">总结一下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现简单文件上传的例子："><span class="nav-number"></span> <span class="nav-text">实现简单文件上传的例子：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1），建立“server-js”"><span class="nav-number">1.</span> <span class="nav-text">（1），建立“server.js”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2），建立“route-js”"><span class="nav-number">2.</span> <span class="nav-text">（2），建立“route.js”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3），建立“requestHandler-js”"><span class="nav-number">3.</span> <span class="nav-text">（3），建立“requestHandler.js”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4），建立“index-js”"><span class="nav-number">4.</span> <span class="nav-text">（4），建立“index.js”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行效果"><span class="nav-number">5.</span> <span class="nav-text">运行效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下-1"><span class="nav-number">6.</span> <span class="nav-text">总结一下</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -657,10 +705,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 

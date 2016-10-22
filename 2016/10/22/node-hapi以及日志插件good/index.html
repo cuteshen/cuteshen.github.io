@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Mrshen, nodejs" />
+  <meta name="keywords" content="hapi," />
 
 
 
@@ -88,52 +88,34 @@
 
 
 
-<meta name="description" content="所谓流：就是一组连续的数据（文件流、网络流…)
+<meta name="description" content="HapiJS是一个开源的、基于Node.js的应用框架，它适用于构建应用程序和服务，其设计目标是让开发者把精力集中于开发可重用的应用程序的业务逻辑，向开发者提供构建应用程序业务逻辑所需的基础设施。
 
-之前的文件操作通过通过fs.readFile进行读取有以下弊端1,把文件读取到内存中
-2,内存不足、卡顿
-3,造成 IO峰值
-4,数据混乱
-5,耗时
-6,操作文件会有各种限制（文件大小限制…）
-通过流进行文件操作流可分为：
-1,读取流——req
-2,写入流——res
-3,读写流——文件压缩
-之前创建http服务时有这样的代码123http.cre">
+HapiJS安装和项目配置npm install hapi -g
+配置项目npm init
+npm install --save hapi
+此时，项目开发所需的一切都已经准备完毕
+创建服务器// se">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nodejs——Stream流">
-<meta property="og:url" content="http://yoursite.com/2016/08/19/Nodejs——Stream流/index.html">
+<meta property="og:title" content="node-hapi以及日志插件good">
+<meta property="og:url" content="http://yoursite.com/2016/10/22/node-hapi以及日志插件good/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="所谓流：就是一组连续的数据（文件流、网络流…)
+<meta property="og:description" content="HapiJS是一个开源的、基于Node.js的应用框架，它适用于构建应用程序和服务，其设计目标是让开发者把精力集中于开发可重用的应用程序的业务逻辑，向开发者提供构建应用程序业务逻辑所需的基础设施。
 
-之前的文件操作通过通过fs.readFile进行读取有以下弊端1,把文件读取到内存中
-2,内存不足、卡顿
-3,造成 IO峰值
-4,数据混乱
-5,耗时
-6,操作文件会有各种限制（文件大小限制…）
-通过流进行文件操作流可分为：
-1,读取流——req
-2,写入流——res
-3,读写流——文件压缩
-之前创建http服务时有这样的代码123http.cre">
-<meta property="og:updated_time" content="2016-08-19T05:37:22.640Z">
+HapiJS安装和项目配置npm install hapi -g
+配置项目npm init
+npm install --save hapi
+此时，项目开发所需的一切都已经准备完毕
+创建服务器// se">
+<meta property="og:updated_time" content="2016-10-22T09:13:21.620Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nodejs——Stream流">
-<meta name="twitter:description" content="所谓流：就是一组连续的数据（文件流、网络流…)
+<meta name="twitter:title" content="node-hapi以及日志插件good">
+<meta name="twitter:description" content="HapiJS是一个开源的、基于Node.js的应用框架，它适用于构建应用程序和服务，其设计目标是让开发者把精力集中于开发可重用的应用程序的业务逻辑，向开发者提供构建应用程序业务逻辑所需的基础设施。
 
-之前的文件操作通过通过fs.readFile进行读取有以下弊端1,把文件读取到内存中
-2,内存不足、卡顿
-3,造成 IO峰值
-4,数据混乱
-5,耗时
-6,操作文件会有各种限制（文件大小限制…）
-通过流进行文件操作流可分为：
-1,读取流——req
-2,写入流——res
-3,读写流——文件压缩
-之前创建http服务时有这样的代码123http.cre">
+HapiJS安装和项目配置npm install hapi -g
+配置项目npm init
+npm install --save hapi
+此时，项目开发所需的一切都已经准备完毕
+创建服务器// se">
 
 
 
@@ -154,9 +136,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/08/19/Nodejs——Stream流/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/22/node-hapi以及日志插件good/"/>
 
-  <title> Nodejs——Stream流 | Mr.Shen </title>
+  <title> node-hapi以及日志插件good | Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -319,7 +301,7 @@
             
             
               
-                Nodejs——Stream流
+                node-hapi以及日志插件good
               
             
           </h1>
@@ -331,8 +313,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T13:36:45+08:00" content="2016-08-19">
-              2016-08-19
+            <time itemprop="dateCreated" datetime="2016-10-22T17:12:02+08:00" content="2016-10-22">
+              2016-10-22
             </time>
           </span>
 
@@ -361,8 +343,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/19/Nodejs——Stream流/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/Nodejs——Stream流/" itemprop="commentsCount"></span>
+                <a href="/2016/10/22/node-hapi以及日志插件good/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/22/node-hapi以及日志插件good/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -385,47 +367,143 @@
       
 
       
-        <blockquote>
-<p>所谓流：就是一组连续的数据（文件流、网络流…)</p>
-</blockquote>
-<h4 id="之前的文件操作通过通过fs-readFile进行读取有以下弊端"><a href="#之前的文件操作通过通过fs-readFile进行读取有以下弊端" class="headerlink" title="之前的文件操作通过通过fs.readFile进行读取有以下弊端"></a>之前的文件操作通过通过fs.readFile进行读取有以下弊端</h4><p>1,把文件读取到内存中</p>
-<p>2,内存不足、卡顿</p>
-<p>3,造成 IO峰值</p>
-<p>4,数据混乱</p>
-<p>5,耗时</p>
-<p>6,操作文件会有各种限制（文件大小限制…）</p>
-<h4 id="通过流进行文件操作"><a href="#通过流进行文件操作" class="headerlink" title="通过流进行文件操作"></a>通过流进行文件操作</h4><p>流可分为：</p>
-<p>1,读取流——req</p>
-<p>2,写入流——res</p>
-<p>3,读写流——文件压缩</p>
-<p>之前创建http服务时有这样的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>读取流，就相当于<code>req</code>,写入流就相当于<code>res</code></p>
-<p>读写流常用在文件压缩等功能</p>
-<h5 id="写入流"><a href="#写入流" class="headerlink" title="写入流"></a>写入流</h5><p>抛开之前的<code>fs.writeFile()</code>方法,将内容写入ccc.txt文件，若没有ccc.txt文件，则创建一个ccc.txt文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var ws=fs.createWriteStream(&apos;ccc.txt&apos;);  //创建了一个写入流</div><div class="line"></div><div class="line">ws.write(&apos;abcd&apos;);</div><div class="line"></div><div class="line">ws.end();</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;写入完毕&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="读取流"><a href="#读取流" class="headerlink" title="读取流"></a>读取流</h5><p>项目目录有一个aaa.txt文件，文件内容为aaa</p>
-<p>执行读取:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line"></div><div class="line">var arr=[];</div><div class="line"></div><div class="line">rs.on(&apos;data&apos;,function(b)&#123;</div><div class="line">    arr.push(b);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">rs.on(&apos;end&apos;,function()&#123;</div><div class="line">    var buffer=Buffer.concat(arr);</div><div class="line">    console.log(buffer.toString());</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>另外针对stream的err捕获，无法通过try()catch(e){}捕获到，try捕获是程序异常，而流操作，走的是系统；</p>
-<p>rs同requst一样有着监听事件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rs.on(&apos;error&apos;,function(err)&#123;</div><div class="line">    console.log(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h5><p>和unix一样，node stream主要的操作也是.pipe()</p>
-<pre><code>源头.pipe(目标)
+        <p>HapiJS是一个开源的、基于Node.js的应用框架，它适用于构建应用程序和服务，其设计目标是让开发者把精力集中于开发可重用的应用程序的业务逻辑，向开发者提供构建应用程序业务逻辑所需的基础设施。</p>
+<hr>
+<h3 id="HapiJS安装和项目配置"><a href="#HapiJS安装和项目配置" class="headerlink" title="HapiJS安装和项目配置"></a>HapiJS安装和项目配置</h3><pre><code>npm install hapi -g
+</code></pre><h3 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h3><pre><code>npm init
+npm install --save hapi
+</code></pre><p>此时，项目开发所需的一切都已经准备完毕</p>
+<h3 id="创建服务器"><a href="#创建服务器" class="headerlink" title="创建服务器"></a>创建服务器</h3><pre><code>// server.js
+var Hapi = require(&apos;hapi&apos;);
+var server = new Hapi.Server();
 
-读取.pipe(写入)
-</code></pre><p>将bbb.txt文件内容写入到ddd.txt文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;bbb.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;ddd.txt&apos;);</div><div class="line"></div><div class="line">//读取.pipe(写入)</div><div class="line">rs.pipe(ws);</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;读写完毕&apos;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="读写流——实现文件压缩"><a href="#读写流——实现文件压缩" class="headerlink" title="读写流——实现文件压缩"></a>读写流——实现文件压缩</h5><blockquote>
-<p>需要引入第三方模块<code>zlib</code></p>
+server.connection({
+    host: &apos;localhost&apos;,
+    port: 8000
+});
+
+server.start(function(){
+     console.log(&apos;Server running at: &apos;, server.info.uri);
+});
+</code></pre><p>首先，我们需要Hapi库。<br> 其次，我们创建一个新hapi服务器对象，并把要监听的端口号传递给服务器对象。<br> 最后，服务器对象启动，并输出日志信息。<br> 要说明一点，我们创建服务器对象时，可以提供主机名、IP地址，甚至是Unix的socket文件，或者是Windows系统绑定到服务器命名的管道。</p>
+<h3 id="路由逻辑"><a href="#路由逻辑" class="headerlink" title="路由逻辑"></a>路由逻辑</h3><pre><code>// server.js
+var Hapi = require(&apos;hapi&apos;);
+var server = new Hapi.Server(3000);
+
+server.route({
+    method: &apos;GET&apos;,
+    path: &apos;/&apos;,
+    handler: function (request, reply) {
+        reply(&apos;Hello, world!&apos;);
+    }
+});
+
+server.route({
+    method: &apos;GET&apos;,
+    path: &apos;/{name}&apos;,
+    handler: function (request, reply) {
+        reply(&apos;Hello, &apos; + encodeURIComponent(request.params.name) + &quot;!&quot;);
+    }
+});
+
+server.start(function () {
+    console.log(&apos;Server running at: &apos;, server.info.uri);
+});
+</code></pre><p>启动服务器</p>
+<p>访问<a href="http://127.0.0.1:3000/" target="_blank" rel="external">http://127.0.0.1:3000/</a> ，浏览器显示如下内容：</p>
+<pre><code>Hello, world!
+</code></pre><p>访问<a href="http://127.0.0.1:3000/张三" target="_blank" rel="external">http://127.0.0.1:3000/张三</a> ，浏览器显示如下内容：</p>
+<pre><code>Hello, %E5%BC%A0%E4%B8%89!
+</code></pre><h5 id="要注意："><a href="#要注意：" class="headerlink" title="要注意："></a>要注意：</h5><blockquote>
+<p>method的参数可以是任意有效的HTTP方法，也可以是星号*（表示任意HTTP方法）。</p>
+<p>path的参数定义了访问路径，路径可以包含参数、可选参数，甚至是通配符。</p>
 </blockquote>
-<pre><code>npm install zlib
-</code></pre><p>程序代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const zLib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">var gz=zlib.createGzip();//选择压缩模式-gzip</div><div class="line"></div><div class="line">//准备2个流</div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;aaa.txt.gz&apos;);</div><div class="line"></div><div class="line">//执行压缩</div><div class="line">rs.pipe(gz).pipe(ws);</div></pre></td></tr></table></figure></p>
-<p>执行后，项目目录会生成名字为‘aaa.txt.gz’的压缩文件</p>
+<h4 id="添加日志输出"><a href="#添加日志输出" class="headerlink" title="添加日志输出"></a>添加日志输出</h4><p>在创建Web应用时，通常我们都需要访问日志。要为应用程序添加基本的日志输出，我们可以在服务器上加载good插件。</p>
+<pre><code>npm install --save-dev good
+</code></pre><p>更新server.js的代码</p>
+<pre><code>//添加good配置
+const options = {
+ops: {
+    interval: 1000
+},
+reporters: {
+        myConsoleReporter: [
+            {
+                module: &apos;good-squeeze&apos;,
+                name: &apos;Squeeze&apos;,
+                args: [{log: &apos;*&apos;, response: &apos;*&apos;}]
+            },
+            {
+                module: &apos;good-console&apos;
+            }, &apos;stdout&apos;
+        ],
+        myFileReporter: [
+            {
+                module: &apos;good-squeeze&apos;,
+                name: &apos;Squeeze&apos;,
+                args: [{ops: &apos;*&apos;}]
+            },
+            {
+                module: &apos;good-squeeze&apos;,
+                name: &apos;SafeJson&apos;
+            },
+            {
+                module: &apos;good-file&apos;,
+                args: [&apos;./test/fixtures/awesome_log&apos;]
+            }
+        ],
+        myHTTPReporter: [
+            {
+                module: &apos;good-squeeze&apos;,
+                name: &apos;Squeeze&apos;,
+                args: [{error: &apos;*&apos;}]
+            },
+            {
+                module: &apos;good-http&apos;,
+                args: [&apos;http://prod.logs:3000&apos;, {
+                    wreck: {
+                        headers: {&apos;x-api-key&apos;: 12345}
+                    }
+                }]
+            }
+        ]
+    }
+};
+
+server.register({
+    register: require(&apos;good&apos;),
+    options,
+}, (err) =&gt; {
+
+    if (err) {
+        return console.error(err);
+    }
+    server.start(() =&gt; {
+        console.info(`Server started at ${ server.info.uri }`);
+    });
+
+});
+</code></pre><h4 id="reporters配置是干嘛的？"><a href="#reporters配置是干嘛的？" class="headerlink" title="reporters配置是干嘛的？"></a>reporters配置是干嘛的？</h4><p>This example does the following:</p>
+<p>1，Sets up the reporter named myConsoleReporter listening for ‘response’ and ‘log’ events and writes them to process.stdout.</p>
+<p>2，Sets up the reporter named myFileReporter to listen for ‘ops’ events and logs them to ./test/fixtures/awesome_log.</p>
+<p>3，Sets up the reporter named myHTTPReporter to listen for error events and POSTs them to <a href="http://prod.logs:3000" target="_blank" rel="external">http://prod.logs:3000</a> with additional settings to passed into Wreck</p>
 <blockquote>
-<p>gz压缩格式特点——修改.gz文件名称，压缩文件会跟着压缩包名字改变</p>
+<p>都怪我我中文太好，求准确解释，不过有了这些配置，控制台可以输出日志，并会在：</p>
 </blockquote>
-<p>执行代码，先对文件进行gzip压缩，再输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
-<p>此时打开浏览器localhost:8081会直接下载222.txt文件，而不是输出文件内容</p>
-<p>设置header</p>
-<pre><code>res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)
-</code></pre><p>完整代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)</div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
-
+<pre><code>{
+    module: &apos;good-file&apos;,
+    args: [&apos;./test/fixtures/awesome_log&apos;]
+}
+</code></pre><p>这段所配置的目录下生成日志文件</p>
+<hr>
+<p>重启服务，控制台输出：</p>
+<pre><code>141102/161007.644, info, Server running at: http://localhost:3000
+</code></pre><p>如果我们接着访问：<a href="http://localhost:3000/hello" target="_blank" rel="external">http://localhost:3000/hello</a></p>
+<p>和<a href="http://localhost:3000/" target="_blank" rel="external">http://localhost:3000/</a></p>
+<p>控制台会继续输出：</p>
+<pre><code>161022/084850.758, [response] http://localhost:8000: get /hello {} 200 (6ms)
+161022/084854.131, [response] http://localhost:8000: get / {} 404 (9ms)
+</code></pre>
       
     </div>
 
@@ -445,21 +523,27 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/hapi/" rel="tag">#hapi</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/19/split()函数在buffer中的实现/" rel="next" title="split()函数在buffer中的实现">
-                <i class="fa fa-chevron-left"></i> split()函数在buffer中的实现
+              <a href="/2016/10/07/SonarQube的安装、配置与使用/" rel="next" title="SonarQube的安装、配置与使用">
+                <i class="fa fa-chevron-left"></i> SonarQube的安装、配置与使用
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/19/前端自动化构建工具-gulp/" rel="prev" title="前端自动化构建工具-gulp">
-                前端自动化构建工具-gulp <i class="fa fa-chevron-right"></i>
+              <a href="/2016/10/22/node-hapi接口插件hapi-swagger/" rel="prev" title="node-hapi接口插件hapi-swagger">
+                node-hapi接口插件hapi-swagger <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -486,8 +570,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/19/Nodejs——Stream流/"
-           data-title="Nodejs——Stream流" data-url="http://yoursite.com/2016/08/19/Nodejs——Stream流/">
+      <div class="ds-thread" data-thread-key="2016/10/22/node-hapi以及日志插件good/"
+           data-title="node-hapi以及日志插件good" data-url="http://yoursite.com/2016/10/22/node-hapi以及日志插件good/">
       </div>
     
   </div>
@@ -589,7 +673,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#之前的文件操作通过通过fs-readFile进行读取有以下弊端"><span class="nav-number">1.</span> <span class="nav-text">之前的文件操作通过通过fs.readFile进行读取有以下弊端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过流进行文件操作"><span class="nav-number">2.</span> <span class="nav-text">通过流进行文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#写入流"><span class="nav-number">2.1.</span> <span class="nav-text">写入流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#读取流"><span class="nav-number">2.2.</span> <span class="nav-text">读取流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#管道"><span class="nav-number">2.3.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#读写流——实现文件压缩"><span class="nav-number">2.4.</span> <span class="nav-text">读写流——实现文件压缩</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HapiJS安装和项目配置"><span class="nav-number">1.</span> <span class="nav-text">HapiJS安装和项目配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置项目"><span class="nav-number">2.</span> <span class="nav-text">配置项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建服务器"><span class="nav-number">3.</span> <span class="nav-text">创建服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由逻辑"><span class="nav-number">4.</span> <span class="nav-text">路由逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#要注意："><span class="nav-number">4.0.1.</span> <span class="nav-text">要注意：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加日志输出"><span class="nav-number">4.1.</span> <span class="nav-text">添加日志输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reporters配置是干嘛的？"><span class="nav-number">4.2.</span> <span class="nav-text">reporters配置是干嘛的？</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

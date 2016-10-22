@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Mrshen, nodejs" />
+  <meta name="keywords" content="hapi," />
 
 
 
@@ -88,52 +88,28 @@
 
 
 
-<meta name="description" content="所谓流：就是一组连续的数据（文件流、网络流…)
-
-之前的文件操作通过通过fs.readFile进行读取有以下弊端1,把文件读取到内存中
-2,内存不足、卡顿
-3,造成 IO峰值
-4,数据混乱
-5,耗时
-6,操作文件会有各种限制（文件大小限制…）
-通过流进行文件操作流可分为：
-1,读取流——req
-2,写入流——res
-3,读写流——文件压缩
-之前创建http服务时有这样的代码123http.cre">
+<meta name="description" content="swagger的作用主要是服务启动后，它将在项目中自行记录API接口，并生成html页面展示你的接口的文档
+因为最近一直在搞hapi，所以就尝试了一波，另外express，koa都有相关swagger插件
+npm install hapi-swagger --save-dev
+如果要从API查看文档，您还需要安装支持模板和静态内容服务的inert和vision插件。
+npm install ine">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nodejs——Stream流">
-<meta property="og:url" content="http://yoursite.com/2016/08/19/Nodejs——Stream流/index.html">
+<meta property="og:title" content="node-hapi接口插件hapi-swagger">
+<meta property="og:url" content="http://yoursite.com/2016/10/22/node-hapi接口插件hapi-swagger/index.html">
 <meta property="og:site_name" content="Mr.Shen">
-<meta property="og:description" content="所谓流：就是一组连续的数据（文件流、网络流…)
-
-之前的文件操作通过通过fs.readFile进行读取有以下弊端1,把文件读取到内存中
-2,内存不足、卡顿
-3,造成 IO峰值
-4,数据混乱
-5,耗时
-6,操作文件会有各种限制（文件大小限制…）
-通过流进行文件操作流可分为：
-1,读取流——req
-2,写入流——res
-3,读写流——文件压缩
-之前创建http服务时有这样的代码123http.cre">
-<meta property="og:updated_time" content="2016-08-19T05:37:22.640Z">
+<meta property="og:description" content="swagger的作用主要是服务启动后，它将在项目中自行记录API接口，并生成html页面展示你的接口的文档
+因为最近一直在搞hapi，所以就尝试了一波，另外express，koa都有相关swagger插件
+npm install hapi-swagger --save-dev
+如果要从API查看文档，您还需要安装支持模板和静态内容服务的inert和vision插件。
+npm install ine">
+<meta property="og:updated_time" content="2016-10-22T09:14:22.432Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nodejs——Stream流">
-<meta name="twitter:description" content="所谓流：就是一组连续的数据（文件流、网络流…)
-
-之前的文件操作通过通过fs.readFile进行读取有以下弊端1,把文件读取到内存中
-2,内存不足、卡顿
-3,造成 IO峰值
-4,数据混乱
-5,耗时
-6,操作文件会有各种限制（文件大小限制…）
-通过流进行文件操作流可分为：
-1,读取流——req
-2,写入流——res
-3,读写流——文件压缩
-之前创建http服务时有这样的代码123http.cre">
+<meta name="twitter:title" content="node-hapi接口插件hapi-swagger">
+<meta name="twitter:description" content="swagger的作用主要是服务启动后，它将在项目中自行记录API接口，并生成html页面展示你的接口的文档
+因为最近一直在搞hapi，所以就尝试了一波，另外express，koa都有相关swagger插件
+npm install hapi-swagger --save-dev
+如果要从API查看文档，您还需要安装支持模板和静态内容服务的inert和vision插件。
+npm install ine">
 
 
 
@@ -154,9 +130,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/08/19/Nodejs——Stream流/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/22/node-hapi接口插件hapi-swagger/"/>
 
-  <title> Nodejs——Stream流 | Mr.Shen </title>
+  <title> node-hapi接口插件hapi-swagger | Mr.Shen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -319,7 +295,7 @@
             
             
               
-                Nodejs——Stream流
+                node-hapi接口插件hapi-swagger
               
             
           </h1>
@@ -331,8 +307,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T13:36:45+08:00" content="2016-08-19">
-              2016-08-19
+            <time itemprop="dateCreated" datetime="2016-10-22T17:13:56+08:00" content="2016-10-22">
+              2016-10-22
             </time>
           </span>
 
@@ -361,8 +337,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/19/Nodejs——Stream流/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/Nodejs——Stream流/" itemprop="commentsCount"></span>
+                <a href="/2016/10/22/node-hapi接口插件hapi-swagger/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/22/node-hapi接口插件hapi-swagger/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -385,46 +361,70 @@
       
 
       
-        <blockquote>
-<p>所谓流：就是一组连续的数据（文件流、网络流…)</p>
-</blockquote>
-<h4 id="之前的文件操作通过通过fs-readFile进行读取有以下弊端"><a href="#之前的文件操作通过通过fs-readFile进行读取有以下弊端" class="headerlink" title="之前的文件操作通过通过fs.readFile进行读取有以下弊端"></a>之前的文件操作通过通过fs.readFile进行读取有以下弊端</h4><p>1,把文件读取到内存中</p>
-<p>2,内存不足、卡顿</p>
-<p>3,造成 IO峰值</p>
-<p>4,数据混乱</p>
-<p>5,耗时</p>
-<p>6,操作文件会有各种限制（文件大小限制…）</p>
-<h4 id="通过流进行文件操作"><a href="#通过流进行文件操作" class="headerlink" title="通过流进行文件操作"></a>通过流进行文件操作</h4><p>流可分为：</p>
-<p>1,读取流——req</p>
-<p>2,写入流——res</p>
-<p>3,读写流——文件压缩</p>
-<p>之前创建http服务时有这样的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http.createServer(function(req,res)&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>读取流，就相当于<code>req</code>,写入流就相当于<code>res</code></p>
-<p>读写流常用在文件压缩等功能</p>
-<h5 id="写入流"><a href="#写入流" class="headerlink" title="写入流"></a>写入流</h5><p>抛开之前的<code>fs.writeFile()</code>方法,将内容写入ccc.txt文件，若没有ccc.txt文件，则创建一个ccc.txt文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var ws=fs.createWriteStream(&apos;ccc.txt&apos;);  //创建了一个写入流</div><div class="line"></div><div class="line">ws.write(&apos;abcd&apos;);</div><div class="line"></div><div class="line">ws.end();</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;写入完毕&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="读取流"><a href="#读取流" class="headerlink" title="读取流"></a>读取流</h5><p>项目目录有一个aaa.txt文件，文件内容为aaa</p>
-<p>执行读取:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line"></div><div class="line">var arr=[];</div><div class="line"></div><div class="line">rs.on(&apos;data&apos;,function(b)&#123;</div><div class="line">    arr.push(b);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">rs.on(&apos;end&apos;,function()&#123;</div><div class="line">    var buffer=Buffer.concat(arr);</div><div class="line">    console.log(buffer.toString());</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>另外针对stream的err捕获，无法通过try()catch(e){}捕获到，try捕获是程序异常，而流操作，走的是系统；</p>
-<p>rs同requst一样有着监听事件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rs.on(&apos;error&apos;,function(err)&#123;</div><div class="line">    console.log(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h5><p>和unix一样，node stream主要的操作也是.pipe()</p>
-<pre><code>源头.pipe(目标)
+        <p>swagger的作用主要是服务启动后，它将在项目中自行记录API接口，并生成html页面展示你的接口的文档</p>
+<p>因为最近一直在搞hapi，所以就尝试了一波，另外express，koa都有相关swagger插件</p>
+<pre><code>npm install hapi-swagger --save-dev
+</code></pre><p>如果要从API查看文档，您还需要安装支持模板和静态内容服务的inert和vision插件。</p>
+<pre><code>npm install inert --save-dev
+npm install vision --save-dev
+</code></pre><p>在server.js中添加配置</p>
+<pre><code>const Hapi = require(&apos;hapi&apos;);
+const Inert = require(&apos;inert&apos;);
+const Vision = require(&apos;vision&apos;);
+const HapiSwagger = require(&apos;hapi-swagger&apos;);
+const Pack = require(&apos;./package&apos;);
 
-读取.pipe(写入)
-</code></pre><p>将bbb.txt文件内容写入到ddd.txt文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line"></div><div class="line">var rs=fs.createReadStream(&apos;bbb.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;ddd.txt&apos;);</div><div class="line"></div><div class="line">//读取.pipe(写入)</div><div class="line">rs.pipe(ws);</div><div class="line"></div><div class="line">ws.on(&apos;finish&apos;,function()&#123;</div><div class="line">    console.log(&apos;读写完毕&apos;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="读写流——实现文件压缩"><a href="#读写流——实现文件压缩" class="headerlink" title="读写流——实现文件压缩"></a>读写流——实现文件压缩</h5><blockquote>
-<p>需要引入第三方模块<code>zlib</code></p>
-</blockquote>
-<pre><code>npm install zlib
-</code></pre><p>程序代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const zLib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">var gz=zlib.createGzip();//选择压缩模式-gzip</div><div class="line"></div><div class="line">//准备2个流</div><div class="line">var rs=fs.createReadStream(&apos;aaa.txt&apos;);</div><div class="line">var ws=fs.createWriteStream(&apos;aaa.txt.gz&apos;);</div><div class="line"></div><div class="line">//执行压缩</div><div class="line">rs.pipe(gz).pipe(ws);</div></pre></td></tr></table></figure></p>
-<p>执行后，项目目录会生成名字为‘aaa.txt.gz’的压缩文件</p>
-<blockquote>
-<p>gz压缩格式特点——修改.gz文件名称，压缩文件会跟着压缩包名字改变</p>
-</blockquote>
-<p>执行代码，先对文件进行gzip压缩，再输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
-<p>此时打开浏览器localhost:8081会直接下载222.txt文件，而不是输出文件内容</p>
-<p>设置header</p>
-<pre><code>res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)
-</code></pre><p>完整代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">const http=require(&apos;http&apos;);</div><div class="line">const fs=require(&apos;fs&apos;);</div><div class="line">const zlib=require(&apos;zlib&apos;);</div><div class="line"></div><div class="line">http.createServer(function(req,res)&#123;</div><div class="line">    var gz=zlib.createGzip();</div><div class="line">    var rs=fs.createReadStream(&apos;222.txt&apos;);</div><div class="line"></div><div class="line">    res.setHeader(&apos;content-encoding&apos;,&apos;gzip&apos;)</div><div class="line">    rs.pipe(gz).pipe(res);</div><div class="line"></div><div class="line">&#125;).listen(8081);</div></pre></td></tr></table></figure></p>
+const server = new Hapi.Server();
+server.connection({
+        host: &apos;localhost&apos;,
+        port: 3000
+});
+
+const options = {
+info: {
+        &apos;title&apos;: &apos;Test API Documentation&apos;,
+        &apos;version&apos;: Pack.version,
+    }
+};
+
+server.register([
+Inert,
+Vision,
+{
+    &apos;register&apos;: HapiSwagger,
+    &apos;options&apos;: options
+}], (err) =&gt; {
+    server.start( (err) =&gt; {
+       if (err) {
+            console.log(err);
+        } else {
+            console.log(&apos;Server running at:&apos;, server.info.uri);
+        }
+    });
+});
+</code></pre><p>服务配置之后，添加个路由</p>
+<pre><code>server.route({
+    method: &apos;GET&apos;,
+    path: &apos;/todo/{id}/&apos;,
+    config: {
+        handler: function (reqest, reply) {
+            reply(&apos;123&apos;)
+        },
+        description: &apos;Get todo&apos;,
+        notes: &apos;Returns a todo item by the id passed in the patha啊&apos;,
+        tags: [&apos;api&apos;], // ADD THIS TAG
+        validate: {
+            params: {
+                id : Joi.number()//npm install joi
+                    .required()
+                    .description(&apos;the id for the todo item&apos;),
+            }
+        }
+    },
+})
+</code></pre><p>启动服务</p>
+<p>浏览器访问<a href="http://localhost:8000/documentation" target="_blank" rel="external">http://localhost:8000/documentation</a></p>
+<p>就能看到你所有的接口列表了。</p>
 
       
     </div>
@@ -445,22 +445,24 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/hapi/" rel="tag">#hapi</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/19/split()函数在buffer中的实现/" rel="next" title="split()函数在buffer中的实现">
-                <i class="fa fa-chevron-left"></i> split()函数在buffer中的实现
+              <a href="/2016/10/22/node-hapi以及日志插件good/" rel="next" title="node-hapi以及日志插件good">
+                <i class="fa fa-chevron-left"></i> node-hapi以及日志插件good
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/19/前端自动化构建工具-gulp/" rel="prev" title="前端自动化构建工具-gulp">
-                前端自动化构建工具-gulp <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -486,8 +488,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/19/Nodejs——Stream流/"
-           data-title="Nodejs——Stream流" data-url="http://yoursite.com/2016/08/19/Nodejs——Stream流/">
+      <div class="ds-thread" data-thread-key="2016/10/22/node-hapi接口插件hapi-swagger/"
+           data-title="node-hapi接口插件hapi-swagger" data-url="http://yoursite.com/2016/10/22/node-hapi接口插件hapi-swagger/">
       </div>
     
   </div>
@@ -589,7 +591,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#之前的文件操作通过通过fs-readFile进行读取有以下弊端"><span class="nav-number">1.</span> <span class="nav-text">之前的文件操作通过通过fs.readFile进行读取有以下弊端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过流进行文件操作"><span class="nav-number">2.</span> <span class="nav-text">通过流进行文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#写入流"><span class="nav-number">2.1.</span> <span class="nav-text">写入流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#读取流"><span class="nav-number">2.2.</span> <span class="nav-text">读取流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#管道"><span class="nav-number">2.3.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#读写流——实现文件压缩"><span class="nav-number">2.4.</span> <span class="nav-text">读写流——实现文件压缩</span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
